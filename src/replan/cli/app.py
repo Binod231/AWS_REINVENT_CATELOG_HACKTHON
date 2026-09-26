@@ -26,6 +26,8 @@ from replan.adapters.auth import AuthError, TokenProvider, first_free_callback_p
 from replan.adapters.auth import login as run_login
 from replan.adapters.auth import revoke as revoke_token
 from replan.adapters.errors import EventsApiError
+from replan.cache import CatalogCache, SearchFilters
+from replan.cache.changes import ChangeKind
 from replan.cli.factory import (
     SurfaceChoice,
     build_port,
@@ -34,7 +36,7 @@ from replan.cli.factory import (
     print_provenance,
 )
 from replan.config import ALLOWED_CALLBACK_PORTS, RESERVATIONS_OPEN_NOTE
-from replan.domain import Level
+from replan.domain import KnownVenue, Level, SeatAvailability, SessionFormat, resolve_day
 
 console = Console()
 
@@ -536,12 +538,341 @@ def schedule(
         port.close()
 
 
+# --------------------------------------------------------------------------- #
+# sync / search / changes
+# --------------------------------------------------------------------------- #
+def _parse_days(tokens: list[str] | None, cache: CatalogCache, event_id: str) -> frozenset[Any]:
+    """Resolve ``--day`` tokens against the days the catalog actually has."""
+    if not tokens:
+        return frozenset()
+    from datetime import date as date_type
+
+    available = [date_type.fromisoformat(value) for value in cache.distinct(event_id, "day")]
+    if not available:
+        msg = "no cached days yet; run `replan sync` first"
+        raise typer.BadParameter(msg)
+    resolved = set()
+    for token in tokens:
+        try:
+            resolved.add(resolve_day(token, available))
+        except ValueError as error:
+            raise typer.BadParameter(str(error)) from error
+    return frozenset(resolved)
+
+
+@app.command()
+def sync(
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    event: EventOption = None,
+    locale: LocaleOption = None,
+    include_abstracts: Annotated[
+        bool,
+        typer.Option(
+            "--abstracts/--no-abstracts",
+            help="Fetch abstracts. Skipping them makes the walk much lighter.",
+        ),
+    ] = True,
+    show_changes: Annotated[
+        int, typer.Option("--show", help="How many individual changes to list.")
+    ] = 12,
+) -> None:
+    """Walk the live catalog and cache it locally, reporting what changed.
+
+    The API publishes no change feed, no ETag and no updated-at, so the only way
+    to know a session moved room is to have kept the previous sync. That is what
+    this does, and why the diff is worth printing.
+    """
+    settings = load_settings(event_id=event, locale=locale)
+    port = build_port(settings, surface)
+    cache = CatalogCache(settings.cache_path)
+
+    def progress(pages: int, sessions: int, total: int | None) -> None:
+        suffix = f"/{total}" if total else ""
+        console.print(f"[dim]  page {pages}: {sessions}{suffix} sessions[/dim]")
+
+    try:
+        catalog = port.list_sessions(
+            settings.event_id,
+            include_abstracts=include_abstracts,
+            locale=settings.locale,
+            progress=progress,
+        )
+    except EventsApiError as error:
+        die(console, error)
+        return
+
+    if not catalog.is_complete:
+        console.print(
+            f"[yellow]Warning: fetched {len(catalog)} of {catalog.total_count} "
+            "sessions. Refusing to trust an incomplete walk for planning.[/yellow]"
+        )
+
+    diff = cache.save(catalog)
+    print_provenance(console, port, settings)
+    console.print(
+        f"Cached [bold]{len(catalog)}[/bold] sessions to {cache.path}  "
+        f"[dim]({'FTS5' if cache.supports_full_text else 'LIKE fallback'})[/dim]"
+    )
+    console.print(f"[bold]{diff.summary()}[/bold]")
+
+    if diff.changes:
+        table = Table(show_header=True, header_style="bold")
+        table.add_column("what")
+        table.add_column("code")
+        table.add_column("session", overflow="fold")
+        table.add_column("detail", overflow="fold")
+        for change in diff.changes[:show_changes]:
+            colour = "red" if change.kind.breaks_a_plan else "dim"
+            table.add_row(
+                f"[{colour}]{change.kind.value}[/{colour}]",
+                change.code,
+                change.title,
+                "; ".join(item.describe() for item in change.fields) or change.kind.label,
+            )
+        console.print(table)
+        if len(diff.changes) > show_changes:
+            console.print(
+                f"[dim]+{len(diff.changes) - show_changes} more; see `replan changes`[/dim]"
+            )
+
+        breaking = diff.plan_breaking
+        if breaking:
+            console.print(
+                f"[yellow]{len(breaking)} change(s) could invalidate an existing plan "
+                "(time, room, added or removed). Re-run `replan optimize`.[/yellow]"
+            )
+
+    if hasattr(port, "close"):
+        port.close()
+
+
+@app.command()
+def search(
+    query: Annotated[str, typer.Argument(help='Words, or "an exact phrase".')] = "",
+    event: EventOption = None,
+    level: Annotated[
+        list[int] | None, typer.Option("--level", "-l", help="100, 200, 300, 400. Repeatable.")
+    ] = None,
+    day: Annotated[
+        list[str] | None,
+        typer.Option("--day", "-d", help="tue, 2026-12-01, or day2. Repeatable."),
+    ] = None,
+    session_format: Annotated[
+        list[str] | None,
+        typer.Option("--format", "-f", help="workshop, chalk-talk, breakout... Repeatable."),
+    ] = None,
+    venue: Annotated[
+        list[str] | None, typer.Option("--venue", help="venetian, wynn, mgm-grand... Repeatable.")
+    ] = None,
+    track: Annotated[list[str] | None, typer.Option("--track", help="Exact track name.")] = None,
+    service: Annotated[
+        list[str] | None, typer.Option("--service", help="e.g. 'AWS Lambda'.")
+    ] = None,
+    bookable: Annotated[
+        bool, typer.Option("--bookable", help="Only sessions with a seat you could take now.")
+    ] = False,
+    scheduled: Annotated[
+        bool, typer.Option("--scheduled", help="Exclude all-day and unscheduled entries.")
+    ] = False,
+    unique: Annotated[
+        bool, typer.Option("--unique", help="Collapse repeat showings to the first one.")
+    ] = False,
+    limit: Annotated[int, typer.Option("--limit", "-n", help="Results to show.")] = 20,
+    show_abstract: Annotated[
+        bool, typer.Option("--abstract", help="Include a slice of each abstract.")
+    ] = False,
+) -> None:
+    """Search the cached catalog offline.
+
+    The API deliberately does not search or filter, so this is a local index over
+    everything a session carries: title, abstract, speakers, tracks, topics,
+    services, roles and industries.
+    """
+    settings = load_settings(event_id=event)
+    cache = CatalogCache(settings.cache_path)
+    info = cache.info(settings.event_id)
+    if info is None:
+        console.print(
+            f"[yellow]Nothing cached for {settings.event_id}.[/yellow] "
+            "Run [bold]replan sync[/bold] first."
+        )
+        raise typer.Exit(1)
+
+    filters = SearchFilters(
+        levels=frozenset(Level.parse(item) for item in (level or [])),
+        formats=frozenset(SessionFormat.parse(item) for item in (session_format or [])),
+        days=_parse_days(day, cache, settings.event_id),
+        venues=frozenset(
+            found for item in (venue or []) if (found := KnownVenue.parse(item)) is not None
+        ),
+        tracks=frozenset(track or []),
+        services=frozenset(service or []),
+        bookable_only=bookable,
+        scheduled_only=scheduled,
+        exclude_repeats=unique,
+    )
+
+    hits = cache.search(settings.event_id, query, filters=filters, limit=limit)
+
+    console.print(
+        f"[dim]cache[/dim] {info.session_count} sessions, synced {info.age_human}  "
+        f"[dim]event[/dim] {settings.event_id}"
+    )
+    if not hits:
+        console.print("[yellow]No matches.[/yellow]")
+        return
+
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("code")
+    table.add_column("when")
+    table.add_column("lvl", justify="right")
+    table.add_column("format")
+    table.add_column("where", overflow="fold")
+    table.add_column("seats")
+    table.add_column("title", overflow="fold")
+
+    for hit in hits:
+        item = hit.session
+        seats = "-"
+        if item.seat_availability:
+            colour = {
+                SeatAvailability.AVAILABLE: "green",
+                SeatAvailability.LIMITED: "yellow",
+                SeatAvailability.VERY_LIMITED: "red",
+                SeatAvailability.UNAVAILABLE: "red",
+                SeatAvailability.WALK_UP: "cyan",
+            }[item.seat_availability]
+            seats = f"[{colour}]{item.seat_availability.value}[/{colour}]"
+        table.add_row(
+            item.code,
+            item.span.format_in(item.zone) if item.span else "-",
+            str(int(item.level)) if item.level else "-",
+            item.format.label,
+            item.room.display,
+            seats,
+            item.title,
+        )
+    console.print(table)
+
+    if show_abstract:
+        for hit in hits[:5]:
+            if hit.session.abstract:
+                console.print(
+                    Panel(
+                        hit.session.abstract[:400]
+                        + ("..." if len(hit.session.abstract) > 400 else ""),
+                        title=f"{hit.session.code} {hit.session.title}",
+                        border_style="dim",
+                    )
+                )
+
+    console.print(f"[dim]{len(hits)} result(s)[/dim]")
+
+
+@app.command()
+def changes(
+    event: EventOption = None,
+    syncs: Annotated[int, typer.Option("--syncs", help="How many recent syncs to cover.")] = 1,
+    limit: Annotated[int, typer.Option("--limit", "-n", help="Rows to show.")] = 40,
+    breaking_only: Annotated[
+        bool,
+        typer.Option("--breaking", help="Only changes that can invalidate a plan."),
+    ] = False,
+) -> None:
+    """Show what moved in the catalog, from the local sync history."""
+    settings = load_settings(event_id=event)
+    cache = CatalogCache(settings.cache_path)
+
+    history = cache.sync_history(settings.event_id, limit=syncs)
+    if not history:
+        console.print(
+            f"[yellow]No sync history for {settings.event_id}.[/yellow] "
+            "Run [bold]replan sync[/bold] at least twice to see changes."
+        )
+        raise typer.Exit(1)
+
+    console.print("[bold]recent syncs[/bold]")
+    for when, summary in history:
+        console.print(f"  [dim]{when[:19]}[/dim]  {summary}")
+
+    rows = cache.recent_changes(settings.event_id, syncs=syncs, limit=limit)
+    if breaking_only:
+        rows = tuple(row for row in rows if ChangeKind(row[0]).breaks_a_plan)
+
+    if not rows:
+        console.print("\n[green]No catalog changes recorded in that window.[/green]")
+        return
+
+    table = Table(show_header=True, header_style="bold", title="catalog changes")
+    table.add_column("what")
+    table.add_column("code")
+    table.add_column("session", overflow="fold")
+    table.add_column("detail", overflow="fold")
+    for kind, code, title, _session_id, details in rows:
+        parsed = ChangeKind(kind)
+        colour = "red" if parsed.breaks_a_plan else "dim"
+        table.add_row(
+            f"[{colour}]{kind}[/{colour}]",
+            code or "-",
+            title or "-",
+            "; ".join(details) or parsed.label,
+        )
+    console.print(table)
+
+
+@app.command("cache")
+def cache_command(
+    event: EventOption = None,
+    clear: Annotated[bool, typer.Option("--clear", help="Delete cached sessions.")] = False,
+    all_events: Annotated[
+        bool, typer.Option("--all", help="With --clear, wipe every event.")
+    ] = False,
+) -> None:
+    """Inspect or clear the local catalog cache."""
+    settings = load_settings(event_id=event)
+    store = CatalogCache(settings.cache_path)
+
+    if clear:
+        removed = store.clear(None if all_events else settings.event_id)
+        scope = "all events" if all_events else settings.event_id
+        console.print(f"[green]Cleared {removed} cached session(s) for {scope}.[/green]")
+        return
+
+    cached = store.cached_events()
+    if not cached:
+        console.print(f"Cache is empty. [dim]{store.path}[/dim]")
+        return
+
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("event")
+    table.add_column("sessions", justify="right")
+    table.add_column("complete")
+    table.add_column("synced")
+    table.add_column("source")
+    table.add_column("last change summary", overflow="fold")
+
+    for name in cached:
+        info = store.info(name)
+        if info is None:
+            continue
+        table.add_row(
+            name,
+            str(info.session_count),
+            "[green]yes[/green]" if info.is_complete else "[red]no[/red]",
+            info.age_human,
+            info.source or "-",
+            info.last_sync_summary or "-",
+        )
+    console.print(table)
+    console.print(f"[dim]{store.path}[/dim]")
+
+
 def main() -> None:
     """Console-script entry point.
 
-    Expected failures - not signed in, throttled, event closed, not registered -
-    are reported as guidance rather than a traceback. A stack trace here would
-    just be noise: the API's own error table already says what to do, and
+    Expected failures - not signed in, throttled, operation closed, not
+    registered - are reported as guidance rather than a traceback. A stack trace
+    would be noise here: the API's own error table already says what to do, and
     :attr:`EventsApiError.remedy` carries that advice.
     """
     try:
@@ -551,7 +882,7 @@ def main() -> None:
         remedy = getattr(error, "remedy", None)
         if remedy:
             console.print(f"[yellow]{remedy}[/yellow]")
-        # sys.exit, not typer.Exit: we are outside Typer's runtime here, so
+        # sys.exit, not typer.Exit: we are outside Typer's runtime here, where
         # typer.Exit would surface as an unhandled exception.
         sys.exit(1)
     except KeyboardInterrupt:

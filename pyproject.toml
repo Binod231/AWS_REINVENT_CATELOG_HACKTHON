@@ -112,6 +112,13 @@ ignore = [
 "tests/**" = ["S", "ARG", "DTZ", "T20"]
 "src/replan/cli/**" = ["T20"]   # the CLI's whole job is writing to stdout
 "scripts/**" = ["T20"]          # operator scripts report progress on stdout
+# S608 (SQL built by string construction) is suppressed for the cache module
+# only. Every dynamic fragment there is either a generated run of "?"
+# placeholders or an identifier from a hardcoded tuple / explicit whitelist;
+# all user-supplied values are passed as bound parameters, never interpolated.
+# The queries are multi-line f-strings, which inline noqa cannot attach to
+# cleanly, so the exemption is recorded here where it can be reviewed in one place.
+"src/replan/cache/store.py" = ["S608"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["replan"]
