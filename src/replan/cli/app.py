@@ -55,6 +55,14 @@ from replan.explain import (
 )
 from replan.profiles import ProfileError, Scorer, load_profile, write_starter_profile
 from replan.solver import Plan, SolveRequest, solve
+from replan.sync import (
+    ActionStatus,
+    DiffOptions,
+    Journal,
+    apply_plan,
+    build_action_plan,
+    undo_run,
+)
 from replan.travel import default_graph
 
 console = Console()
@@ -1037,14 +1045,19 @@ ProfileOption = Annotated[
 ]
 
 
-def _require_cached_catalog(settings: Any) -> Any:
-    """Load the cached catalog, or explain how to get one."""
+def _require_cached_catalog(settings: Any, event_id: str | None = None) -> Any:
+    """Load the cached catalog, or explain how to get one.
+
+    ``event_id`` overrides the configured default, so a command driven by a plan
+    file uses the event that plan was actually built for.
+    """
+    wanted = event_id or settings.event_id
     store = CatalogCache(settings.cache_path)
-    cached = store.load(settings.event_id)
+    cached = store.load(wanted)
     if cached is None or not len(cached):
         console.print(
-            f"[yellow]Nothing cached for {settings.event_id}.[/yellow] "
-            "Run [bold]replan sync[/bold] first."
+            f"[yellow]Nothing cached for {wanted}.[/yellow] "
+            f"Run [bold]replan sync --event {wanted}[/bold] first."
         )
         raise typer.Exit(1)
     return cached
@@ -1468,7 +1481,7 @@ def why(
     """
     settings = load_settings(event_id=event)
     plan = _load_plan(plan_path)
-    cached = _require_cached_catalog(settings)
+    cached = _require_cached_catalog(settings, plan.event_id)
     try:
         current = load_profile(profile_path)
     except ProfileError as error:
@@ -1556,6 +1569,300 @@ def export(
             "[yellow]No cached catalog for this plan, so abstracts and speakers were "
             "omitted from the calendar. Run `replan sync` and export again.[/yellow]"
         )
+
+
+# --------------------------------------------------------------------------- #
+# apply / undo / history
+# --------------------------------------------------------------------------- #
+@app.command()
+def apply(
+    plan_path: PlanOption = Path("plan.json"),
+    profile_path: ProfileOption = None,
+    event: EventOption = None,
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    do_apply: Annotated[
+        bool,
+        typer.Option(
+            "--apply",
+            help="Actually write to your schedule. Without this, nothing is sent.",
+        ),
+    ] = False,
+    reserve: Annotated[
+        bool, typer.Option("--reserve/--no-reserve", help="Take seats for planned sessions.")
+    ] = True,
+    favorites: Annotated[
+        bool, typer.Option("--favorites/--no-favorites", help="Mark planned sessions as favorites.")
+    ] = True,
+    personal_time: Annotated[
+        bool,
+        typer.Option(
+            "--personal-time/--no-personal-time",
+            help="Create the protected time windows from your profile.",
+        ),
+    ] = True,
+    prune_favorites: Annotated[
+        bool,
+        typer.Option("--prune-favorites", help="Remove favorites that are not in the plan."),
+    ] = False,
+    prune_reservations: Annotated[
+        bool,
+        typer.Option("--prune-reservations", help="Cancel reservations not in the plan."),
+    ] = False,
+    force: Annotated[
+        bool,
+        typer.Option("--force", help="Allow touching personal time replan did not create."),
+    ] = False,
+) -> None:
+    """Write the plan to your real schedule. Dry run unless you pass --apply.
+
+    Every run diffs against GetSchedule first and verifies against it afterwards,
+    because the API has no idempotency key: if a write's outcome is unknown, the only
+    safe move is to read the truth rather than send it again.
+    """
+    settings = load_settings(event_id=event)
+    plan = _load_plan(plan_path)
+    cached = _require_cached_catalog(settings, plan.event_id)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    port = build_port(settings, surface)
+    label = getattr(port, "surface_name", "unknown")
+    style = "green" if label.startswith("live") else "yellow"
+    # The plan's own event, not the configured default: a plan built for one event
+    # must never be applied to another without saying so.
+    console.print(
+        f"[dim]source[/dim] [{style}]{label}[/{style}]  [dim]event[/dim] {plan.event_id}",
+        highlight=False,
+    )
+
+    try:
+        schedule = port.get_schedule(plan.event_id)
+    except EventsApiError as error:
+        die(console, error)
+        return
+
+    options = DiffOptions(
+        favorite_plan_items=favorites,
+        reserve_seats=reserve,
+        create_personal_time=personal_time,
+        prune_favorites=prune_favorites,
+        prune_reservations=prune_reservations,
+        force_foreign_blocks=force,
+    )
+    action_plan = build_action_plan(plan, schedule, cached, current, options)
+
+    console.print(
+        f"[dim]your schedule now:[/dim] {len(schedule.reserved)} reserved, "
+        f"{len(schedule.favorites)} favorites, {len(schedule.personal_time)} blocks"
+    )
+    console.print(f"[bold]{action_plan.summary()}[/bold]")
+
+    for note in action_plan.notes:
+        console.print(f"[dim]note: {note}[/dim]")
+
+    if action_plan.is_empty:
+        return
+
+    table = Table(show_header=True, header_style="bold", title="planned writes")
+    table.add_column("#", justify="right")
+    table.add_column("action")
+    table.add_column("targets", overflow="fold")
+    table.add_column("why", overflow="fold")
+    # Spans are rendered in the event's own timezone. A Dubai lunch window shown in
+    # Las Vegas time reads as 01:00 and looks like a bug.
+    event_zone = cached.zone
+    for index, action in enumerate(action_plan.ordered, start=1):
+        colour = "red" if action.kind.is_destructive else "cyan"
+        if action.labels:
+            targets = ", ".join(action.labels)
+        else:
+            when = f" {action.span.format_in(event_zone)}" if action.span else ""
+            targets = f"{action.title}{when}"
+        table.add_row(
+            str(index),
+            f"[{colour}]{action.kind.label}[/{colour}]",
+            targets,
+            action.reason,
+        )
+    console.print(table)
+
+    quota = action_plan.quota_cost()
+    console.print(
+        "[dim]quota cost: "
+        + ", ".join(f"{operation} {units}" for operation, units in sorted(quota.items()))
+        + ". ReserveSessions and AssociateFavorites bill per session, 30 per minute.[/dim]"
+    )
+
+    if action_plan.destructive and do_apply:
+        console.print(
+            f"[yellow]{len(action_plan.destructive)} action(s) will remove something "
+            "you currently have.[/yellow]"
+        )
+
+    journal = Journal(settings.journal_path)
+    report = apply_plan(
+        port,
+        plan,
+        action_plan,
+        dry_run=not do_apply,
+        journal=journal,
+        verify=do_apply,
+    )
+
+    if not do_apply:
+        console.print(
+            "\n[yellow]Dry run - nothing was sent.[/yellow] "
+            "Re-run with [bold]--apply[/bold] to write these changes."
+        )
+        return
+
+    console.print(f"\n[bold]{report.summary()}[/bold]")
+    for outcome in report.outcomes:
+        if outcome.status is ActionStatus.DONE:
+            continue
+        colour = {
+            ActionStatus.ALREADY: "dim",
+            ActionStatus.SKIPPED: "yellow",
+            ActionStatus.FAILED: "red",
+            ActionStatus.UNKNOWN: "red",
+        }.get(outcome.status, "white")
+        console.print(f"[{colour}]{outcome.describe()}[/{colour}]")
+
+    for note in report.notes:
+        console.print(f"[dim]note: {note}[/dim]")
+
+    if report.unknown:
+        console.print(
+            "[red]Some writes have an unknown outcome. The API has no idempotency "
+            "key, so do not re-run blindly: check `replan schedule` and apply again "
+            "to send only what is still missing.[/red]"
+        )
+
+    if report.verified:
+        console.print(f"[green]Verified against GetSchedule:[/green] {report.verification[0]}")
+    else:
+        for problem in report.verification:
+            console.print(f"[yellow]verification: {problem}[/yellow]")
+
+    if report.run_id is not None:
+        console.print(
+            f"\n[dim]Journalled as run {report.run_id}. "
+            f"Undo with: replan undo --run {report.run_id}[/dim]"
+        )
+
+
+@app.command()
+def undo(
+    run: Annotated[
+        int | None, typer.Option("--run", help="Run id to undo. Defaults to the most recent.")
+    ] = None,
+    event: EventOption = None,
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    do_apply: Annotated[bool, typer.Option("--apply", help="Actually reverse the writes.")] = False,
+) -> None:
+    """Reverse a previous `replan apply`.
+
+    The API keeps no history of its own, so this replays replan's local journal
+    backwards. Actions are reversed newest first, which keeps the intermediate states
+    as coherent as the forward run's were.
+    """
+    settings = load_settings(event_id=event)
+    journal = Journal(settings.journal_path)
+
+    target = journal.run(run) if run is not None else journal.latest_run(settings.event_id)
+    if target is None:
+        console.print(
+            "[yellow]No applied run found to undo.[/yellow] "
+            "See `replan history` for what is recorded."
+        )
+        raise typer.Exit(1)
+
+    if target.dry_run:
+        console.print(
+            f"[yellow]Run {target.run_id} was a dry run; there is nothing to undo.[/yellow]"
+        )
+        raise typer.Exit(1)
+
+    if target.undone_at is not None:
+        console.print(
+            f"[yellow]Run {target.run_id} was already undone at "
+            f"{target.undone_at:%Y-%m-%d %H:%M} UTC.[/yellow]"
+        )
+
+    reversible = target.reversible_entries
+    console.print(
+        f"Run [bold]{target.run_id}[/bold] on {target.event_id}, "
+        f"started {target.started_at:%Y-%m-%d %H:%M} UTC. {target.summary or ''}"
+    )
+    if not reversible:
+        console.print("[yellow]Nothing in that run can be reversed.[/yellow]")
+        raise typer.Exit(1)
+
+    table = Table(show_header=True, header_style="bold", title="would reverse")
+    table.add_column("original")
+    table.add_column("targets", overflow="fold")
+    for entry in reversible:
+        table.add_row(
+            entry.action.kind.label, ", ".join(entry.action.labels or entry.succeeded_ids)
+        )
+    console.print(table)
+
+    port = build_port(settings, surface)
+    report = undo_run(journal, target, port, dry_run=not do_apply)
+
+    if not do_apply:
+        console.print(
+            f"\n[yellow]Dry run - nothing was sent.[/yellow] {report.reversed_count} "
+            "action(s) would be reversed. Re-run with [bold]--apply[/bold]."
+        )
+        return
+
+    console.print(f"\n[bold]{report.summary()}[/bold]")
+    for failure in report.failed:
+        console.print(f"[red]{failure}[/red]")
+    for skip in report.skipped:
+        console.print(f"[dim]{skip}[/dim]")
+
+
+@app.command()
+def history(
+    event: EventOption = None,
+    limit: Annotated[int, typer.Option("--limit", "-n", help="Runs to show.")] = 10,
+) -> None:
+    """Show the local history of write-backs."""
+    settings = load_settings(event_id=event)
+    journal = Journal(settings.journal_path)
+    runs = journal.history(settings.event_id, limit=limit)
+
+    if not runs:
+        console.print(f"No write history yet. [dim]{journal.path}[/dim]")
+        return
+
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("run", justify="right")
+    table.add_column("when")
+    table.add_column("mode")
+    table.add_column("surface")
+    table.add_column("actions", justify="right")
+    table.add_column("result", overflow="fold")
+
+    for item in runs:
+        mode = "[dim]dry run[/dim]" if item.dry_run else "[green]applied[/green]"
+        if item.undone_at is not None:
+            mode += " [yellow](undone)[/yellow]"
+        table.add_row(
+            str(item.run_id),
+            f"{item.started_at:%Y-%m-%d %H:%M}",
+            mode,
+            item.surface or "-",
+            str(len(item.entries)),
+            item.summary or "-",
+        )
+    console.print(table)
+    console.print(f"[dim]{journal.path}[/dim]")
 
 
 def main() -> None:
