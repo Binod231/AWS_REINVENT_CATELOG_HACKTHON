@@ -1,0 +1,222 @@
+# Travel times across the AWS re:Invent campus.
+#
+# PROVENANCE AND HONESTY
+# ----------------------
+# These are ESTIMATES, not measurements. The AWS Events API publishes `venue` and
+# `room` as free text and no distance information whatsoever, so a planner that
+# wants to know whether you can physically get from a 13:30 in Venetian to a 14:00
+# in Mandalay Bay has to bring that knowledge itself.
+#
+# The numbers below are derived from the published Las Vegas Strip geography of
+# these properties and from how re:Invent has historically run its inter-venue
+# shuttle loop. They are deliberately biased toward caution: being told to leave
+# five minutes early is a minor annoyance, whereas being told a transfer is
+# possible when it is not means walking into a session twenty minutes late, or
+# missing it.
+#
+# Every value here is overridable. Point REPLAN_TRAVEL_OVERRIDES at a YAML file
+# with the same shape, or pass --travel-overrides, and your numbers win. If you
+# have walked these routes, your data is better than this file's.
+#
+# Units are whole minutes throughout, door to door, excluding the fixed overheads
+# defined at the bottom (which are applied separately so they can be reasoned
+# about and tuned independently).
+
+version: 1
+
+# --------------------------------------------------------------------------- #
+# Properties, and how long it takes to cross each one internally
+# --------------------------------------------------------------------------- #
+# `internal` is the typical room-to-room walk *within* one property. The Venetian
+# and Mandalay Bay are genuinely enormous conference footprints where a
+# same-building transfer can take longer than a shuttle between two small ones,
+# which is exactly the kind of thing a human eyeballing a schedule gets wrong.
+venues:
+  venetian:
+    label: Venetian
+    zone: central-north
+    internal:
+      typical: 11
+      max: 18
+      per_floor_change: 3
+    note: >
+      Includes the Palazzo and the former Sands Expo halls. Level 1 to Level 5 with
+      a hall change at each end is the worst case in the whole campus.
+
+  encore:
+    label: Encore
+    zone: north
+    internal:
+      typical: 7
+      max: 12
+      per_floor_change: 2
+
+  wynn:
+    label: Wynn
+    zone: north
+    internal:
+      typical: 8
+      max: 14
+      per_floor_change: 2
+    note: Connected to Encore on foot; the two behave almost as one property.
+
+  caesars-forum:
+    label: Caesars Forum
+    zone: central
+    internal:
+      typical: 6
+      max: 10
+      per_floor_change: 2
+    note: >
+      Purpose-built conference centre, largely on one level, so internal transfers
+      are the fastest on campus.
+
+  bellagio:
+    label: Bellagio
+    zone: central
+    internal:
+      typical: 7
+      max: 12
+      per_floor_change: 2
+
+  aria:
+    label: Aria
+    zone: central-south
+    internal:
+      typical: 8
+      max: 14
+      per_floor_change: 2
+
+  mgm-grand:
+    label: MGM Grand
+    zone: south
+    internal:
+      typical: 10
+      max: 16
+      per_floor_change: 3
+    note: The Grand Garden Arena sits a long way from the Level 3 meeting rooms.
+
+  mandalay-bay:
+    label: Mandalay Bay
+    zone: far-south
+    internal:
+      typical: 11
+      max: 18
+      per_floor_change: 3
+    note: >
+      The convention centre runs a very long way back from the hotel entrance;
+      Shoreline to Breakers is a genuine hike.
+
+  luxor:
+    label: Luxor
+    zone: far-south
+    internal:
+      typical: 7
+      max: 12
+      per_floor_change: 2
+
+# --------------------------------------------------------------------------- #
+# Between properties
+# --------------------------------------------------------------------------- #
+# `walk` is on foot at a brisk but realistic conference pace, allowing for
+# crossing bridges, casino floors, and crowds. `shuttle` is the re:Invent loop,
+# counting ride time only - waiting is added separately from `overheads` below,
+# because the wait is what people forget.
+#
+# A missing `shuttle` means walking is the sensible option for that pair.
+pairs:
+  venetian|encore:        { walk: 14, shuttle: 15 }
+  venetian|wynn:          { walk: 16, shuttle: 15 }
+  venetian|caesars-forum: { walk: 24, shuttle: 20 }
+  venetian|bellagio:      { walk: 34, shuttle: 25 }
+  venetian|aria:          { walk: 38, shuttle: 25 }
+  venetian|mgm-grand:     { walk: 52, shuttle: 30 }
+  venetian|mandalay-bay:  { walk: 64, shuttle: 35 }
+  venetian|luxor:         { walk: 70, shuttle: 38 }
+
+  encore|wynn:            { walk: 7 }
+  encore|caesars-forum:   { walk: 30, shuttle: 25 }
+  encore|bellagio:        { walk: 40, shuttle: 28 }
+  encore|aria:            { walk: 44, shuttle: 30 }
+  encore|mgm-grand:       { walk: 58, shuttle: 35 }
+  encore|mandalay-bay:    { walk: 70, shuttle: 40 }
+  encore|luxor:           { walk: 76, shuttle: 42 }
+
+  wynn|caesars-forum:     { walk: 28, shuttle: 24 }
+  wynn|bellagio:          { walk: 38, shuttle: 28 }
+  wynn|aria:              { walk: 42, shuttle: 30 }
+  wynn|mgm-grand:         { walk: 56, shuttle: 34 }
+  wynn|mandalay-bay:      { walk: 68, shuttle: 40 }
+  wynn|luxor:             { walk: 74, shuttle: 42 }
+
+  caesars-forum|bellagio: { walk: 20, shuttle: 18 }
+  caesars-forum|aria:     { walk: 26, shuttle: 20 }
+  caesars-forum|mgm-grand: { walk: 34, shuttle: 25 }
+  caesars-forum|mandalay-bay: { walk: 46, shuttle: 32 }
+  caesars-forum|luxor:    { walk: 52, shuttle: 34 }
+
+  bellagio|aria:          { walk: 13, shuttle: 15 }
+  bellagio|mgm-grand:     { walk: 24, shuttle: 20 }
+  bellagio|mandalay-bay:  { walk: 36, shuttle: 27 }
+  bellagio|luxor:         { walk: 42, shuttle: 29 }
+
+  aria|mgm-grand:         { walk: 22, shuttle: 18 }
+  aria|mandalay-bay:      { walk: 34, shuttle: 25 }
+  aria|luxor:             { walk: 40, shuttle: 27 }
+
+  mgm-grand|mandalay-bay: { walk: 30, shuttle: 18 }
+  mgm-grand|luxor:        { walk: 24, shuttle: 18 }
+
+  # Connected by the free tram, which is why this is the one cross-property hop
+  # that is genuinely quick.
+  mandalay-bay|luxor:     { walk: 12, shuttle: 10 }
+
+# --------------------------------------------------------------------------- #
+# Fallbacks when a pair is not listed
+# --------------------------------------------------------------------------- #
+# Used if a venue is recognised but a pair was missed, keyed on the two zones.
+# Intentionally pessimistic: an unknown route should never look like a fast one.
+zone_defaults:
+  north|north: { walk: 12, shuttle: 15 }
+  north|central-north: { walk: 18, shuttle: 16 }
+  north|central: { walk: 30, shuttle: 25 }
+  north|central-south: { walk: 44, shuttle: 30 }
+  north|south: { walk: 58, shuttle: 35 }
+  north|far-south: { walk: 70, shuttle: 40 }
+  central-north|central-north: { walk: 12, shuttle: 15 }
+  central-north|central: { walk: 24, shuttle: 20 }
+  central-north|central-south: { walk: 38, shuttle: 25 }
+  central-north|south: { walk: 52, shuttle: 30 }
+  central-north|far-south: { walk: 64, shuttle: 35 }
+  central|central: { walk: 20, shuttle: 18 }
+  central|central-south: { walk: 26, shuttle: 20 }
+  central|south: { walk: 34, shuttle: 25 }
+  central|far-south: { walk: 46, shuttle: 32 }
+  central-south|central-south: { walk: 14, shuttle: 15 }
+  central-south|south: { walk: 22, shuttle: 18 }
+  central-south|far-south: { walk: 34, shuttle: 25 }
+  south|south: { walk: 14, shuttle: 15 }
+  south|far-south: { walk: 30, shuttle: 18 }
+  far-south|far-south: { walk: 12, shuttle: 10 }
+
+# Applied when a venue string is not recognised at all. This is the honest
+# answer for an event replan has no map of: assume a single building and a
+# generous internal walk, and say so rather than pretending to know.
+unknown_venue:
+  same_building: 10
+  different_building: 30
+
+# --------------------------------------------------------------------------- #
+# Fixed overheads
+# --------------------------------------------------------------------------- #
+# The minutes nobody budgets for, and the reason "it's only a 15 minute walk"
+# turns into missing the start of a session.
+overheads:
+  # Getting out of a full room: packing up, and the crowd at the door.
+  room_exit: 3
+  # Getting into the next one: finding the room, the queue, taking a seat.
+  room_entry: 4
+  # Waiting for the shuttle. re:Invent runs them frequently, but not instantly.
+  shuttle_wait: 9
+  # Sessions with a scanned queue (workshops, builders' sessions) want more.
+  reserved_seat_entry_bonus: 3

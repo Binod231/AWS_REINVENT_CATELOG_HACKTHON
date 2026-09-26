@@ -14,6 +14,7 @@ Two conventions run through all of it:
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 from typing import Annotated, Any
 
 import typer
@@ -36,7 +37,15 @@ from replan.cli.factory import (
     print_provenance,
 )
 from replan.config import ALLOWED_CALLBACK_PORTS, RESERVATIONS_OPEN_NOTE
-from replan.domain import KnownVenue, Level, SeatAvailability, SessionFormat, resolve_day
+from replan.domain import (
+    KnownVenue,
+    Level,
+    Room,
+    SeatAvailability,
+    SessionFormat,
+    resolve_day,
+)
+from replan.travel import default_graph
 
 console = Console()
 
@@ -865,6 +874,145 @@ def cache_command(
         )
     console.print(table)
     console.print(f"[dim]{store.path}[/dim]")
+
+
+# --------------------------------------------------------------------------- #
+# travel
+# --------------------------------------------------------------------------- #
+@app.command()
+def travel(
+    origin: Annotated[
+        str | None,
+        typer.Argument(help='Room, e.g. "Venetian | Level 2 | Hall C". Or a session code.'),
+    ] = None,
+    destination: Annotated[
+        str | None, typer.Argument(help="Room or session code to travel to.")
+    ] = None,
+    event: EventOption = None,
+    matrix: Annotated[
+        bool, typer.Option("--matrix", help="Print every curated route instead.")
+    ] = False,
+    overrides: Annotated[
+        Path | None,
+        typer.Option("--travel-overrides", help="YAML file of your own travel times."),
+    ] = None,
+) -> None:
+    """How long does it take to get from one room to another?
+
+    Accepts room strings exactly as replan prints them, or session codes from the
+    cached catalog - in which case it also answers whether the connection is
+    actually makeable given the two session times.
+
+    The Events API publishes no distances at all, so these are estimates from the
+    campus layout. Override them with --travel-overrides if you know better.
+    """
+    graph = default_graph(overrides)
+
+    if matrix:
+        table = Table(show_header=True, header_style="bold", title="curated routes")
+        table.add_column("from")
+        table.add_column("to")
+        table.add_column("minutes", justify="right")
+        table.add_column("mode")
+        for left, right, minutes, mode in graph.matrix():
+            table.add_row(left, right, str(minutes), mode)
+        console.print(table)
+        console.print(f"[dim]{graph.describe_source()}[/dim]")
+        console.print(
+            "[dim]Door to door, including getting out of one room and into the "
+            "next. Estimates, not measurements.[/dim]"
+        )
+        return
+
+    if not origin or not destination:
+        console.print(
+            "[red]Give two rooms or two session codes, or use --matrix.[/red]\n"
+            '[dim]e.g. replan travel "Venetian | Level 2 | Hall C" '
+            '"Mandalay Bay | South Pacific F"[/dim]'
+        )
+        raise typer.Exit(2)
+
+    settings = load_settings(event_id=event)
+    store = CatalogCache(settings.cache_path)
+    cached = store.load(settings.event_id)
+
+    first = cached.resolve(origin) if cached else None
+    second = cached.resolve(destination) if cached else None
+
+    if first is not None and second is not None:
+        # Both are real sessions: answer the question that actually matters.
+        result = graph.feasibility(first, second)
+        leg = result.leg
+        body = Table.grid(padding=(0, 2))
+        body.add_row("from", f"{first.code}  {first.room.display}")
+        body.add_row(
+            "",
+            f"[dim]{first.span.format_in(first.zone) if first.span else 'unscheduled'}"
+            f"  {first.title}[/dim]",
+        )
+        body.add_row("to", f"{second.code}  {second.room.display}")
+        body.add_row(
+            "",
+            f"[dim]{second.span.format_in(second.zone) if second.span else 'unscheduled'}"
+            f"  {second.title}[/dim]",
+        )
+        body.add_row("transfer", f"{leg.minutes} min by {leg.mode.label}")
+        body.add_row(
+            "breakdown", f"{leg.transit_minutes} transit + {leg.overhead_minutes} door-to-door"
+        )
+        body.add_row("gap", f"{result.gap_minutes} min")
+        body.add_row("spare", f"{result.slack_minutes} min")
+        body.add_row("confidence", leg.confidence.label)
+
+        depart = graph.depart_by(first, second)
+        if depart is not None:
+            body.add_row("leave by", f"{depart.astimezone(first.zone):%a %H:%M}")
+
+        verdict, colour = (
+            ("makeable", "green")
+            if result.ok and not result.is_tight
+            else ("tight", "yellow")
+            if result.ok
+            else ("not possible", "red")
+        )
+        # The reason goes in the body, not the title: panel titles get truncated
+        # to the terminal width and the reason is the most useful line here.
+        body.add_row("verdict", f"[{colour}]{result.reason}[/{colour}]")
+        console.print(
+            Panel(
+                body,
+                title=f"[{colour}]{verdict}[/{colour}]: {first.code} -> {second.code}",
+                border_style=colour,
+            )
+        )
+        return
+
+    # Fall back to treating the arguments as room strings.
+    try:
+        from_room = Room.parse(origin)
+        to_room = Room.parse(destination)
+    except ValueError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(2) from error
+
+    leg = graph.leg(from_room, to_room)
+    body = Table.grid(padding=(0, 2))
+    body.add_row("from", from_room.display)
+    body.add_row("to", to_room.display)
+    body.add_row("total", f"[bold]{leg.minutes} min[/bold]")
+    body.add_row("mode", leg.mode.label)
+    body.add_row("transit", f"{leg.transit_minutes} min")
+    body.add_row("getting out and in", f"{leg.overhead_minutes} min")
+    body.add_row("confidence", leg.confidence.label)
+    if leg.detail:
+        body.add_row("detail", leg.detail)
+    console.print(Panel(body, title="travel estimate", border_style="cyan"))
+
+    if first is None and second is None and cached is not None:
+        console.print(
+            "[dim]Tip: pass session codes instead of rooms to also check whether "
+            "the connection is makeable in the time available.[/dim]"
+        )
 
 
 def main() -> None:
