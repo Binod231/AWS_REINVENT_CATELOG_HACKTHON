@@ -65,6 +65,8 @@ from replan.sync import (
     undo_run,
 )
 from replan.travel import default_graph
+from replan.watch import Watcher, WatchPolicy, WatchStore, build_notifier
+from replan.watch.watcher import DEFAULT_INTERVAL_SECONDS
 
 console = Console()
 
@@ -2028,6 +2030,266 @@ def now(
             f"\n[dim]{len(report.unreachable)} session(s) were ruled out only because of "
             "where you are. Move first and ask again, or raise walk_tolerance_minutes.[/dim]"
         )
+
+
+# --------------------------------------------------------------------------- #
+# watch
+# --------------------------------------------------------------------------- #
+watch_app = typer.Typer(help="Watch full sessions for a seat opening up.", no_args_is_help=True)
+app.add_typer(watch_app, name="watch")
+
+
+def _watch_store(settings: Any) -> WatchStore:
+    return WatchStore(settings.state_dir / "watch.db")
+
+
+@watch_app.command("add")
+def watch_add(
+    sessions: Annotated[
+        list[str] | None, typer.Argument(help="Session codes or ids to watch.")
+    ] = None,
+    plan_path: Annotated[
+        Path | None,
+        typer.Option("--plan", help="Watch every session in this plan that needs a seat."),
+    ] = None,
+    event: EventOption = None,
+    profile_path: ProfileOption = None,
+) -> None:
+    """Add sessions to the watch list.
+
+    The natural source is a plan: the sessions worth watching are exactly the ones the
+    optimiser wanted and could not book.
+    """
+    settings = load_settings(event_id=event)
+    event_id = settings.event_id
+    plan = None
+    if plan_path is not None:
+        plan = _load_plan(plan_path)
+        event_id = plan.event_id
+
+    cached = _require_cached_catalog(settings, event_id)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    store = _watch_store(settings)
+    watcher = Watcher(
+        None,
+        store,
+        event_id=event_id,
+        catalog=cached,
+        profile=current,
+        travel=default_graph(),
+    )
+
+    added: list[str] = []
+    missing: list[str] = []
+
+    if plan is not None:
+        for seeded in watcher.seed_from_plan(plan):
+            added.append(seeded.code)
+        if not added:
+            # Worth explaining rather than shrugging: on an event that publishes no
+            # isReservable flag there is no seat to wait for in the first place.
+            reservable = sum(1 for item in plan.items if item.needs_reservation)
+            if reservable == 0:
+                console.print(
+                    f"[yellow]No session in this plan takes reservations, so there is "
+                    f"nothing to watch.[/yellow]\n[dim]{plan.event_id} does not publish "
+                    "seat availability; only re:Invent-style events do.[/dim]"
+                )
+            else:
+                console.print(
+                    "[green]Every reservable session in this plan already has a seat.[/green]"
+                )
+
+    for token in sessions or []:
+        resolved = watcher.add(token)
+        if resolved is None:
+            missing.append(token)
+        else:
+            added.append(resolved.code)
+
+    if added:
+        console.print(f"[green]Watching {len(added)} session(s):[/green] {', '.join(added)}")
+    if missing:
+        console.print(f"[red]Not found in the catalog:[/red] {', '.join(missing)}")
+    if not added and not missing and plan is None:
+        console.print(
+            "[yellow]Nothing added.[/yellow] Pass session codes, or --plan to watch "
+            "everything in a plan that still needs a seat."
+        )
+
+
+@watch_app.command("list")
+def watch_list(event: EventOption = None) -> None:
+    """Show the watch list."""
+    settings = load_settings(event_id=event)
+    store = _watch_store(settings)
+    targets = store.list(settings.event_id)
+
+    if not targets:
+        console.print(f"Watch list is empty. [dim]{store.path}[/dim]")
+        return
+
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("code")
+    table.add_column("session", overflow="fold")
+    table.add_column("last seen")
+    table.add_column("checks", justify="right")
+    table.add_column("state")
+
+    for target in targets:
+        band = target.last_band.value if target.last_band else "-"
+        if target.reserved_at is not None:
+            state = "[green]reserved[/green]"
+        elif target.notified_at is not None:
+            state = "[yellow]notified[/yellow]"
+        else:
+            state = "[dim]watching[/dim]"
+        table.add_row(target.code, target.title, band, str(target.checks), state)
+
+    console.print(table)
+    console.print(f"[dim]{store.path}[/dim]")
+
+
+@watch_app.command("remove")
+def watch_remove(
+    sessions: Annotated[list[str], typer.Argument(help="Session codes or ids to stop watching.")],
+    event: EventOption = None,
+    clear_all: Annotated[bool, typer.Option("--all", help="Clear the whole list.")] = False,
+) -> None:
+    """Stop watching sessions."""
+    settings = load_settings(event_id=event)
+    store = _watch_store(settings)
+
+    if clear_all:
+        removed = store.clear(settings.event_id)
+        console.print(f"[green]Removed {removed} target(s).[/green]")
+        return
+
+    cached = _require_cached_catalog(settings)
+    for token in sessions:
+        session = cached.resolve(token)
+        session_id = session.session_id if session else token
+        if store.remove(settings.event_id, session_id):
+            console.print(f"[green]Stopped watching {token}.[/green]")
+        else:
+            console.print(f"[yellow]{token} was not on the watch list.[/yellow]")
+
+
+@watch_app.command("run")
+def watch_run(
+    event: EventOption = None,
+    profile_path: ProfileOption = None,
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    once: Annotated[bool, typer.Option("--once", help="Poll a single time and exit.")] = False,
+    iterations: Annotated[
+        int | None, typer.Option("--iterations", help="Stop after this many polls.")
+    ] = None,
+    interval: Annotated[
+        int, typer.Option("--interval", help="Seconds between polls.")
+    ] = DEFAULT_INTERVAL_SECONDS,
+    auto_reserve: Annotated[
+        bool,
+        typer.Option(
+            "--auto-reserve",
+            help="Take the seat automatically. Off by default: spending a reservation "
+            "unasked is a big step.",
+        ),
+    ] = False,
+    minimum_score: Annotated[
+        float, typer.Option("--min-score", help="Only auto-reserve above this score.")
+    ] = 0.0,
+    slack: Annotated[
+        bool, typer.Option("--slack/--no-slack", help="Also post to REPLAN_SLACK_WEBHOOK_URL.")
+    ] = True,
+    overrides: Annotated[
+        Path | None, typer.Option("--travel-overrides", help="Your own travel times.")
+    ] = None,
+) -> None:
+    """Poll the watch list and act when a seat opens.
+
+    Seat availability is published as a band, not a count, so an opening is detected as
+    a transition: the band moving back off `unavailable` since the last check.
+    """
+    settings = load_settings(event_id=event)
+    cached = _require_cached_catalog(settings)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    store = _watch_store(settings)
+    if not store.pending(settings.event_id):
+        console.print(
+            "[yellow]Nothing to watch.[/yellow] Add sessions with "
+            "[bold]replan watch add --plan plan.json[/bold]."
+        )
+        raise typer.Exit(1)
+
+    port = build_port(settings, surface)
+    print_provenance(console, port, settings)
+
+    notifier = build_notifier(
+        console=True,
+        slack_webhook_url=settings.slack_webhook_url if slack else None,
+        sns_topic_arn=settings.sns_topic_arn,
+        aws_region=settings.aws_region,
+        writer=console.print,
+    )
+
+    policy = WatchPolicy(auto_reserve=auto_reserve, minimum_score=minimum_score)
+    watcher = Watcher(
+        port,
+        store,
+        event_id=settings.event_id,
+        catalog=cached,
+        profile=current,
+        travel=default_graph(overrides),
+        policy=policy,
+        notifier=notifier,
+        interval_seconds=interval,
+    )
+
+    if auto_reserve:
+        console.print(
+            "[yellow]--auto-reserve is on: replan will take seats on your behalf when "
+            "the policy allows it.[/yellow]"
+        )
+    console.print(
+        f"[dim]polling about every {watcher.interval_seconds}s, with jitter. Ctrl-C to stop.[/dim]"
+    )
+
+    rounds = 1 if once else iterations
+
+    def report(result: Any) -> None:
+        console.print(f"[dim]{result.at:%H:%M:%S}  {result.summary()}[/dim]")
+        for problem in result.errors:
+            console.print(f"[red]{problem}[/red]")
+        for note in result.skipped:
+            console.print(f"[dim]{note}[/dim]")
+
+    try:
+        results = watcher.run(iterations=rounds, on_result=report)
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Stopped.[/yellow]")
+        return
+    finally:
+        if hasattr(port, "close"):
+            port.close()
+
+    total_openings = sum(len(item.openings) for item in results)
+    total_reserved = sum(len(item.reserved) for item in results)
+    console.print(
+        f"\n[bold]{len(results)} poll(s): {total_openings} opening(s), "
+        f"{total_reserved} reserved.[/bold]"
+    )
+    if watcher.reservations_closed:
+        console.print(f"[yellow]{RESERVATIONS_OPEN_NOTE}[/yellow]")
 
 
 def main() -> None:
