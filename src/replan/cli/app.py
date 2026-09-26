@@ -45,8 +45,16 @@ from replan.domain import (
     SessionFormat,
     resolve_day,
 )
+from replan.explain import (
+    Verdict,
+    explain_session,
+    explain_worst,
+    export_day_sheets_html,
+    export_ics,
+    export_markdown,
+)
 from replan.profiles import ProfileError, Scorer, load_profile, write_starter_profile
-from replan.solver import SolveRequest, solve
+from replan.solver import Plan, SolveRequest, solve
 from replan.travel import default_graph
 
 console = Console()
@@ -1395,6 +1403,159 @@ def _render_plan(plan: Any) -> None:
         style = "bold" if label == "total" else ""
         objective.add_row(f"[{style}]{label}[/{style}]" if style else label, f"{value:+.1f}")
     console.print(objective)
+
+
+# --------------------------------------------------------------------------- #
+# why / export
+# --------------------------------------------------------------------------- #
+PlanOption = Annotated[Path, typer.Option("--plan", help="Plan JSON written by `replan optimize`.")]
+
+
+def _load_plan(path: Path) -> Any:
+    try:
+        return Plan.read(path)
+    except (FileNotFoundError, ValueError) as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+
+def _render_explanation(explanation: Any) -> None:
+    colour = {
+        Verdict.SCHEDULED: "green",
+        Verdict.REJECTED: "yellow",
+        Verdict.UNKNOWN_SESSION: "red",
+    }[explanation.verdict]
+
+    body = Table.grid(padding=(0, 2))
+    body.add_row("verdict", f"[{colour}]{explanation.headline}[/{colour}]")
+    for label, value in explanation.facts:
+        body.add_row(label, value)
+    if explanation.conflicts_with:
+        body.add_row("blocked by", "\n".join(explanation.conflicts_with))
+    if explanation.alternatives:
+        body.add_row("other showings", "\n".join(explanation.alternatives))
+    if explanation.score_lines:
+        body.add_row("scoring", "\n".join(explanation.score_lines))
+    if explanation.remedy:
+        body.add_row("to change this", f"[cyan]{explanation.remedy}[/cyan]")
+
+    title = f"{explanation.code}"
+    if explanation.title:
+        title += f"  {explanation.title}"
+    console.print(Panel(body, title=title, border_style=colour))
+
+
+@app.command()
+def why(
+    session: Annotated[str | None, typer.Argument(help="Session code or id to explain.")] = None,
+    plan_path: PlanOption = Path("plan.json"),
+    profile_path: ProfileOption = None,
+    event: EventOption = None,
+    worst: Annotated[
+        bool,
+        typer.Option("--worst", help="Explain the best sessions that did not make it."),
+    ] = False,
+    limit: Annotated[int, typer.Option("--limit", "-n", help="How many, with --worst.")] = 3,
+    overrides: Annotated[
+        Path | None, typer.Option("--travel-overrides", help="Your own travel times.")
+    ] = None,
+) -> None:
+    """Explain why a session is, or is not, in your plan.
+
+    Every answer says what to change if you disagree. That is the point: a planner
+    that silently drops the session you were looking forward to is one you stop
+    trusting.
+    """
+    settings = load_settings(event_id=event)
+    plan = _load_plan(plan_path)
+    cached = _require_cached_catalog(settings)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    graph = default_graph(overrides)
+    scorer = Scorer(current, cached)
+
+    if worst or session is None:
+        explanations = explain_worst(plan, cached, current, graph, limit, scorer)
+        if not explanations:
+            console.print("[green]Nothing was left out.[/green]")
+            return
+        console.print(
+            f"[bold]The {len(explanations)} highest-scoring sessions that did not "
+            "make your plan[/bold]\n"
+        )
+        for explanation in explanations:
+            _render_explanation(explanation)
+        return
+
+    _render_explanation(explain_session(session, plan, cached, current, graph, scorer))
+
+
+@app.command()
+def export(
+    plan_path: PlanOption = Path("plan.json"),
+    event: EventOption = None,
+    ics: Annotated[
+        Path | None, typer.Option("--ics", help="Write an RFC 5545 calendar here.")
+    ] = None,
+    markdown: Annotated[
+        Path | None, typer.Option("--markdown", help="Write a Markdown agenda here.")
+    ] = None,
+    html_dir: Annotated[
+        Path | None,
+        typer.Option("--html-dir", help="Write printable day sheets into this directory."),
+    ] = None,
+    departure_alarms: Annotated[
+        bool,
+        typer.Option(
+            "--departure-alarms/--start-alarms",
+            help="Fire calendar alarms when you must leave, not when the session starts.",
+        ),
+    ] = True,
+) -> None:
+    """Export the plan as a calendar, Markdown, or printable day sheets.
+
+    The calendar's alarms default to *departure* time. Being told at 14:00 that a
+    14:00 session is starting in another property is information you can no longer
+    act on.
+    """
+    settings = load_settings(event_id=event)
+    plan = _load_plan(plan_path)
+
+    store = CatalogCache(settings.cache_path)
+    cached = store.load(plan.event_id) or store.load(settings.event_id)
+
+    if ics is None and markdown is None and html_dir is None:
+        # Sensible defaults beside the plan, so the command is useful bare.
+        base = plan_path.parent
+        ics = base / f"{plan.event_id}.ics"
+        markdown = base / f"{plan.event_id}-agenda.md"
+        html_dir = base / "daysheets"
+
+    if ics is not None:
+        written = export_ics(plan, ics, catalog=cached, departure_alarms=departure_alarms)
+        alarm_note = "alarms at departure time" if departure_alarms else "alarms at session start"
+        console.print(f"[green]Calendar[/green] {written}  [dim]({alarm_note})[/dim]")
+
+    if markdown is not None:
+        written = export_markdown(plan, markdown, catalog=cached)
+        console.print(f"[green]Markdown[/green] {written}")
+
+    if html_dir is not None:
+        pages = export_day_sheets_html(plan, html_dir)
+        console.print(
+            f"[green]Day sheets[/green] {len(pages)} file(s) in {html_dir}"
+            f"  [dim](open {html_dir / 'index.html'})[/dim]"
+        )
+
+    if cached is None:
+        console.print(
+            "[yellow]No cached catalog for this plan, so abstracts and speakers were "
+            "omitted from the calendar. Run `replan sync` and export again.[/yellow]"
+        )
 
 
 def main() -> None:
