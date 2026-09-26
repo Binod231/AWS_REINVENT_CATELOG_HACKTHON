@@ -1,0 +1,51 @@
+# --- secrets: never commit ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials
+credentials.json
+.replan/secrets.*
+
+# --- local state, caches, databases ---
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+.replan/
+var/
+out/
+
+# --- recorded HTTP cassettes may contain account data; opt in explicitly ---
+tests/cassettes/live/
+*.cassette.json
+
+# --- python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# --- node / cdk (optional deploy layer) ---
+node_modules/
+cdk.out/
+.cdk.staging/
+
+# --- editors / os ---
+.DS_Store
+.idea/
+*.swp

@@ -1,0 +1,154 @@
+[project]
+name = "replan"
+version = "0.1.0"
+description = "Agenda intelligence for the AWS re:Invent 2026 session catalog: constraint-solved schedules, travel-aware planning, and an MCP server for AI agents."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Binod Prasad Joshi" }]
+keywords = ["aws", "reinvent", "mcp", "scheduling", "cp-sat", "event-catalog"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Office/Business :: Scheduling",
+]
+
+# Exact pins only. No open ranges: a judge cloning this repo six weeks from now
+# must get the same resolution we tested against.
+dependencies = [
+  "pydantic==2.13.5",
+  "typer==0.27.2",
+  "rich==15.0.0",
+  "httpx==0.28.1",
+  "PyYAML==6.0.3",
+  "platformdirs==4.11.15",
+  "structlog==26.1.0",
+  "Jinja2==3.1.6",
+  "icalendar==7.3.0",
+]
+
+[project.optional-dependencies]
+# CP-SAT is a large wheel. The solver degrades to a greedy weighted-interval
+# fallback when it is absent, so `pip install replan` stays lightweight and
+# `pip install replan[solver]` unlocks provably-optimal agendas.
+solver = ["ortools==9.15.6755"]
+mcp = ["mcp==2.2.0"]
+aws = ["boto3==1.43.103"]
+all = [
+  "ortools==9.15.6755",
+  "mcp==2.2.0",
+  "boto3==1.43.103",
+]
+
+[project.scripts]
+replan = "replan.cli.app:main"
+
+[project.urls]
+Homepage = "https://github.com/Binod231/AWS_REINVENT_CATELOG_HACKTHON"
+Repository = "https://github.com/Binod231/AWS_REINVENT_CATELOG_HACKTHON"
+
+[dependency-groups]
+dev = [
+  "pytest==9.1.1",
+  "pytest-asyncio==1.4.0",
+  "pytest-cov==7.1.0",
+  "respx==0.23.1",
+  "freezegun==1.5.5",
+  "ruff==0.16.9",
+  "mypy==2.3.1",
+  "types-PyYAML==6.0.12.20260906",
+  "pre-commit==4.6.2",
+]
+
+[build-system]
+requires = ["hatchling==1.28.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/replan"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+# --------------------------------------------------------------------------- #
+# Lint / format
+# --------------------------------------------------------------------------- #
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E", "F", "W",      # pycodestyle + pyflakes
+  "I",                # isort
+  "N",                # pep8-naming
+  "UP",               # pyupgrade
+  "B",                # bugbear
+  "C4",               # comprehensions
+  "SIM",              # simplify
+  "RET",              # return
+  "ARG",              # unused arguments
+  "PTH",              # use pathlib
+  "RUF",              # ruff-specific
+  "S",                # bandit security
+  "DTZ",              # naive datetime misuse
+  "T20",              # no stray print()
+]
+ignore = [
+  "S101",   # assert: fine in tests, and used for invariants
+  "B008",   # typer relies on function-call defaults
+  "RUF012", # ClassVar annotations not required for our frozen models
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "ARG", "DTZ", "T20"]
+"src/replan/cli/**" = ["T20"]          # CLI writes to stdout via rich
+"src/replan/fixtures/**" = ["S311"]    # pseudo-random fixtures are not crypto
+
+[tool.ruff.lint.isort]
+known-first-party = ["replan"]
+
+# --------------------------------------------------------------------------- #
+# Types
+# --------------------------------------------------------------------------- #
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+disallow_any_generics = true
+no_implicit_reexport = true
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+packages = ["replan"]
+
+[[tool.mypy.overrides]]
+module = ["ortools.*", "icalendar.*", "mcp.*", "boto3.*", "botocore.*"]
+ignore_missing_imports = true
+
+# --------------------------------------------------------------------------- #
+# Tests
+# --------------------------------------------------------------------------- #
+[tool.pytest.ini_options]
+minversion = "9.0"
+testpaths = ["tests"]
+addopts = "-q --strict-markers --strict-config"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+  "slow: takes more than a second (solver stress tests)",
+  "live: requires real re:Invent API credentials; skipped by default",
+  "contract: port-conformance suite run against every CatalogPort implementation",
+]
+
+[tool.coverage.run]
+source = ["src/replan"]
+branch = true
+
+[tool.coverage.report]
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "\\.\\.\\.",
+]
