@@ -46,6 +46,7 @@ from replan.domain import (
     resolve_day,
 )
 from replan.profiles import ProfileError, Scorer, load_profile, write_starter_profile
+from replan.solver import SolveRequest, solve
 from replan.travel import default_graph
 
 console = Console()
@@ -1213,6 +1214,187 @@ def rank(
                 )
             detail.add_row("[bold]=[/bold]", "[bold]total[/bold]", f"[bold]{item.total:.1f}[/bold]")
             console.print(Panel(detail, title=f"{item.code}  {session.title}", border_style="dim"))
+
+
+# --------------------------------------------------------------------------- #
+# optimize
+# --------------------------------------------------------------------------- #
+@app.command()
+def optimize(
+    profile_path: ProfileOption = None,
+    event: EventOption = None,
+    out: Annotated[
+        Path | None, typer.Option("--out", "-o", help="Write the plan JSON here.")
+    ] = None,
+    day: Annotated[
+        list[str] | None, typer.Option("--day", "-d", help="Only solve these days.")
+    ] = None,
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    use_schedule: Annotated[
+        bool,
+        typer.Option(
+            "--schedule/--no-schedule",
+            help="Fetch your real schedule so held seats are pinned and personal time respected.",
+        ),
+    ] = False,
+    candidates_per_day: Annotated[
+        int, typer.Option("--candidates", help="Candidate pool size per day.")
+    ] = 45,
+    time_limit: Annotated[
+        float, typer.Option("--time-limit", help="Solver time budget in seconds.")
+    ] = 10.0,
+    greedy: Annotated[
+        bool, typer.Option("--greedy", help="Force the greedy fallback, for comparison.")
+    ] = False,
+    overrides: Annotated[
+        Path | None, typer.Option("--travel-overrides", help="Your own travel times.")
+    ] = None,
+) -> None:
+    """Solve for a conflict-free, travel-feasible agenda.
+
+    Hard constraints: no overlaps, every transfer physically makeable within your
+    walk tolerance, one showing per piece of content, protected time honoured, and
+    your daily session cap. Soft objective: session value, breadth of topic
+    coverage, and penalties for travel, venue hopping, idle gaps and fatigue.
+    """
+    settings = load_settings(event_id=event)
+    cached = _require_cached_catalog(settings)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    store = CatalogCache(settings.cache_path)
+    days = _parse_days(day, store, settings.event_id) or None
+
+    attendee = None
+    if use_schedule:
+        port = build_port(settings, surface)
+        try:
+            attendee = port.get_schedule(settings.event_id)
+            console.print(
+                f"[dim]your schedule: {len(attendee.reserved)} reserved, "
+                f"{len(attendee.personal_time)} personal time block(s)[/dim]"
+            )
+        except EventsApiError as error:
+            console.print(f"[yellow]Could not read your schedule: {error}[/yellow]")
+            console.print(f"[yellow]{error.remedy}[/yellow]")
+        finally:
+            if hasattr(port, "close"):
+                port.close()
+
+    scorer = Scorer(current, cached)
+    request = SolveRequest(
+        catalog=cached,
+        profile=current,
+        scores=scorer.by_id(),
+        travel=default_graph(overrides),
+        schedule=attendee,
+        days=days,
+        candidates_per_day=candidates_per_day,
+        time_limit_seconds=time_limit,
+    )
+
+    plan = solve(request, prefer_cpsat=not greedy)
+    _render_plan(plan)
+
+    if out is not None:
+        plan.write(out)
+        console.print(f"\n[green]Wrote {out}[/green]")
+        console.print(
+            f"[dim]Next: replan why --plan {out} --worst   |   replan export --plan {out}[/dim]"
+        )
+
+
+def _render_plan(plan: Any) -> None:
+    """Print a solved plan: the day-by-day agenda, then how it was scored."""
+    stats = plan.stats
+    quality = (
+        "[green]proven optimal[/green]" if stats.optimal else f"[yellow]{stats.status}[/yellow]"
+    )
+    console.print(
+        f"[dim]solver[/dim] {stats.solver.label}  {quality}  "
+        f"[dim]{stats.wall_seconds:.2f}s, {stats.candidates} candidates[/dim]"
+    )
+    if stats.fallback_reason:
+        console.print(f"[yellow]{stats.fallback_reason}[/yellow]")
+    for warning in plan.warnings:
+        console.print(f"[yellow]warning: {warning}[/yellow]")
+
+    if not plan.items:
+        console.print("[yellow]No sessions could be scheduled. Loosen the profile?[/yellow]")
+        return
+
+    for current_day, items in plan.by_day():
+        table = Table(
+            show_header=True,
+            header_style="bold",
+            title=f"{plan.day_label_for(current_day)} {current_day.isoformat()}",
+            title_justify="left",
+        )
+        table.add_column("when")
+        table.add_column("code")
+        table.add_column("session", overflow="fold")
+        table.add_column("where", overflow="fold")
+        table.add_column("seat")
+        table.add_column("getting there", overflow="fold")
+
+        for item in items:
+            move = "-"
+            if item.travel_minutes == 0:
+                # "leave 14:50" would be nonsense for a zero-minute transfer.
+                move = "[dim]same room[/dim]"
+            elif item.travel_minutes is not None:
+                colour = "red" if item.is_tight_connection else "dim"
+                leave = (
+                    f", leave {item.depart_previous_by.astimezone(item.zone):%H:%M}"
+                    if item.depart_previous_by
+                    else ""
+                )
+                move = f"[{colour}]{item.travel_minutes} min {item.travel_mode}{leave}[/{colour}]"
+            seat = "-"
+            if item.already_reserved:
+                seat = "[green]held[/green]"
+            elif item.needs_reservation:
+                seat = f"[yellow]reserve[/yellow] {item.seat_band or ''}".strip()
+            elif item.seat_band:
+                seat = item.seat_band
+
+            marker = " [magenta]pin[/magenta]" if item.pinned else ""
+            table.add_row(
+                item.when,
+                item.code + marker,
+                item.title,
+                item.room_display,
+                seat,
+                move,
+            )
+        console.print(table)
+
+    summary = Table.grid(padding=(0, 2))
+    summary.add_row("sessions", str(len(plan.items)))
+    summary.add_row("session time", f"{plan.total_minutes // 60}h {plan.total_minutes % 60}m")
+    summary.add_row("time in transit", f"{plan.total_travel_minutes} min")
+    summary.add_row(
+        "topic coverage",
+        f"{stats.topics_covered}/{stats.topics_available} ({stats.coverage_ratio:.0%})",
+    )
+    seats_needed = len(plan.needs_reservation)
+    if seats_needed:
+        summary.add_row("seats to reserve", str(seats_needed))
+    tight = len(plan.tight_connections)
+    if tight:
+        summary.add_row("tight connections", f"[yellow]{tight}[/yellow]")
+    console.print(Panel(summary, title="plan summary", border_style="cyan"))
+
+    objective = Table(show_header=False, box=None, title="objective", title_justify="left")
+    objective.add_column(style="cyan")
+    objective.add_column(justify="right")
+    for label, value in plan.objective.rows():
+        style = "bold" if label == "total" else ""
+        objective.add_row(f"[{style}]{label}[/{style}]" if style else label, f"{value:+.1f}")
+    console.print(objective)
 
 
 def main() -> None:
