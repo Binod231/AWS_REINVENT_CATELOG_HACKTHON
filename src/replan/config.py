@@ -33,11 +33,22 @@ OAUTH_CLIENT_ID = "7vmom55m1qstvq8i71ph127bfq"
 OAUTH_SCOPES = ("openid", "email", "events/access")
 OAUTH_IDENTITY_PROVIDER = "AWSBuilderID"
 
-# Only these six loopback ports are registered, and only at /callback. The
-# redirect URI is matched in full with no wildcards, so anything else fails
-# without the API saying the callback was the cause.
+# Only these six loopback ports are registered for an application you build, and
+# only at /callback. The redirect URI is matched in full with no wildcards, so
+# anything else fails without the API reporting the callback as the cause.
+#
+# Installed MCP clients are a separate case with their own registered callbacks:
+# Kiro uses http://127.0.0.1:8976 (and appends /oauth/callback itself), Claude
+# Code uses 8484. Those belong to the client, not to us. See docs/mcp-clients.md.
 ALLOWED_CALLBACK_PORTS = (8484, 8485, 8486, 8487, 8488, 8489)
 CALLBACK_PATH = "/callback"
+
+# Documented callbacks for installed MCP clients, recorded so `replan doctor` can
+# explain a redirect_mismatch instead of leaving the user guessing.
+KNOWN_MCP_CLIENT_CALLBACKS: dict[str, str] = {
+    "kiro": "http://127.0.0.1:8976",
+    "claude-code": "http://localhost:8484/callback",
+}
 
 ACCESS_TOKEN_LIFETIME_SECONDS = 60 * 60
 REFRESH_TOKEN_LIFETIME_SECONDS = 30 * 24 * 60 * 60
@@ -237,6 +248,7 @@ __all__ = [
     "CALLBACK_PATH",
     "DEFAULT_API_BASE_URL",
     "DEFAULT_MCP_URL",
+    "KNOWN_MCP_CLIENT_CALLBACKS",
     "OAUTH_AUTHORIZE_URL",
     "OAUTH_CLIENT_ID",
     "OAUTH_IDENTITY_PROVIDER",

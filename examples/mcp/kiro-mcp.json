@@ -1,0 +1,32 @@
+{
+  "//": "Copy this to .kiro/settings/mcp.json (workspace) or ~/.kiro/settings/mcp.json (user), then reload the window.",
+
+  "mcpServers": {
+    "//awsevents": "AWS's remote MCP server: the 12 raw catalog and schedule operations. redirectUri MUST end at the port with no path - Kiro appends /oauth/callback itself, and a value it cannot parse falls back to a random port, which fails with redirect_mismatch.",
+    "awsevents": {
+      "url": "https://api.awsevents.com/mcp",
+      "oauth": {
+        "clientId": "7vmom55m1qstvq8i71ph127bfq",
+        "redirectUri": "http://127.0.0.1:8976",
+        "oauthScopes": ["openid", "email", "events/access"]
+      }
+    },
+
+    "//replan": "replan's own server: higher-order tools that compose the AWS API into decisions. Read-only tools are auto-approved; anything that writes to your real schedule is not.",
+    "replan": {
+      "command": "uv",
+      "args": ["run", "replan", "mcp", "serve"],
+      "disabled": false,
+      "autoApprove": [
+        "search_sessions",
+        "rank_sessions",
+        "optimize_agenda",
+        "explain_decision",
+        "whats_next",
+        "travel_time",
+        "coverage_report",
+        "preview_plan"
+      ]
+    }
+  }
+}
