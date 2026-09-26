@@ -1,0 +1,20 @@
+{
+  "event": {
+    "address": {
+      "city": "Dubai"
+    },
+    "authenticationRequired": false,
+    "endDate": "2026-09-30T20:00:00.000+04:00",
+    "eventId": "Summit-Dubai-2026",
+    "eventType": "AWS Global Summit",
+    "isOnline": false,
+    "name": "AWS Summit Dubai 2026",
+    "startDate": "2026-09-30T08:00:00.000+04:00",
+    "supportedLanguageCodes": [
+      "en-US"
+    ],
+    "timeFormat": "12 hour",
+    "timezone": "Europe/Ulyanovsk",
+    "timezoneAbbreviation": "GST"
+  }
+}

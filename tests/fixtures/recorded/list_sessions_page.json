@@ -1,0 +1,3999 @@
+{
+  "items": [
+    {
+      "abbreviation": "AIM101",
+      "abstract": "In this instructor-led training, an AWS expert will guide participants through the core concepts of generative AI and machine learning \u2014 including foundation models, large language models, and the fundamentals of training a model with Amazon SageMaker. Participants will then learn how to build AI applications on Amazon Bedrock, using Retrieval-Augmented Generation (RAG) to ground responses in relevant data and guardrails to keep those applications safe and reliable.\nThe instructor will walk througg a real-world use case showing how generative AI can drive business value for customer experience using Amazon Bedrock.",
+      "areasOfInterest": [
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "100 \u2013 Foundational",
+      "roles": [
+        "Business Executive",
+        "IT Executive",
+        "Entrepreneur (Founder/Co-Founder)"
+      ],
+      "room": "Floor 0, Women of the Cloud Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "Amazon Q",
+        "Amazon SageMaker"
+      ],
+      "sessionId": "AIM101",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "09:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ruba ALShanti , Snr AWS Technical Instructor, AWS"
+        },
+        {
+          "name": "Fatiha Bouabache, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Demystifying GenAI: AWS Enablement Training & Certification",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM201",
+      "abstract": "Most of us spend more time hunting for information than using it. Amazon Quick changes that. It reaches across all your company's data \u2013 documents, databases, emails, Slack threads, dashboards, Jira tickets \u2013 and lets you search it, ask questions, and take action, all from one place. Available across web, mobile, Slack, and Microsoft tools with multi-model intelligence, Quick delivers consumer-grade AI with enterprise-grade security and governance. No vendor lock-in, no siloed copilots. Just one AI teammate that works wherever you do.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Business Intelligence"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Data Scientist",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Migration & Modernisation Theatre",
+      "services": [
+        "Amazon Quick",
+        "Amazon Quick Suite"
+      ],
+      "sessionId": "AIM201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mareline Bensliman, Senior Central CSM, AWS"
+        },
+        {
+          "name": "Asia Alrajeh, Partner Solution Architect , AWS"
+        }
+      ],
+      "title": "Get to know Amazon Quick, your new agentic teammate",
+      "topics": [
+        "Artificial Intelligence",
+        "Business Applications"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM202",
+      "abstract": "Unlock Amazon Bedrock's full potential with a proven three-step framework for navigating its expansive model portfolio: identify ideal model candidates, conduct rigorous data-driven evaluations, and optimize for production through strategic model combinations and fine-tuning, balancing performance, cost, and latency. Then see it applied at scale. Property Finder, MENA's leading real estate platform, assesses ~60,000 property images daily across 11 quality attributes. Partnering with AWS GenAIIC, they cut automated listing cost 86% while improving accuracy, using Bedrock's Converse API with structured tool outputs. Now live on Llama 4 Maverick, they prove open-source models power enterprise computer vision.",
+      "areasOfInterest": [
+        "Generative AI",
+        "Cost Optimization",
+        "Automation"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Developer / Engineer",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, AI Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM202",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Aamir Shaiq, Senior Data Engineer, PropertyFinder"
+        },
+        {
+          "name": "Vadim Selyutin, Senior Data Scientist, AWS"
+        }
+      ],
+      "title": "How Property Finder mastered model choice on Bedrock",
+      "topics": [
+        "Artificial Intelligence",
+        "Architecture"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM203",
+      "abstract": "Most AI agent projects stall moving from prototype to production. This session tackles the key challenge: build custom agents or leverage pre-built ones? Hear how Getir's platform team deployed AWS DevOps Agent to unify fragmented signals across NewRelic, EKS, and GitHub into a single AI teammate. Learn how Getir used a custom context layer and internal documentation via MCP to turn generic responses into architecture-aware analysis, cutting mean time to resolution.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "DevOps",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Retail & Consumer Goods"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "DevOps Engineer",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, AI Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "AWS DevOps Agent"
+      ],
+      "sessionId": "AIM203",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ahmet Altun, Senior Platform & Infrastructure Engineer, Getir"
+        },
+        {
+          "name": "Ahmet \u00d6zer, Software Engineer | Platform & Infra Team, Getir"
+        },
+        {
+          "name": "Burak Alakus, Principal Technical Account Manager, AWS"
+        }
+      ],
+      "title": "From demo to deployment: solving agentic AI's toughest challenges",
+      "topics": [
+        "Artificial Intelligence",
+        "Developer Tools",
+        "Security & Identity"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM204",
+      "abstract": "The Mohammed Bin Rashid Space Centre (MBRSC), operator of KhalifaSat, captures terabytes of Earth-observation imagery \u2014 but turning data into insights has required weeks of specialist effort. In this session, see how AWS and MBRSC built a geospatial AI agent on Amazon Bedrock and Bedrock AgentCore. Users draw a polygon, ask a question in plain language, and the agent writes and executes Python code \u2014 fetching satellite imagery, running vegetation, thermal, and burn-severity analyses, and returning map overlays in under a minute. We cover the coding-agent architecture, open-vocabulary object detection on Amazon SageMaker, and decisions behind production-ready agentic AI.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Aerospace & Satellite",
+        "Government",
+        "Energy & Utilities"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Academic / Researcher",
+        "Developer / Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, AI Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "Amazon SageMaker"
+      ],
+      "sessionId": "AIM204",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Omran Ahmed Al Hammadi, Senior Manager, Mohammed Bin Rashid Space Centre"
+        },
+        {
+          "name": "Mohamed Abdelaziz, Senior Solution Architect, AWS"
+        }
+      ],
+      "title": "Ask the Earth: A Geospatial AI Agent on Amazon Bedrock AgentCore",
+      "topics": [
+        "Artificial Intelligence",
+        "Architecture"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM205",
+      "abstract": "An agent is a model plus a harness: the foundation that runs tools, manages memory, enforces guardrails, and provides observability. Most agentic AI stalls between proof-of-concept and production because teams build the model and improvise the rest. This session shows how to build that foundation on AWS for scaling agentic apps. Foodics, the restaurant platform behind 50,000+ F&B businesses across MENA, worked with the AWS GenAI Innovation Center to rebuild merchant onboarding as an agent, cutting menu digitization from 14 days to minutes. You'll leave with the reference architecture, the things that broke, and what we'd do differently.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Automation",
+        "Well-Architected Framework"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect",
+        "Developer / Engineer",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, AI Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM205",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Amine Ait Elharraj, Director of Engineering - Data & AI, Foodics"
+        },
+        {
+          "name": "Ahmed Azzam, Sr. Startup SA, AWS"
+        }
+      ],
+      "title": "Build a well-architected AI harness at scale: The Foodics story",
+      "topics": [
+        "Artificial Intelligence",
+        "Architecture"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM206",
+      "abstract": "The AI-Driven Development Life Cycle (AI-DLC) represents a transformative approach to software engineering that positions AI as a central collaborator throughout the development process. Unlike traditional AI-assisted development methods, AI-DLC reimagines the entire software lifecycle through two key dimensions: AI-powered execution with human oversight and dynamic team collaboration. The methodology operates in three phases - Inception, Construction, and Operations - where AI initiates workflows while maintaining persistent context across all stages. This innovative approach delivers significant benefits including increased velocity, enhanced quality, improved market responsiveness, and better developer experience, all while ensuring critical human oversight and collaboration.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "DevOps"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Developer / Engineer",
+        "DevOps Engineer"
+      ],
+      "room": "Floor 0, Developer Theatre",
+      "services": [
+        "Kiro"
+      ],
+      "sessionId": "AIM206",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Anver Vanker, SA Prototyping Leader, AWS"
+        },
+        {
+          "name": "Georges Hamieh, Sr. Technical Account Manager, AWS"
+        }
+      ],
+      "title": "Introducing AI driven development lifecycle (AI-DLC)",
+      "topics": [
+        "Artificial Intelligence",
+        "Developer Tools"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM207",
+      "abstract": "Dubizzle Group, MENA's largest marketplace, processes 3 petabytes of data across Amazon Redshift and OpenSearch Service, powering 121 production AI models serving millions of predictions monthly to 20 million users. In this session, learn how the team runs inference on AWS Lambda, AWS Batch, and Amazon EKS for flexible, low-latency serving, leverages Amazon Bedrock for foundation model access, and optimizes real-time applications at scale. We'll share practical architectures, engineering decisions, and strategies for selecting the right compute infrastructure \u2014 from training to serving \u2014 while managing costs effectively across one of the region's most data-intensive technology organizations.",
+      "areasOfInterest": [
+        "Machine Learning",
+        "Generative AI",
+        "Kubernetes"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Retail & Consumer Goods"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect",
+        "Data Scientist",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, AI Theatre",
+      "services": [
+        "Amazon Redshift"
+      ],
+      "sessionId": "AIM207",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Antonello Supino, Director of Data, Dubizzle Group"
+        },
+        {
+          "name": "Sajith Pushpangadhan, Senior Solutions Architect, AWS"
+        }
+      ],
+      "title": "How Dubizzle Group builds & serves AI at scale with AWS infrastructure",
+      "topics": [
+        "Artificial Intelligence",
+        "Architecture",
+        "Compute"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM208",
+      "abstract": "Unlock AI agent potential with this advanced session on scaling tools using Amazon Bedrock AgentCore. Learn how to build and manage secure, production-ready agent tool environments. We'll cover how Emirates uses multi-tenant architecture with focus on LLM Flexibility, deployment strategies, and integration patterns for agentic tools. We will also Explore zero-code MCP tool creation with intelligent tool discovery. With this session you will gain insights on security controls, monitoring, and performance optimization for enterprise-scale agent tool ecosystems.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI",
+        "Identity & Access Management"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Travel & Hospitality"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Developer / Engineer",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, AI Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "Amazon OpenSearch Serverless",
+        "Kiro"
+      ],
+      "sessionId": "AIM208",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mahmoud Abid, Head of GenAI and iXR platforms, Emirates, Emirates"
+        },
+        {
+          "name": "rishi singla, Sr Solutions Architect, AWS"
+        }
+      ],
+      "title": "Scale agent tools with Amazon Bedrock AgentCore Gateway",
+      "topics": [
+        "Artificial Intelligence",
+        "Architecture",
+        "Security & Identity"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM209",
+      "abstract": "Amazon Quick is an agentic teammate for business users that quickly answers their questions at work and turns those insights into actions. Join this session to discover you can transform your workplace productivity with AI agents for automation, research, and business intelligence in a unified experience. Learn more about how Quick Suite eliminates application and context switching, breaks down data silos, delivers comprehensive insights, and accelerates decision making and taking action - all the while maintaining enterprise-grade security.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI",
+        "Innovation & Transformation"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive",
+        "Entrepreneur (Founder/Co-Founder)",
+        "IT Executive"
+      ],
+      "room": "Floor 0, Women of the Cloud Theatre",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "AIM209",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Lakshmi Anoop, Solutions Architect, AWS"
+        },
+        {
+          "name": "Kathrin Monika Buhmann, Principal PDM, AWS"
+        }
+      ],
+      "title": "Reimagine work with Amazon Quick\u200b",
+      "topics": [
+        "Artificial Intelligence",
+        "Business Applications"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM210",
+      "abstract": "Finlex, a German insurtech and wholesale broker, partnered with DoiT through the AWS RAPID GenAI Program to transform GenAI experiments into a production-grade, multi-agent AI platform on AWS Bedrock Agent Core \u2014 while meeting strict European regulations (GDPR, BaFin, EU AI Act). This session covers the journey from use-case discovery and model evaluation to deploying a multi-tenant agentic AI solution, including migrating from LangGraph to serverless orchestration and implementing custom OIDC identity integration. Learn how Finlex launched 3\u20134 live AI agents serving brokers and internal users, with practical insights on scaling agentic AI in highly regulated environments.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Financial Services"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Women of the Cloud Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM210",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Dimitri Partenza, Sales Manager Italy & MENAT, DoIt"
+        },
+        {
+          "name": "Leen AlAttas, Technical Account Manager, AWS"
+        }
+      ],
+      "title": "Finlex & DoiT: Bringing Agentic AI to Production on Bedrock AgentCore",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM211",
+      "abstract": "AWS Agentic AI Hackathon shifts into action with intensive hands-on challenges, where you will apply your knowledge to build real-world AI solutions using AWS tools.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Hands-on"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager",
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, AWS Hackathon",
+      "services": [
+        "Amazon Q"
+      ],
+      "sessionId": "AIM211",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "270",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ahmed Elsherbeeny, Sr. Specialist Solutions Architect, AI/ML - MENAT, AWS"
+        },
+        {
+          "name": "Ellie Dugdale, MENAT Field Enablement Lead, AWS"
+        }
+      ],
+      "title": "AWS Agentic AI Hackathon",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Gamified learning"
+    },
+    {
+      "abbreviation": "AIM302",
+      "abstract": "Watch us live-code an intelligent agent factory that creates specialized business agents on-demand through natural language. Using Amazon Bedrock, and open source frameworks like MCP and Strands, we'll build a system where users describe their needs ('I need an HR onboarding agent and a Business Analyst Agent') and get working agents deployed securely through AgentCore in minutes. You'll see real-time debugging, architecture decisions, and integration challenges as we demonstrate agent orchestration, tool binding, and multi-modal capabilities. Leave with production-ready patterns for building scalable agentic AI platforms.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Code Talks",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM302",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "40",
+        "time": "13:40",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Iadh Allani, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Build an Agent Factory: An Agent that can Create any Agent On-Demand",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "AIM303",
+      "abstract": "Manufacturing and industrial operations demand real-time, intelligent decision-making in low-connectivity environments. This code talk demonstrates how to deploy SmolVLMs (small vision language models) and AI agents to automate site operations using AWS Outposts and Strands Agents. The solution enables on-premises, multilingual interaction with safety protocols, documentation, and equipment data to enhance the productivity and safety of frontline workers. You\u2019ll learn how to combine edge infrastructure, publicly available models, and agent frameworks to deliver context-aware, resilient AI for industrial automation.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Code Talks",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM303",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "40",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mohamed Farag, Solution Architect, AWS"
+        }
+      ],
+      "title": "Implement Agentic AI at the edge for industrial automation",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "AIM304",
+      "abstract": "As generative AI adoption accelerates, architects face a critical question: should they rely on Retrieval-Augmented Generation (RAG) to ground LLM responses or embrace the Model Context Protocol (MCP) for richer tool integration and orchestration? This session provides a practical decision framework for selecting the right approach, or combining both for your enterprise workloads. We will dive deep into RAG architectures on AWS, and explore MCP concepts for enabling secure, structured interactions between models and external tools. Through real-world patterns and live demos, you\u2019ll learn when RAG alone is sufficient, when MCP offers a better fit, and how to design hybrid.",
+      "areasOfInterest": [
+        "Generative AI",
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "DevOps Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Developer Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM304",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Yanis Lagsir, Solutions Architect, AWS"
+        },
+        {
+          "name": "Ahmed Elsherbeeny, Sr. Specialist Solutions Architect, AI/ML - MENAT, AWS"
+        }
+      ],
+      "title": "RAG vs MCP: Making the right choice for enterprises",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM305",
+      "abstract": "Many organizations rely on expensive third-party platforms to understand customer behavior \u2014 often sacrificing data ownership and query flexibility. Mumzworld, the Middle East's largest mother-and-child e-commerce platform, decided to take a different path. In this session, hear how they built Wadi \u2014 a fully serverless analytics platform using Amazon S3, AWS Glue, and Amazon Athena \u2014 achieving over 99% cost reduction while gaining complete control of their data. Learn the cost-engineering patterns (columnar storage, partition pruning, pre-aggregated rollups) and discover how Amazon Bedrock adds AI-powered insights. Walk away with a repeatable blueprint for building your own serverless analytics stack.",
+      "areasOfInterest": [
+        "Serverless"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Data Engineer",
+        "IT Executive",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Data Theatre",
+      "services": [
+        "Amazon Athena",
+        "AWS Glue"
+      ],
+      "sessionId": "AIM305",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Sabeur Thabti, Director of Engineering, mumzworld"
+        },
+        {
+          "name": "Almas Shaikh, Solution Architect, AWS"
+        }
+      ],
+      "title": "Serverless e-commerce product analytics at scale: Mumzworld's journey",
+      "topics": [
+        "Analytics",
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "AIM306",
+      "abstract": "Compliance risks rarely announce themselves! They hide at the intersections of procurement, contracts, regulations, and information governance. In this hands-on workshop, harness multi-agent AI on Amazon Quick to protect a fictional NHS Trust. Wire up knowledge Spaces, persona-driven agents with guardrails, and automated escalation flows that expose dangerous compound risks in minutes, risks that would take human teams days to uncover.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI",
+        "Innovation & Transformation"
+      ],
+      "features": [
+        "Hands-on"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Advisor / Consultant",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Workshops 1",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "AIM306",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "09:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Gabriel Accad, Sr Solution Architect , AWS"
+        },
+        {
+          "name": "Ahmed Sajwani, Assoc. Solutions Architect, AWS"
+        },
+        {
+          "name": "Esat Cakmak, Solutions architect, AWS"
+        }
+      ],
+      "title": "Build an AI Multi-Agent Compliance Solution on Amazon Quick",
+      "topics": [
+        "Analytics",
+        "Application Integration",
+        "Business Applications"
+      ],
+      "type": "Workshop"
+    },
+    {
+      "abbreviation": "AIM308",
+      "abstract": "Learn proven patterns for moving AI applications from POC to production using Amazon Bedrock. We'll dive into architecting secure, scalable AI solutions that meet enterprise requirements \u2014 optimizing performance, managing costs, and implementing robust security controls against AI-specific threats like prompt injection. This interactive session equips partners building AI consulting practices or software products with practical strategies for deploying production-grade AI applications. Bring your challenges and learn from real-world enterprise AI implementations using AWS security services.",
+      "areasOfInterest": [
+        "Generative AI",
+        "Cost Optimization",
+        "DevSecOps"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Data Engineer",
+        "Developer / Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Chalk Talks",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM308",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Paul TRAN, Sr. AI/ML Specialist SA, AWS"
+        },
+        {
+          "name": "Rafik Soliman, AI/ML specialist, AWS"
+        }
+      ],
+      "title": "Building Production-Ready AI Applications with Amazon Bedrock",
+      "topics": [
+        "Artificial Intelligence",
+        "Application Integration"
+      ],
+      "type": "Chalk talk"
+    },
+    {
+      "abbreviation": "AIM402",
+      "abstract": "Multi-agent collaboration unlocks new levels of reasoning, specialization, and task orchestration in generative AI systems. In this hands-on workshop, learn how to harness Model Context Protocol (MCP) with AWS agentic AI services and Amazon Aurora PostgreSQL-Compatible Edition to build a collaborative AI system. You\u2019ll create specialized agents focused on data interaction use cases that demonstrate a variety of data retrieval, analysis, or decision-making tasks grounded in real-time data and context from Aurora. Build a working prototype that showcases how intelligent agents can collaborate to solve complex problems with grounded enterprise data. You must bring your laptop to participate.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Hands-on"
+      ],
+      "level": "400 \u2013 Expert",
+      "roles": [
+        "Developer / Engineer",
+        "Data Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Workshops 2",
+      "services": [
+        "Amazon Aurora",
+        "Amazon Bedrock"
+      ],
+      "sessionId": "AIM402",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "150",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Cheikh Mahaman, Senior Solutions Architect, AWS"
+        },
+        {
+          "name": "Maureen Kathure, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Build a multi-agent AI solution with Amazon Aurora & Bedrock AgentCore",
+      "topics": [
+        "Artificial Intelligence",
+        "Databases"
+      ],
+      "type": "Workshop"
+    },
+    {
+      "abbreviation": "ANT301",
+      "abstract": "As generative AI strategies mature, organizations need both structured and unstructured data as knowledge sources. This session demonstrates a method for accessing both data types through an AI agent\u2014combining a vector store for text data with a text-to-SQL system using advanced knowledge bases. An AI agent efficiently routes user questions to the appropriate source, delivering a seamless experience. This approach shows how enterprises can leverage structured and unstructured data together to enhance generative AI capabilities.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Data Engineer",
+        "Data Scientist",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Code Talks",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "ANT301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "40",
+        "time": "14:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Tasneem Fathima, Senior Solutions Architect, AWS"
+        }
+      ],
+      "title": "Unified knowledge access: Bridging data with generative AI agents",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "ANT302",
+      "abstract": "Join this interactive session to explore how to unify your data warehouse analytics with modern lakehouse capabilities, to accelerate your analytics and AI initiatives. We'll navigate through the complete architectural journey, from namespace hierarchy to zero-ETL integration patterns, demonstrating how to transform your data infrastructure through Redshift integration patterns, interoperability with the ability to read and write to RMS, simplified data sharing mechanisms, and real-world architectural patterns.",
+      "areasOfInterest": [
+        "Innovation & Transformation",
+        "Open Data"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Data Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Chalk Talks",
+      "services": [
+        "Amazon SageMaker",
+        "Amazon Redshift"
+      ],
+      "sessionId": "ANT302",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Asif Abbasi, Principal Solutions Architect , AWS"
+        }
+      ],
+      "title": "Bring unified analytics to your data warehouse with the Lakehouse arch",
+      "topics": [
+        "Analytics",
+        "Migration & Modernization"
+      ],
+      "type": "Chalk talk"
+    },
+    {
+      "abbreviation": "ANT304",
+      "abstract": "In this session, gain the skills needed to deploy end-to-end agentic AI applications using your most valuable data. This session focuses on data management using processes like Model Context Protocol (MCP) and Retrieval Augmented Generation (RAG), and provides concepts that apply to other methods of customizing agentic AI applications. Discover best practice architectures using AWS database services like Amazon Aurora and OpenSearch Service, along with analytical, data processing and streaming experiences found in SageMaker Unified Studio. Learn data lake, governance, and data quality concepts and how Amazon Bedrock AgentCore and Bedrock Knowledge Bases, and other features tie solution components together.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "Data Scientist",
+        "Data Engineer"
+      ],
+      "room": "Floor 0, Data Theatre",
+      "services": [
+        "Amazon OpenSearch Service"
+      ],
+      "sessionId": "ANT304",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Syed Humair, Sr. Analytics Specialist Solutions Architect, AWS"
+        },
+        {
+          "name": "Mehmet Cavus, MENAT PSA, AWS"
+        }
+      ],
+      "title": "A practitioner\u2019s guide to data for agentic AI",
+      "topics": [
+        "Analytics"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "ANT305",
+      "abstract": "Prepare to revolutionize your data infrastructure for the AI era with Amazon EMR, AWS Glue, and Amazon Athena. This session guides you through building robust, scalable data architectures that empower AI solutions at scale. Gain insights into effective strategies for data processing, optimizing for cost-efficiency and security. Explore architectural frameworks underpinning successful AI-driven data initiatives, and learn field lessons on navigating modernization projects. Whether you're starting your modernization journey or refining current setups, this session offers practical strategies to fast-track your organization towards excellence in AI-powered data management.",
+      "areasOfInterest": [
+        "Innovation & Transformation",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Data Engineer",
+        "Data Scientist",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Data Theatre",
+      "services": [
+        "Amazon EMR",
+        "AWS Glue"
+      ],
+      "sessionId": "ANT305",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Sudipta Bagchi, Sr. Specialist Solutions Architect, AWS"
+        }
+      ],
+      "title": "Data Processing architectures for building AI solutions",
+      "topics": [
+        "Analytics",
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "ARC201",
+      "abstract": "Your application is only as resilient as the network that routes traffic to it. This session covers advanced techniques for building globally distributed, highly available applications using Elastic Load Balancing. Learn essential patterns for multi-Availability Zone configurations, multi-Region deployments, and comprehensive disaster recovery solutions. Through demonstrations and real-world use cases, discover how to optimize global application performance, implement seamless failover routing during disruptions, and design network architectures that keep your users connected \u2014 even when entire regions go down.",
+      "areasOfInterest": [
+        "Resilience",
+        "Disaster Response & Recovery"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "IT Executive",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Resilience Theatre",
+      "services": [
+        "Elastic Load Balancing (ELB)"
+      ],
+      "sessionId": "ARC201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Abdellatef Al-Kayyali, Senior Technical Account Manager, AWS"
+        },
+        {
+          "name": "Fatiha Bouabache, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Global Resilient Apps: Multi-AZ/Region Architecture with ELB",
+      "topics": [
+        "Architecture",
+        "Networking & Content Delivery",
+        "Cloud Operations"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "ARC202",
+      "abstract": "Media teams generate more video than anyone can watch, yet most of it stays locked away: unsearchable, inconsistently tagged, and disconnected. The challenge isn't storage, it's understanding. Discover how AI turns raw pixels into rich, structured metadata that makes every moment findable and reusable. Learn how to extract meaning from video at scale using task-specific models, vision-language models, and embeddings that feed a single unified schema. This session explores how that metadata powers hybrid search, combining keyword precision with semantic understanding, plus knowledge graphs that surface hidden context. See how it comes together into a video understanding platform on AWS.",
+      "areasOfInterest": [
+        "Automation",
+        "Event-Driven Architecture"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Media & Entertainment"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect",
+        "IT Executive"
+      ],
+      "room": "Floor 0, Migration & Modernisation Theatre",
+      "services": [
+        "AWS Elemental MediaLive",
+        "Amazon Bedrock",
+        "Amazon Elastic Compute Cloud (Amazon EC2)"
+      ],
+      "sessionId": "ARC202",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Iyad Shawy, Media Specialist SA, AWS"
+        },
+        {
+          "name": "Hossam Basudan, Sr. GTM SSA AI/ML, AWS"
+        }
+      ],
+      "title": "From Pixels to Intelligence: The Rise of Video Understanding",
+      "topics": [
+        "Artificial Intelligence",
+        "Migration & Modernization"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "ARC203",
+      "abstract": "Organisations across the Middle East face a dual challenge: meeting regulatory resilience mandates while running critical workloads with DR requirements. This session bridges both sides. Learn how to architect resilient hybrid deployments using AWS Outposts with robust HA/DR strategies covering networking, compute, and storage redundancy. Walk away with a unified approach that satisfies both your technical resilience goals and your regulator's expectations.",
+      "areasOfInterest": [
+        "Resilience",
+        "Disaster Response & Recovery"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive",
+        "IT Executive",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Resilience Theatre",
+      "services": [
+        "AWS Resilience Hub",
+        "AWS Backup"
+      ],
+      "sessionId": "ARC203",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Andrew Cochrane, Enterprise Solutions Architect, AWS"
+        },
+        {
+          "name": "Mahmoud Alsafi, Sr. SA, AWS"
+        }
+      ],
+      "title": "Bridging Regulatory Requirements with Hybrid Cloud",
+      "topics": [
+        "Architecture",
+        "Cloud Operations"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "ARC205",
+      "abstract": "Explore how AWS Regions are designed and operated to achieve resilience far beyond traditional data centers. In this session, learn the key architectural patterns \u2014 from fault isolation and cell-based architectures to multi-AZ deployment strategies and multi-region setup. See how these patterns are applied to architect mission-critical systems for continuous availability, even during regional incidents. Walk away with actionable design principles you can implement immediately to strengthen the resilience of your own workloads.",
+      "areasOfInterest": [
+        "Resilience",
+        "Disaster Response & Recovery"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Resilience Theatre",
+      "services": [
+        "AWS Resilience Hub"
+      ],
+      "sessionId": "ARC205",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Bilal Dayeh, Senior TAM, AWS"
+        },
+        {
+          "name": "Khalid Alfoaim, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Design for Resilience:Architecting Mission-Critical Workloads on AWS",
+      "topics": [
+        "Architecture"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "ARC401",
+      "abstract": "Imagine an application that changes its deployment form while maintaining its essential nature\u2014a digital shapeshifter adapting to any AWS compute environment. This session unveils the architectural patterns enabling true deployment flexibility, transforming applications to flow seamlessly between Lambda functions, ECS containers, and EKS pods. Through practical demonstrations, discover design principles that separate business logic from infrastructure concerns, creating applications that leverage AWS's specialized services without becoming tightly coupled. Learn to craft adaptable applications that maintain their core functionality while thriving in any AWS compute environment.",
+      "areasOfInterest": [
+        "Serverless"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "400 \u2013 Expert",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Code Talks",
+      "services": [
+        "Amazon Elastic Compute Cloud (Amazon EC2)",
+        "AWS Lambda"
+      ],
+      "sessionId": "ARC401",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "40",
+        "time": "15:15",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Walid Shaari, Sr. Solutions Architect, AWS"
+        }
+      ],
+      "title": "The Shapeshifting Application: Architecture That Transforms Across AWS",
+      "topics": [
+        "Architecture"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "CDN301",
+      "abstract": "Deep dive into ELB best practices for optimizing application performance. Explore when to choose ALB vs NLB, cost optimization, and performance-tuning techniques. Architect resilient load balancing that scales effortlessly, optimizes cross-AZ traffic distribution, and leverages advanced routing. Real-world case studies and emerging patterns show how ELB innovations are transforming cloud architectures. Bring your challenges \u2013 let's solve them together.",
+      "areasOfInterest": [
+        "Network & Infrastructure Security"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "IT Administrator",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Chalk Talks",
+      "services": [
+        "Elastic Load Balancing (ELB)"
+      ],
+      "sessionId": "CDN301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ashraf Altalleh, Sr. Solutions Architect, AWS"
+        }
+      ],
+      "title": "Elastic Load Balancing cookbook: Advanced recipes for ALB and  NLB",
+      "topics": [
+        "Networking & Content Delivery"
+      ],
+      "type": "Chalk talk"
+    },
+    {
+      "abbreviation": "CMP301",
+      "abstract": "AWS Lambda durable functions enhances Lambda's programming model to simplify building fault-tolerant applications using familiar programming language patterns in JavaScript, TypeScript, or Python. We'll explore new capabilities that simplify failure handling through built-in retry mechanisms, efficient handling of human-in-the-loop interactions, and state management to track progress. Through an interactive demo, you'll see how to get started with Lambda durable functions in your IDE, and use primitives like \u201csteps\u201d and \u201cwaits\u201d for state management, failure handling, and seamless execution of long-running business logic. Leave equipped to leverage durable functions for your next project, simplifying architectures and deliver fault-tolerant applications faster.",
+      "areasOfInterest": [
+        "Lambda-Based Applications",
+        "Serverless",
+        "Event-Driven Architecture"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "DevOps Engineer",
+        "Solution / Systems Architect",
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Developer Theatre",
+      "services": [
+        "AWS Lambda"
+      ],
+      "sessionId": "CMP301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Amir Tarek, Senior Technical Account Manager, AWS"
+        },
+        {
+          "name": "Talal Shobaita, Sr TAM, AWS"
+        }
+      ],
+      "title": "Deep Dive on AWS Lambda durable functions",
+      "topics": [
+        "Serverless & Containers"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "COP301",
+      "abstract": "Learn how to build a proactive incident investigation pipeline that detects anomalies and identifies root causes automatically. We demonstrate an end-to-end architecture using Amazon Managed Service for Prometheus native anomaly detection with Random Cut Forest, Amazon EKS, Amazon SNS, and AWS Lambda. When anomalies are detected, alerts trigger an AWS DevOps agent that autonomously queries metrics through a Prometheus MCP server and follows structured runbooks to investigate. Using a 5G network monitoring scenario, we show how this pattern reduces mean time to resolution. Attendees leave with a deployable open-source reference architecture from AWS Samples.",
+      "areasOfInterest": [
+        "DevOps"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "DevOps Engineer",
+        "System Administrator",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Code Talks",
+      "services": [
+        "Amazon Managed Service for Prometheus",
+        "Amazon Elastic Kubernetes Service (Amazon EKS)",
+        "AWS DevOps Agent"
+      ],
+      "sessionId": "COP301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "40",
+        "time": "12:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mohamed Sherif, Senior Technical Account Manager, AWS"
+        }
+      ],
+      "title": "Proactive root cause analysis with Prometheus and DevOps agent",
+      "topics": [
+        "Cloud Operations"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "COP302",
+      "abstract": "As RAKBANK migrated its Retail Digital Banking platform to AWS microservices, the team needed a production-grade observability stack handling 200 GB of logs daily while controlling costs. Learn how RAKBANK designed a multi-tier logging architecture using Amazon OpenSearch with hot and ultrawarm storage tiers, FluentBit for log routing, and S3 for long-term archival. We cover architecture decisions from OpenTelemetry collection, Grafana integration, OpenSearch Anomaly Detection and AI-powered PPL queries for proactive incident response. This approach cut observability costs by over 50% compared to a single-tier alternative, while maintaining 60-day queryable retention and 7-year compliance archival\u2014all production-ready in under 4 weeks.",
+      "areasOfInterest": [
+        "Monitoring & Observability"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Migration & Modernisation Theatre",
+      "services": [
+        "OpenSearch"
+      ],
+      "sessionId": "COP302",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Chandra Pitchaiyappen, Cloud Solution Architect, RAKBANK"
+        },
+        {
+          "name": "Amit Pareek, Senior Vice President and Principal Architect, RAKBANK"
+        },
+        {
+          "name": "John Chebib, Sr Technical Account Manager, AWS"
+        },
+        {
+          "name": "John Chebib, Sr Technical Account Manager, AWS"
+        }
+      ],
+      "title": "Implementing observability at scale: A blueprint for success: RAKBANK",
+      "topics": [
+        "Cloud Operations",
+        "Migration & Modernization"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "COP304",
+      "abstract": "Is your operations team consumed by daily firefighting? Do you lack the time to evaluate and improve your operational posture? Move from reactive firefighting to proactive operational improvement with AWS DevOps Agent, a frontier agent that resolves and proactively prevents incidents, continuously improving reliability and performance of applications in AWS, multicloud, and hybrid environments. We\u2019ll show you how you can leverage AWS DevOps Agent to integrate with your DevOps toolset including AWS and non-AWS observability tools, code repositories, and pipelines to correlate and connect the dots across signals to surface concerning trends and provide prioritized improvements to drive operational excellence.",
+      "areasOfInterest": [
+        "DevOps"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "DevOps Engineer",
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Women of the Cloud Theatre",
+      "services": [
+        "AWS DevOps Agent"
+      ],
+      "sessionId": "COP304",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Jaydeep Singh, Senior DevOps Engineer, Property Finder, Property Finder"
+        },
+        {
+          "name": "Nada Tlohi, TAM, AWS"
+        }
+      ],
+      "title": "Move Beyond Reactive: Transform Cloud Ops with AWS DevOps",
+      "topics": [
+        "Artificial Intelligence",
+        "Cloud Operations",
+        "Developer Tools"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "COP305",
+      "abstract": "Application downtime impacts revenue and customer trust. This hands-on workshop demonstrates how to leverage the new frontier agent for operational excellence to accelerate incident response and prevent future incidents. Learn how to integrate AWS DevOps Agent with your existing observability tools, code repository, and CI/CD pipelines to map your applications and connect the dots for faster issue resolution. Through practical exercises, you'll leverage DevOps Agent to investigate operational issues, identify concerning trends, and obtain prioritized preventative measures. Learn best practices to reduce mean time to resolution, improve operational posture, and empower your teams to innovate, not firefight.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI"
+      ],
+      "features": [
+        "Hands-on"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Workshops 2",
+      "services": [
+        "AWS DevOps Agent"
+      ],
+      "sessionId": "COP305",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "110",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Gorkem Tontem, Solutions Architect, AWS"
+        },
+        {
+          "name": "Yaser Khan, Sr. TAM, AWS"
+        },
+        {
+          "name": "Walid Shaari, Sr. Solutions Architect, AWS"
+        }
+      ],
+      "title": "Resolve and prevent future operational issues with AWS DevOps Agent",
+      "topics": [
+        "Developer Tools",
+        "Artificial Intelligence"
+      ],
+      "type": "Workshop"
+    },
+    {
+      "abbreviation": "COP401",
+      "abstract": "Reliable agentic AI requires robust observability. In this hands-on session, learn how to instrument and monitor AI systems using OpenTelemetry with AWS native tools and open-source solutions. Explore real-world implementations using Strands SDK, diagnostic methodologies for typical use cases, and strategies for continuous improvement. Join us for a gamified experience troubleshooting an agentic application, and leave with practical skills to implement observability at scale.",
+      "areasOfInterest": [
+        "DevOps",
+        "Agentic AI",
+        "Generative AI"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "400 \u2013 Expert",
+      "roles": [
+        "DevOps Engineer",
+        "Solution / Systems Architect",
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Code Talks",
+      "services": [
+        "Amazon Bedrock",
+        "AWS Distro for OpenTelemetry"
+      ],
+      "sessionId": "COP401",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "35",
+        "time": "09:40",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Alice Wanjohi, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Observability for Reliable Agentic AI with Strands SDK & OpenTelemetry",
+      "topics": [
+        "Artificial Intelligence",
+        "Cloud Operations"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "COP402",
+      "abstract": "Not all disaster recovery strategies can address the complex, dynamic nature of modern cloud infrastructures, leading to gaps in system resilience and compliance adherence. Discover how to enhance resilience and disaster recovery on AWS empowered by AI. This approach bridges infrastructure insights and application-level testing, enabling more effective disaster recovery preparation. You'll learn how to leverage Large Language Models (LLMs) with AWS Resilience Hub and AWS Systems Manager to modernize testing, analyze infrastructure, and generate targeted AWS Fault Injection Service experiments and recovery runbooks. Walk away with practical examples of automated test generation with templates and learn to design prompts.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Automation",
+        "Disaster Response & Recovery"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "400 \u2013 Expert",
+      "roles": [
+        "Developer / Engineer",
+        "Solution / Systems Architect",
+        "System Administrator"
+      ],
+      "room": "Floor 0, Women of the Cloud Theatre",
+      "services": [
+        "AWS Fault Injection Service",
+        "AWS Resilience Hub",
+        "AWS Systems Manager"
+      ],
+      "sessionId": "COP402",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Sereen Abou Khreibe, MENAT Partner Solutions Architect, AWS"
+        },
+        {
+          "name": "Hajer Mkacher, Solutions Architect, AWS"
+        }
+      ],
+      "title": "AI-Powered Resilience Testing and Disaster Recovery",
+      "topics": [
+        "Architecture",
+        "Cloud Operations"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DAT201",
+      "abstract": "When business continuity depends on the database layer, architecture choices matter. This session explores practical global resilience patterns for Amazon Aurora Global Database and Amazon DynamoDB Global Tables \u2014 covering cross-Region replication, failover strategies, consistency models, and operational readiness. RAKBANK shares real-world lessons from their journey to multi-Region database resilience \u2014 what worked, what proved challenging, and how they evolved their approach through workload tiering, RPO/RTO mapping, automation, and observability.",
+      "areasOfInterest": [
+        "Resilience"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Data Theatre",
+      "services": [
+        "Amazon Aurora",
+        "Amazon DynamoDB"
+      ],
+      "sessionId": "DAT201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Hazem Zanoun, VP, Head of Cloud and Automation, RAK Bank"
+        },
+        {
+          "name": "Maria Ehsan, Sr. Database Specialist SA, AWS"
+        }
+      ],
+      "title": "Global Resilience in Practice: Aurora, DynamoDB & RAKBANK Lessons",
+      "topics": [
+        "Databases"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DAT305",
+      "abstract": "Discover how leading enterprises are leveraging 15+ years of Amazon RDS operational excellence to power their SQL Server and Oracle databases in the cloud. In this session, explore features across Amazon RDS for SQL Server and Oracle that help you achieve substantial cost savings, enhanced scalability, and efficient operations. Through real-world cost optimization techniques and architectural best practices, learn how organizations are reducing operational overhead and costs while improving availability, scalability, and performance.",
+      "areasOfInterest": [
+        "Cost Optimization",
+        "Microsoft & .NET",
+        "Oracle"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Data Theatre",
+      "services": [
+        "Amazon Relational Database Service (Amazon RDS)"
+      ],
+      "sessionId": "DAT305",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Asif Mujawar, MENAT Specialist SA Leader, AWS"
+        },
+        {
+          "name": "Gorken Pamuk, MENAT Sr. Database Sales Spec, AWS"
+        }
+      ],
+      "title": "Cut costs & operate efficiently on Amazon RDS for SQL Server & Oracle",
+      "topics": [
+        "Databases",
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DAT309",
+      "abstract": "This session is about how AWS and Gulf Air joined forces to build a future proof data foundation with Iceberg and on Sagemaker to transform airline business in the company. In this session, discussion will be focused on the latest with Iceberg and how this builds the future for an industry like airline.",
+      "areasOfInterest": [
+        "Open Data"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Data Theatre",
+      "services": [
+        "Amazon Simple Storage Service (Amazon S3)"
+      ],
+      "sessionId": "DAT309",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Nishanth Kumar Pathi, Director - Cyber Security & Governance, Gulf Air"
+        },
+        {
+          "name": "Mahmoud Elserafi, Sr. Specialist SA - Data Analytics, AWS"
+        }
+      ],
+      "title": "Gulf Air Journey to an Open, Secure Lakehouse Architecture",
+      "topics": [
+        "Analytics",
+        "Storage"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DAT310",
+      "abstract": "In this hands-on workshop, you'll build a complete data lakehouse using Apache Iceberg on AWS through the story of Unicorn EVs \u2014 a fictional electric vehicle rental company. Over approximately 3 hours, you'll tackle real-world challenges including serverless streaming ingestion with Amazon Kinesis and Data Firehose, automated table compaction with Amazon S3 Tables, Hive-to-Iceberg migration, GDPR-compliant data deletion using row-level operations, building a Bronze-Silver-Gold medallion architecture with incremental propagation, time travel for reproducible analytics, and cross-platform interoperability via Apache Polaris catalog federation. Ideal for data engineers, architects, and ML engineers with basic familiarity in SQL, Python, and core AWS services.",
+      "areasOfInterest": [
+        "Innovation & Transformation"
+      ],
+      "features": [
+        "Hands-on"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Data Engineer",
+        "Solution / Systems Architect",
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Workshops 2",
+      "sessionId": "DAT310",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "09:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Salim Tutuncu, Specialist PSA - Data & AI, AWS"
+        },
+        {
+          "name": "Abdul Subhan Shoukat Ghouse, Sr Specialist Solutions Architect, AWS"
+        }
+      ],
+      "title": "Dive deep with Apache Iceberg on AWS",
+      "topics": [
+        "Analytics",
+        "Open Source"
+      ],
+      "type": "Workshop"
+    },
+    {
+      "abbreviation": "DVT201",
+      "abstract": "Discover the future of software development as we explore the transformative power of agents with Kiro\u2019s spec-driven development in modernizing your entire software development lifecycle (SDLC). Agentic AI is impacting software development by automating tasks, improving efficiency, and enabling more autonomous workflows throughout the development lifecycle. It allows teams to go beyond simple code generation to handle project planning, designing, testing, documentation, building agents into workflows, and retiring technical debt. Join us to explore how these powerful capabilities work together to help organizations accelerate from prototype to production ready applications.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "DevOps",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Developer / Engineer",
+        "DevOps Engineer"
+      ],
+      "room": "Floor 0, Developer Theatre",
+      "services": [
+        "Kiro"
+      ],
+      "sessionId": "DVT201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Zeid Madanat, Sr. Cloud Operations Architect, AWS"
+        },
+        {
+          "name": "Hossam Barakat, Senior Cloud Architect, AWS"
+        }
+      ],
+      "title": "Building software like never before with agentic AI",
+      "topics": [
+        "Developer Tools"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DVT202",
+      "abstract": "Emirates NBD, a leading MENAT banking group, set out to embed generative AI across its technology and business teams without compromising regulated-banking governance. In this session, learn how the bank adopted Amazon Bedrock as its AI foundation, rolling out Claude Code to accelerate engineering productivity and Co-work to bring AI assistance to business users beyond development. We share how Emirates NBD architected a secure, enterprise-wide deployment, the guardrails that made it production-ready, and the measurable impact on developer velocity, code quality, and time-to-delivery\u2014leaving you with a practical blueprint for scaling generative AI responsibly.",
+      "areasOfInterest": [
+        "DevOps",
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Financial Services"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect",
+        "Developer / Engineer",
+        "DevOps Engineer"
+      ],
+      "room": "Floor 0, Developer Theatre",
+      "sessionId": "DVT202",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Deepak Kumar Sharma, Head of Software Engineering, EmiratesNBD"
+        },
+        {
+          "name": "Harsh Daftary, Head of Cloud Security, EmiratesNBD"
+        },
+        {
+          "name": "Siva Pilli, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Banking on AI: Emirates NBD Scales Developer Productivity with Bedrock",
+      "topics": [
+        "Developer Tools",
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DVT301",
+      "abstract": "Model Context Protocol (MCP) provides the foundation for building AI agents and code assistants that connect to your data, infrastructure, and services. Whether developing enterprise customer service AI or code that runs on AWS, MCP brings together intelligence and integration. The session demonstrates how Kiro accelerates building AI agent development with MCP servers, while exploring Amazon Bedrock AgentCore for AWS deployment. Developers will learn a MCP implementation pattern and gain practical experience building and deploying production-ready AI Agents with Kiro.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI",
+        "Responsible AI"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Code Talks",
+      "sessionId": "DVT301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "35",
+        "time": "09:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ahmed Abdulaal, Senior solutions architect, AWS"
+        }
+      ],
+      "title": "Building AI Agents with Kiro, MCP, and Amazon Bedrock AgentCore",
+      "topics": [
+        "Artificial Intelligence",
+        "Developer Tools"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "DVT302",
+      "abstract": "Model Context Protocol (MCP) is the foundation for building AI Agents and Code Assistants connected to your data, infrastructure, and services. This session covers what MCP is and how to build MCP servers & clients with AWS. Learn to use AWS-related MCP servers in your code assistants and integrate MCP-powered AI Agents with your AWS data & services \u2014 whether building for enterprise use cases or writing code that runs on AWS.",
+      "areasOfInterest": [
+        "Generative AI",
+        "DevOps"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "Data Engineer",
+        "System Administrator"
+      ],
+      "room": "Floor 0, Chalk Talks",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "DVT302",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Sjors Robroek, Senior Solutions Architect, AWS"
+        }
+      ],
+      "title": "Integrated AI Agents & Code Assistants with MCP & AWS",
+      "topics": [
+        "Artificial Intelligence",
+        "Developer Tools",
+        "Open Source"
+      ],
+      "type": "Chalk talk"
+    },
+    {
+      "abbreviation": "DVT303",
+      "abstract": "Excited about the launch of Kiro powers? This Lightning Talk will present an overview of how the powers dynamically transform AI agents into experts.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "DevOps",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "DevOps Engineer"
+      ],
+      "room": "Floor 0, Developer Theatre",
+      "services": [
+        "Kiro"
+      ],
+      "sessionId": "DVT303",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Hassan Aljeshi, Senior Solutions Architect, AWS"
+        },
+        {
+          "name": "Omar Al Blooshi, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Kiro powers: Empower agents with specialized expertise",
+      "topics": [
+        "Artificial Intelligence",
+        "Developer Tools"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DVT304",
+      "abstract": "Deploying Coding Assistants at Enterprise Scale with Amazon Bedrock. Abstract : Enterprises need more than a great AI coding tool \u2014 they need security, compliance, and cost visibility before scaling to thousands of developers. This breakout session covers how agentic coding assistants can be deployed at enterprise scale leveraging Amazon Bedrock with monitoring, cost tracking and secure access. We then walk through a proven enterprise architecture patterns: SSO authentication, scoped IAM credentials, private networking, data residency controls, audit trails, quota management to prevent runaway costs, and per-user usage tracking.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Software & Internet"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "DevOps Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Women of the Cloud Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "DVT304",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Wafaa Sultan, Solutions  Architect, AWS"
+        },
+        {
+          "name": "Aamna Najmi, Senior WW Specialist SA, GenAI, AWS"
+        }
+      ],
+      "title": "Deploying Coding Assistants at Enterprise Scale with Amazon Bedrock",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "DVT305",
+      "abstract": "AI frontier models are uncovering software vulnerabilities at unprecedented scale, while threat actors\u2019 industrialized capabilities exploit them at unprecedented speed. In this reality, layered defense is the only viable approach to manage software vulnerability risks. In this workshop, you will wear the shoes of a DevSecOps engineer tasked with hardening a web app after a security audit. Gain hands-on experience responding to threat scenarios using AWS services: Use agentic capabilities to produce secure code before leaving your IDE, catch insecure commits, scan instances for newly disclosed CVEs, apply virtual then real patches and contain a detected incident.",
+      "areasOfInterest": [
+        "Application Security",
+        "DevSecOps"
+      ],
+      "features": [
+        "Hands-on"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Workshops 1",
+      "services": [
+        "Amazon Inspector",
+        "Kiro"
+      ],
+      "sessionId": "DVT305",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "150",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Achraf Souk, Principal Solutions Architect, AWS"
+        },
+        {
+          "name": "Derya Gulerarslan, Solutions Architect, AWS"
+        },
+        {
+          "name": "Mousa Nassar, Solutions architect , AWS"
+        },
+        {
+          "name": "Saju Sivaji, Technical Account Manager, EMEA Partners, AWS"
+        }
+      ],
+      "title": "Exploit a software vulnerability then stop it from code to containment",
+      "topics": [
+        "Security & Identity"
+      ],
+      "type": "Workshop"
+    },
+    {
+      "abbreviation": "IND001",
+      "abstract": "This panel brings together influential women executives from leading technology companies and AWS to share their transformative journeys in cloud and technology. These leaders demonstrate how diverse perspectives drive innovation and create pathways for the next generation of tech professionals. The discussion addresses challenges specific to women in tech leadership, exploring strategies for success and practical guidance for building careers in cloud computing. Panelists will share concrete approaches to navigating careers, leading technological initiatives, building inclusive high-performing teams, and championing operational resilience as a critical pillar of cloud strategy.",
+      "areasOfInterest": [
+        "Inclusion",
+        "Management & Governance"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "No Level",
+      "roles": [
+        "Business Executive",
+        "IT Executive",
+        "Entrepreneur (Founder/Co-Founder)"
+      ],
+      "room": "Floor 0, Women of the Cloud Theatre",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "IND001",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Dahlia Mihyar, VP, Global Head of Cybersecurity Transformation, SAP"
+        },
+        {
+          "name": "Francoise Russo, Chief Digital & Technology Officer, Aramex"
+        },
+        {
+          "name": "Melanie Nickson, VP IT Business Platforms, GenAI & iXR, Emirates"
+        },
+        {
+          "name": "Khulood Abdulrahman Alawadhi, Director Advanced Technology Services, Moro Hub"
+        },
+        {
+          "name": "Amine Chigani, WW Leader Enterprise Technologists, AWS"
+        },
+        {
+          "name": "Afaf Chekkar, Managing Director, MENAT Partner Business, AWS"
+        }
+      ],
+      "title": "Women in Tech Leadership: Driving Cloud Innovation and Transformation",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "IND201",
+      "abstract": "When millions of viewers tune in simultaneously, there's no room for error. This session explores how the AWS Unified Operation Media Support tier empowers media customers to deliver flawless large-scale streaming events through a rigorous, multi-week preparation process and dedicated live-event support. We'll walk through the operational playbook \u2014 from early-stage platform readiness assessments and stress testing to real-time monitoring and rapid incident response during broadcast. Discover how this white-glove support model turns high-stakes streaming events into consistently successful viewer experiences.",
+      "areasOfInterest": [
+        "Global Infrastructure"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "IT Executive",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "services": [
+        "AWS Support",
+        "AWS Elemental MediaLive",
+        "Amazon CloudFront"
+      ],
+      "sessionId": "IND201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "09:40",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Hassan Agouzoul, Media Director, Starzplay"
+        },
+        {
+          "name": "Amine Loughzali, Senior Technical account Manager, AWS"
+        }
+      ],
+      "title": "Delivering Live Streaming Success with Unified Operation Media Support",
+      "topics": [
+        "Industry Solutions",
+        "Cloud Operations"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "IND205",
+      "abstract": "As the company celebrates its 25th anniversary, the ENTERTAINER is upgrading its mobile platform through AWS cloud and generative AI (Gen AI) services, evolving from a traditional Buy One Get One Free savings app into an AI-driven lifestyle companion that personalises and enhances user experiences.\nThe revamped mobile app experience debuts H.A.P.I., a bilingual conversational Gen AI assistant powered by Amazon Bedrock. This hyper-personalised companion engages users in natural conversations in both English and Arabic, transforming how customers discover exclusive offers, plan activities, and receive real-time support.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Containers"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Retail & Consumer Goods"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive",
+        "Developer / Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "Amazon OpenSearch Service",
+        "Amazon Elastic Container Service (Amazon ECS)"
+      ],
+      "sessionId": "IND205",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Asif Joyia, Head of Technology, The ENTERTAINER"
+        },
+        {
+          "name": "Paul Melia, Senior Solutions Architect, AWS"
+        }
+      ],
+      "title": "The ENTERTAINER embraces AI future with AWS",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "IND207",
+      "abstract": "AI71 core product, Ask71, is an enterprise agentic AI platform with built-in safety guardrails and bilingual English-Arabic support. Guardrails are a core component of Ask71 and require ongoing improvements. Manual guardrail tuning took up to seven days per policy, wasn't reproducible, and caused a production safety regression. Partnering with AWS GenAIIC, AI71 deployed an automated prompt-optimization pipeline on Amazon Bedrock and Amazon SageMaker that improves guardrail accuracy by up to 16%, cuts tuning cycles from days to under an hour, and enforces a safety floor. AI71 now implements this reusable, model-agnostic capability independently for every new model and policy update.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "IND207",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Harash Kumar Chourasia, Senior ML Engineer, AI71"
+        },
+        {
+          "name": "Mina Metias, Practice Manager, MENAT, AWS"
+        }
+      ],
+      "title": "AI71 automates AI safety guardrail tuning on AWS",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "IND208",
+      "abstract": "Global Market Access Network (GTN) expanded their trading platform from a single region to 7+ AWS regions spanning the Middle East, Europe, Hong Kong, Asia, and the Americas. This session explores how GTN architected for sub-millisecond trade execution, multi-region disaster recovery, and regulatory data residency maintaining operational consistency.",
+      "areasOfInterest": [
+        "Disaster Response & Recovery"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Financial Services"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "sessionId": "IND208",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Thilina Uvindasiri, Head of Platform Engineering, GTN Technologies (Pvt) Limited"
+        },
+        {
+          "name": "Najath Hussain, Technical Account Manager, AWS"
+        }
+      ],
+      "title": "Building Resilient Trading Platform Across 5 Continents with AWS",
+      "topics": [
+        "Industry Solutions",
+        "Business Applications",
+        "Cloud Operations"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "IND209",
+      "abstract": "Building an AI agent takes weeks; running it reliably in production takes an entirely different approach. In this session, AWS introduces Amazon Bedrock AgentCore and its capabilities for deploying secure, scalable agents with any framework and model. Beko, a Fortune Global 500 appliances company, shares their journey from containerized agents on Amazon ECS with AWS Fargate to a purpose-built agent runtime on Amazon Bedrock AgentCore. Learn how their Production Planning Supplier Agent handles thousands of isolated sessions across six factories, processes 1000+ supplier, and enforces governance through Cedar policies, session isolation, and full observability, all without managing infrastructure.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "sessionId": "IND209",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Alper \u00d6ner, Head of Artificial Intelligence , Beko Corporate"
+        },
+        {
+          "name": "Zafer Sever, Senior Solutions Architect, AWS"
+        }
+      ],
+      "title": "How Beko runs production AI agents at scale with AgentCore",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "IND301",
+      "abstract": "Hear how customers are adopting AWS DevOps Agent to transform operations. Learn how it correlates telemetry, code, and deployment data to pinpoint root causes in minutes, integrates with OpenSearch and Grafana, and reduces mean-time-to-detect and recover. We share lessons on phasing adoption\u2014from a single workload proof of value to enterprise-wide AIOps\u2014and the credit model that made it cost-neutral under Enterprise Support.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "IT Executive"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "services": [
+        "AWS DevOps Agent",
+        "Amazon FSx"
+      ],
+      "sessionId": "IND301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "09:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ahmad Elayyan, Technical Account Manager , AWS"
+        }
+      ],
+      "title": "Accelerating Incident Resolution with AWS DevOps Agent",
+      "topics": [
+        "Artificial Intelligence",
+        "Cloud Operations"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "IND304",
+      "abstract": "Snoonu\u2014one of the Middle East's fastest-growing super apps\u2014is pushing the boundaries of AI assistants. Learn how Snoonu partnered with AWS Generative AI Innovation Center (GenAIIC) to transform GENIE AI from a text chatbot into a multimodal commerce companion that sees, hears, and understands users.\nDiscover how Snoonu leverages AWS generative AI for visual search, enabling customers to snap a photo to find and purchase products\u2014eliminating search friction. Learn how the team added voice interaction, making shopping natural and inclusive across diverse demographics and languages.\nWe cover challenges, architectural decisions, and lessons learned building multimodal AI at scale.",
+      "areasOfInterest": [
+        "Generative AI",
+        "Agentic AI",
+        "Responsible AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Retail & Consumer Goods",
+        "Software & Internet",
+        "Telecommunications"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Business Executive",
+        "Entrepreneur (Founder/Co-Founder)",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "IND304",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ana Jaime Rivera, Head of AI and Data Science, Snoonu"
+        },
+        {
+          "name": "Bassel Saleh, Senior Deep Learning Architect, AWS"
+        }
+      ],
+      "title": "How Snoonu built a Multimodal AI Shopping Assistant Powered by AWS",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "IND306",
+      "abstract": "Discover how NiceOne, a leading beauty e-commerce platform, built a bilingual AI-powered semantic search using Amazon Bedrock and Amazon OpenSearch Service. Hear directly from NiceOne about their journey \u2014 the challenges, the solution, what they achieved, and what's next. Walk away inspired with ideas on how to redefine your product discovery experience with AI.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Retail & Consumer Goods"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "IND306",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Muhammad Ayaz, Director AI & Cloud Computing, Nice One"
+        },
+        {
+          "name": "Mohammed Alsouli, Senior Solutions Architect, AWS"
+        }
+      ],
+      "title": "NiceOne: Reinventing the Product Search with AI",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "KEY101",
+      "abstract": "At AWS, we believe builders should have the freedom to invent anything. Today, AI agents are transforming what's possible. Join us to learn how AWS makes it easier than ever to build, deploy, and scale agents. Hear from customers achieving breakthroughs by migrating workloads to the cloud and integrating AI into their operations. Discover where agents are heading, and how AWS is removing every barrier between your imagination and reality",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "100 \u2013 Foundational",
+      "roles": [
+        "Business Executive",
+        "Developer / Engineer",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Keynote",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "KEY101",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "60",
+        "time": "10:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Richard Morton, Vice President of MBZUAI and Executive Director, Institute of Foundation Models (IFM)"
+        },
+        {
+          "name": "Miguel Rio Tinto, Group Chief Digital and Information Officer, Emirates NBD"
+        },
+        {
+          "name": "Tanuja Randery, Managing Director / VP EMEA, AWS"
+        },
+        {
+          "name": "Chris Erasmus, Country Manager, UAE & ROMENA, AWS"
+        },
+        {
+          "name": "Jonathan Allen, Executive in Residence, AWS"
+        }
+      ],
+      "title": "Keynote",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Keynote"
+    },
+    {
+      "abbreviation": "MAM202",
+      "abstract": "Your legacy applications and infrastructure don't have to be a liability. In this session, discover how leading enterprises are converting tech debt into modern cloud advantages that unlock AI capabilities, cut costs, and accelerate innovation. The path to AI starts with migration and modernization. We'll walk through the complete transformation journey: infrastructure, applications, data, and AI-ready business outcomes. You'll see how new agentic AI automation is making migration and modernization faster, simpler, and more cost-effective. We'll explore proven pathways for your most critical workloads (Microsoft, VMware, SAP, and mainframe), backed by 20 years of AWS expertise.",
+      "areasOfInterest": [
+        "Containers"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "IT Executive"
+      ],
+      "room": "Floor 0, Migration & Modernisation Theatre",
+      "services": [
+        "Amazon Elastic Kubernetes Service (Amazon EKS)"
+      ],
+      "sessionId": "MAM202",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Matheen Labeeb, Specialist SA - IMM, AWS"
+        },
+        {
+          "name": "Ahmed Elsayed, Sr. Delivery Consultant - M&M, AWS"
+        }
+      ],
+      "title": "From tech debt to competitive advantage: Migrate & modernize with AWS",
+      "topics": [
+        "Migration & Modernization"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "MAM203",
+      "abstract": "Bank ABC executed a cloud transformation across 15 countries leveraging AWS Well-Architected principles: launching ila Bank as a cloud-native digital bank with microservices; modernizing core banking via Temenos on AWS with 99.99% availability; implementing AWS Modern Data Strategy and Database Freedom programs, achieving 70% cost optimization; and deploying compliant generative AI that reduced relationship manager decision time by 60%. This multi-domain initiative demonstrates how traditional banks can use AWS reference architectures to build resilient, secure, and innovative financial services at scale.",
+      "areasOfInterest": [
+        "Resilience",
+        "Disaster Response & Recovery",
+        "Cost Optimization"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "industries": [
+        "Financial Services"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Resilience Theatre",
+      "services": [
+        "Amazon Aurora",
+        "Amazon Elastic Kubernetes Service (Amazon EKS)",
+        "Amazon API Gateway"
+      ],
+      "sessionId": "MAM203",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ali Abduljalil, Group Head of IT Architecture, Bank ABC"
+        },
+        {
+          "name": "Aneesh Mohan, Senior Solutions Architect, AWS"
+        }
+      ],
+      "title": "Bank ABC's Cloud Transformation and Core Banking Modernization Journey",
+      "topics": [
+        "Architecture",
+        "Industry Solutions"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "MAM301",
+      "abstract": "Mumzworld is progressively moving away components from Magento to EKS to meet scale and demand of customers. By end of 2026 they are planning to move all modules but payments to EKS as they are seeing the agility and scalability while working with EKS on AWS.",
+      "areasOfInterest": [
+        "Containers"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Migration & Modernisation Theatre",
+      "services": [
+        "Amazon Elastic Kubernetes Service (Amazon EKS)"
+      ],
+      "sessionId": "MAM301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Baharul Islam, SRE Platform Architect, MumzWorld"
+        },
+        {
+          "name": "Aymen Farag, Sr Migration & Modernization SA, AWS"
+        }
+      ],
+      "title": "From monolith to microservices: Migrate and modernize with Amazon EKS",
+      "topics": [
+        "Serverless & Containers"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "MAM302",
+      "abstract": "Join us for a deep dive into Careem's journey migrating their website distribution to Amazon CloudFront and Lambda@Edge. Facing growing traffic demands across the MENA region, Careem re-architected their content delivery layer \u2014 resulting in a 50% cost reduction and measurable performance gains. This session covers the end-to-end architecture, the zero-downtime cut-over strategy, and the engineering decisions that made it possible to migrate without a single disruption to their user base.",
+      "areasOfInterest": [
+        "Cost Optimization"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Migration & Modernisation Theatre",
+      "services": [
+        "AWS Lambda",
+        "Amazon CloudFront"
+      ],
+      "sessionId": "MAM302",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Matija Capan, Technical Lead, Careem"
+        },
+        {
+          "name": "Mohamed Eltayeb, Senior Specialist - Edge Services, AWS"
+        }
+      ],
+      "title": "Careem Supercharging Web Performance with CloudFront & Lambda@Edge",
+      "topics": [
+        "Migration & Modernization"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "MAM304",
+      "abstract": "In this hands-on session, we will show you how to get started with AWS Transform for VMware Migrations. We will walk through how to configure AWS IAM Identity Center, enable and configure AWS Transform for VMware migrations, and discuss the Generative AI capabilities of the service. You will learn how AWS Transform can help you accelerate VMware migrations to Amazon Elastic Compute Cloud (EC2) , using a collaborative, web-based experience for orchestrating your migrations. This includes having AWS Transform configure VPC networking contsructs and more!",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Innovation & Transformation"
+      ],
+      "features": [
+        "Hands-on"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "System Administrator",
+        "IT Professional / Technical Manager",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Workshops 1",
+      "services": [
+        "AWS Transform",
+        "Amazon Elastic Compute Cloud (Amazon EC2)"
+      ],
+      "sessionId": "MAM304",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "110",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Giorgio Nobile, Sr. Migration&Modernization SA, AWS"
+        },
+        {
+          "name": "Aymen Farag, Sr Migration & Modernization SA, AWS"
+        },
+        {
+          "name": "Erinc Mendilcioglu, Sr. Solutions Architect, AWS"
+        },
+        {
+          "name": "Yusuf Sheikh, Solutions Architect II , AWS"
+        }
+      ],
+      "title": "Fast-track your VMware to AWS migration with AWS Transform",
+      "topics": [
+        "Migration & Modernization"
+      ],
+      "type": "Workshop"
+    },
+    {
+      "abbreviation": "PRT101-S",
+      "abstract": "In an environment defined by economic uncertainty and rapidly shifting customer expectations, businesses must grow while keeping costs under control. This session explores how customers are using end-to-end agentic AI solutions to sustain growth across the full customer engagement lifecycle. Through real-world examples, learn how organizations reach new customers with AI-driven outbound sales campaigns, automate inbound calls and support desks to reduce cost per contact, and move beyond order-taking with agents that proactively recommend business optimizations. Attendees leave with practical lessons from live deployments and a clear view of what agentic AI can deliver across sales and support.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "level": "100 \u2013 Foundational",
+      "roles": [
+        "Business Executive",
+        "Entrepreneur (Founder/Co-Founder)"
+      ],
+      "room": "Floor 0, AWSome Theatre 2",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "PRT101-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "14:05",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Yaser A. Helmy, CTO / AI Transformation Lead, iNTEL-CS"
+        }
+      ],
+      "title": "Keeping Pace: growing business at the speed of AI (sponsored by iNTEL-CS)",
+      "topics": [
+        "Artificial Intelligence",
+        "Cloud Operations",
+        "Industry Solutions"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT102-S",
+      "abstract": "Most breaches don't start with a zero-day exploit \u2014 they start with a person: an ignored phishing email, a moment of distraction, an intern with too much access. As AI accelerates both attacks and everyday work, that human layer is now the fastest-growing and least-understood part of the attack surface. This session examines where risk actually concentrates inside organizations, why a small fraction of employees typically account for the majority of exposure, and how AI is changing attacker and defender behavior alike. Attendees will leave with a practical framework for discovering, governing, and reducing human- and AI-driven risk before it becomes an incident.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Business Intelligence",
+        "Culture of Security"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Financial Services",
+        "Healthcare & Life Sciences",
+        "Manufacturing & Industrial"
+      ],
+      "level": "100 \u2013 Foundational",
+      "roles": [
+        "Business Executive",
+        "Cloud Security Specialist",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Industry Theatre",
+      "services": [
+        "Amazon API Gateway",
+        "Amazon AppFlow",
+        "Amazon Application Recovery Controller"
+      ],
+      "sessionId": "PRT102-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Werno Gevers, Vice President, Regional Sales, Middle East, Mimecast"
+        }
+      ],
+      "title": "The New Attack Surface: Humans, Data, and AI (sponsored by Mimecast)",
+      "topics": [
+        "Security & Identity",
+        "Industry Solutions",
+        "Cloud Operations"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "PRT201-S",
+      "abstract": "AI is accelerating enterprise productivity through external tools, agents, and custom applications, but it introduces critical security risks like model vulnerabilities and sensitive data exposure. Only 6% of organizations have a robust strategy, leading to real-world incidents like data leaks. To counter this, a unified platform approach\u2014\"Secure AI by Design\"\u2014is necessary. Palo Alto Networks addresses this with Prisma Browser for governing external AI use and Prisma AIRS for securing AI application development, model integrity, and agent control, ensuring fearless innovation.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Culture of Security",
+        "Network & Infrastructure Security"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, AWSome Theatre 1",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "PRT201-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "14:05",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Maher Kotob, Sr Channel Systems Engineer, Palo Alto Networks"
+        }
+      ],
+      "title": "Secure AI by Design (sponsored by Palo Alto Networks)",
+      "topics": [
+        "Security & Identity",
+        "Artificial Intelligence",
+        "Migration & Modernization"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT202-S",
+      "abstract": "Cybersecurity is entering a new era where AI is both the attacker and the defender. As autonomous agents become capable of planning, adapting and executing sophisticated attacks, traditional security operations struggle to keep pace. Discover how agentic AI, built on Amazon Bedrock, can help security teams detect, investigate and respond to AI-powered threats at machine speed. Through a real-world attack scenario, we'll demonstrate how intelligent security agents enhance human analysts while maintaining the governance, transparency and control.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Culture of Security",
+        "Monitoring & Observability"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Government",
+        "Financial Services",
+        "Energy & Utilities"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Cloud Security Specialist",
+        "IT Professional / Technical Manager",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, AWSome Theatre 1",
+      "services": [
+        "Amazon Bedrock",
+        "AWS Security Hub",
+        "Amazon GuardDuty"
+      ],
+      "sessionId": "PRT202-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "12:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Robert Lourenco, Solution Architect, Trellix"
+        }
+      ],
+      "title": "When AI Attacks AI: Defending at Machine Speed with Amazon Bedrock (sponsored by Trellix)",
+      "topics": [
+        "Artificial Intelligence",
+        "Security & Identity",
+        "Migration & Modernization"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT203-S",
+      "abstract": "The four golden signals (Latency, Errors, Traffic, Saturation) have long been the foundation of application monitoring, but they alone create new blind spots in GenAI apps. Responses can still hallucinate, leak PII, or exceed cost expectations. This talk explores three additional dimensions - Cost, Safety and Quality - and why each is critical when instrumenting non-deterministic, token-priced, prompt-injectable systems.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "DevOps",
+        "Monitoring & Observability"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Software & Internet",
+        "Energy & Utilities",
+        "Financial Services"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Developer / Engineer",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Data Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "Amazon CloudWatch"
+      ],
+      "sessionId": "PRT203-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mallo, Enterprise Sales Engineer, Datadog"
+        }
+      ],
+      "title": "Monitoring in the Age of GenAI: Beyond Golden Signals (sponsored by Datadog)",
+      "topics": [
+        "Artificial Intelligence",
+        "Cloud Operations",
+        "Developer Tools"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "PRT204-S",
+      "abstract": "When AI does more than assist, it can drive real engineering outcomes. This session walks through how we applied an AI-Driven Development Lifecycle (AIDLC) to modernize a B2B financial services platform used by over 150 UK advisory firms. You'll see how large language models handled primary code and architecture analysis across a legacy .NET codebase, while human engineers validated and directed the findings, compressing weeks of discovery into days. Attendees will learn practical patterns for structuring AI-first assessments, where human oversight matters most, and how to translate AI-generated findings into a scoped proof of value for legacy modernization.",
+      "areasOfInterest": [
+        "Innovation & Transformation"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Financial Services"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, AWSome Theatre 1",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "PRT204-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "13:15",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Dorian SEZEN, Managing Partner, Kloia"
+        }
+      ],
+      "title": "AI-Driven Development Lifecycle: Modernizing Legacy Fintech (sponsored by Kloia)",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT205-S",
+      "abstract": "AI initiatives often stall in pilot stages due to emerging trust concerns. As enterprises transition from chatbots to autonomous agents, the attack surface expands, introducing risks like prompt injection, data leakage, and supply-chain vulnerabilities.\u200b\n\nThis session demonstrates how Cisco AI Defense secures AI workloads across diverse environments, including AWS, private, and hybrid infrastructure. Through continuous visibility, automated agent validation, and runtime guardrails, Cisco provides a comprehensive security framework. Whether building or consuming AI, attendees will receive a practical blueprint for transitioning agentic AI from fragmented pilots into secure production, positioning security as an enabler for the full AI lifecycle.\u200b",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI",
+        "Application Security"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Financial Services",
+        "Healthcare & Life Sciences",
+        "Government"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect",
+        "Cloud Security Specialist",
+        "DevOps Engineer"
+      ],
+      "room": "Floor 0, AWSome Theatre 2",
+      "services": [
+        "Amazon Bedrock",
+        "AWS Identity and Access Management (IAM)",
+        "Amazon SageMaker"
+      ],
+      "sessionId": "PRT205-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "13:40",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ibrahim Yusuf, Solutions Engineer, Cisco"
+        }
+      ],
+      "title": "Securing the Agentic Enterprise with Cisco AI Defense (sponsored by Cisco)",
+      "topics": [
+        "Artificial Intelligence",
+        "Security & Identity",
+        "Serverless & Containers"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT206-S",
+      "abstract": "Downtime isn't just technical, it's a business risk with financial, operational, and reputational consequences. This session shows how to design DR strategies matched to business needs, using the AWS Well-Architected Framework as our lens. We'll cover all four AWS DR patterns, Backup & Restore, Pilot Light, Warm Standby, and Multi-Site Active/Active, with architecture diagrams, RTO/RPO trade-offs, and AWS services behind each: Route 53, Aurora Global Database, DynamoDB Global Tables, S3 CRR, AWS Elastic Disaster Recovery, and AWS Resilience Hub. We'll share a case study showing a 94% cut in recovery time, then cover testing through Resilience Hub assessments, game days, and chaos engineering. You'll leave with a framework for the right strategy and a toolkit to implement it on AWS.",
+      "areasOfInterest": [
+        "Disaster Response & Recovery"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "DevOps Engineer"
+      ],
+      "room": "Floor 0, AWSome Theatre 2",
+      "services": [
+        "AWS Elastic Disaster Recovery"
+      ],
+      "sessionId": "PRT206-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "12:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Vinit Shetty, DevOps Engineer, SUDO Consultants"
+        }
+      ],
+      "title": "Resilience by Design: DR Patterns for Critical Workloads on AWS (sponsored by SUDO)",
+      "topics": [
+        "Cloud Operations"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT207-S",
+      "abstract": "In this session, we\u2019ll show a new way of working for data engineers on AWS using Snowflake Cortex Code, an agentic AI assistant that understands your data, pipelines, and codebase. We\u2019ll walk through a realistic production failure from root cause to code fix, entirely through natural language.\nYou\u2019ll see how the same AI-driven approach accelerates the entire data engineering lifecycle, from ingestion to open Iceberg pipelines to dbt DAGs. Whether you manage one pipeline or a hundred, you\u2019ll leave with the tools to multiply your impact without growing your team.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Data Engineer",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, AWSome Theatre 1",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "PRT207-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "13:40",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Diyar Alyasiri, Solution Engineer, Snowflake"
+        }
+      ],
+      "title": "AI-Accelerated Data Engineering with Snowflake + AWS (sponsored by Snowflake)",
+      "topics": [
+        "Business Applications"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT208-S",
+      "abstract": "AWS ships extraordinary capability every week, yet for most organizations the real constraint is no longer innovation \u2014 it is execution: turning it into production outcomes locally, securely, and at scale. This session shows how Mindware, as an AWS value-added distributor, becomes the regional execution bridge between AWS and the channel. We walk through the operating model behind it \u2014 building partner capability, enabling commercial and technical scale, and running a proprietary execution layer across the migration lifecycle \u2014 while the channel partner stays at the centre of the customer relationship. Partners grow faster; customers modernize with confidence",
+      "areasOfInterest": [
+        "Customer Enablement",
+        "Innovation & Transformation"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, AWSome Theatre 2",
+      "services": [
+        "AWS Migration Hub"
+      ],
+      "sessionId": "PRT208-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "12:25",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mostafa Kabel, Chief Technology Officer, Mindware"
+        }
+      ],
+      "title": "From AWS Innovation to Regional Execution (sponsored by Mindware)",
+      "topics": [
+        "Migration & Modernization",
+        "Cloud Operations"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT209-S",
+      "abstract": "Simplify AWS security with cloud-native, scalable firewall protection delivered as a service. Benefit from consistent threat prevention, centralized management, and seamless protection across your AWS environment.",
+      "areasOfInterest": [
+        "Network & Infrastructure Security"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Cloud Security Specialist"
+      ],
+      "room": "Floor 0, AWSome Theatre 1",
+      "services": [
+        "AWS Network Firewall"
+      ],
+      "sessionId": "PRT209-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mohan Babu Selvaraj, Cloud & SASE Sales Specialist, Check Point Software Technologies"
+        }
+      ],
+      "title": "Secure AWS at Cloud Speed \u2013 Check Point Firewall as a Service (sponsored by Check Point)",
+      "topics": [
+        "Security & Identity"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT210-S",
+      "abstract": "Recent events have highlighted how quickly disruptions to critical infrastructure, cloud services, supply chains, or data can ripple through an organization. As businesses become increasingly dependent on cloud-native applications, AI, and data-driven services, resilience must extend beyond recovery. Join us to learn how Commvault and AWS help organizations protect critical workloads, accelerate recovery, and maintain operational continuity, enabling critical business services to remain available when disruption occurs.",
+      "areasOfInterest": [
+        "Resilience",
+        "Data Protection",
+        "Governance, Risk & Compliance"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Financial Services",
+        "Software & Internet",
+        "Energy & Utilities"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "IT Executive",
+        "IT Professional / Technical Manager",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, AWSome Theatre 2",
+      "services": [
+        "Amazon Simple Storage Service (Amazon S3)",
+        "Amazon Relational Database Service (Amazon RDS)",
+        "Amazon Elastic Compute Cloud (Amazon EC2)"
+      ],
+      "sessionId": "PRT210-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Scott Robertson, Principal Sales Engineer, Commvault"
+        }
+      ],
+      "title": "Building for Resilience When Disruption is Inevitable (sponsored by Commvault)",
+      "topics": [
+        "Storage",
+        "Hybrid Cloud & Multicloud",
+        "Security & Identity"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT213-S",
+      "abstract": "Most enterprise AI initiatives stall, with only 25% reaching production due to immature governance and fragmented pilots. Scaling requires moving from isolated use cases to a single, governed platform with reusable capabilities like workflow orchestration, document intelligence, and human-in-the-loop controls.\nBy deploying an Agentic Governance Framework and a central orchestration layer connecting enterprise data to transactional systems (ERP, CRM), organizations safely scale autonomous agents. Executing this phased approach drives measurable business impact\u2014delivering a 3\u20138% EBITDA uplift, up to 40% customer service deflection, and a 25\u201345% reduction in MTTR.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Resilience Theatre",
+      "services": [
+        "Amazon Nova"
+      ],
+      "sessionId": "PRT213-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mohamed Abdelgalil, Sr. Manager - AI&D Specialist, Deloitte & Touche ME"
+        }
+      ],
+      "title": "Agentic AI Enterprise Scaling with AWS (sponsored by Deloitte)",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "PRT301-S",
+      "abstract": "Running a stateful, low-latency database on Kubernetes at scale is challenging. In this session, AppsFlyer shares how it runs Aerospike on Amazon EKS using NVMe-backed storage and Karpenter for dynamic, topology-aware provisioning. The production architecture supports millions of reads per second and hundreds of billions of records while maintaining ~1 ms p99 read latency. We\u2019ll cover EKS architecture patterns, Aerospike\u2019s hybrid memory model, Karpenter-based scaling and cost optimization, plus observability, capacity planning, and operational trade-offs for large-scale stateful workloads. Designed for platform, infrastructure, and SRE engineers seeking practical lessons beyond stateless Kubernetes patterns.",
+      "areasOfInterest": [
+        "Kubernetes",
+        "Cost Optimization",
+        "Serverless"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Financial Services",
+        "Retail & Consumer Goods",
+        "Telecommunications"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Data Engineer",
+        "Developer / Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, AWSome Theatre 1",
+      "services": [
+        "Amazon Elastic Kubernetes Service (Amazon EKS)"
+      ],
+      "sessionId": "PRT301-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "15",
+        "time": "12:25",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Danny Tourgeman, VP R&D, AppsFlyer"
+        },
+        {
+          "name": "Oshrat Ben Avi Zabludovitz, Israel Country Manager, Aerospike"
+        }
+      ],
+      "title": "AppsFlyer: Operating a Large-Scale Real-Time System at <1 ms Latency (sponsored by Aerospike)",
+      "topics": [
+        "Databases",
+        "Serverless & Containers",
+        "Architecture"
+      ],
+      "type": "Lightning talk"
+    },
+    {
+      "abbreviation": "PRT302-S",
+      "abstract": "Tourism is heading toward a $16.5 trillion economy, yet multi-destination journeys are still assembled by hand and destinations must choose between personalization and control of their own guest data. Globant, AWS, Red Sea Global and TOURISE built the world's first Agent-to-Agent Tourism Corridor to remove that trade-off: each destination runs its own AI agent, keeps its data, identity and policies, and collaborates with the others in real time to shape one continuous journey.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Innovation & Transformation",
+        "Digital Sovereignty"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Travel & Hospitality",
+        "Government",
+        "Media & Entertainment"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Business Executive",
+        "IT Executive",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, AI Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "Amazon RDS for PostgreSQL",
+        "Amazon API Gateway"
+      ],
+      "sessionId": "PRT302-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Julio De Salvo, Chief Solutions Officer MENA & APAC, Globant"
+        }
+      ],
+      "title": "Inside the World's First Agent-to-Agent Tourism Corridor (sponsored by Globant)",
+      "topics": [
+        "Artificial Intelligence",
+        "Architecture",
+        "Application Integration"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "PRT303-S",
+      "abstract": "Every credential DataFlow verifies has a person behind it. Get it wrong in one direction and an unqualified applicant gets licensed. Get it wrong in the other and a qualified nurse waits months for a job she's already earned.\nDataFlow and Zero&One built a multi-agent system on Amazon Bedrock, AgentCore Runtime, and AWS Step Functions to verify education certificates against the standards of the authorities across dozens of countries, languages, and document formats.\nIn this session we walk through what it actually took.\nYou'll leave with the high level reference architecture, the failure modes we hit in production, and a clearer line between what to automate and what to route to a human.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI",
+        "Governance, Risk & Compliance"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Professional Services",
+        "Government"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Developer Theatre",
+      "services": [
+        "Amazon Bedrock",
+        "AWS Step Functions"
+      ],
+      "sessionId": "PRT303-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "title": "Verifying Credentials at Scale with Amazon Bedrock Multi Agents (sponsored by Zero&One)",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "PRT304-S",
+      "abstract": "Learn how to build a secure and scalable AWS governance model using landing zones, multi-account architecture, centralized security, and automated guardrails. The session provides practical guidance on balancing enterprise control with team autonomy while improving security, compliance, and operational consistency.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Cost Optimization",
+        "Digital Sovereignty"
+      ],
+      "features": [
+        "Lecture-style",
+        "AWS Partners"
+      ],
+      "industries": [
+        "Government",
+        "Software & Internet",
+        "Financial Services"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Developer / Engineer",
+        "DevOps Engineer",
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Migration & Modernisation Theatre",
+      "services": [
+        "AWS Professional Services",
+        "AWS Organizations",
+        "AWS Security Hub"
+      ],
+      "sessionId": "PRT304-S",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Aeham Loubani, Head of DevOps, Integra Technologies FZE"
+        }
+      ],
+      "title": "Secure, Scalable AWS Landing Zones for Enterprise Governance (sponsored by Integra Technologies)",
+      "topics": [
+        "Cloud Operations",
+        "Security & Identity",
+        "Migration & Modernization"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "SEC201",
+      "abstract": "Resilience isn't just about recovering from failure \u2014 it starts with a secure foundation. This session explores how AI is transforming both sides of the resilience equation. Learn how AWS Continuum continuously discovers, validates, and remediates security vulnerabilities at machine speed \u2014 strengthening your posture before disruptions occur. Then see how AI-powered resilience testing with AWS Resilience Hub and Fault Injection Service generates targeted chaos experiments automatically, and how the AWS DevOps Agent detects operational issues and orchestrates remediation autonomously. Walk away with practical approaches to unify security and resilience through AI.",
+      "areasOfInterest": [
+        "Resilience"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Resilience Theatre",
+      "services": [
+        "AWS DevOps Agent"
+      ],
+      "sessionId": "SEC201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ahmad AbouShady, Principal Cloud Operations Architect, AWS"
+        },
+        {
+          "name": "Sneh Sharma, Customer Solutions Manager, AWS"
+        }
+      ],
+      "title": "AI-Powered Resilience: From Security Posture to Automated Recovery",
+      "topics": [
+        "Security & Identity",
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "SEC301",
+      "abstract": "Tired of spending hours debugging IAM permissions instead of building features? In this session, learn how IAM Policy Autopilot helps you quickly create IAM policies that you can refine as your application evolves. We'll demonstrate how this open source MCP server integrates with AI coding assistants to analyze your application code and generate valid identity-based policies in real-time. Through live demos, you'll see how IAM Policy Autopilot provides functional policies that work from day one. Whether you're building serverless functions, containerized applications, or using AI coding assistants, you'll leave with hands-on experience accelerating your development workflow",
+      "areasOfInterest": [
+        "Culture of Security",
+        "DevSecOps",
+        "Network & Infrastructure Security"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect",
+        "System Administrator"
+      ],
+      "room": "Floor 0, Code Talks",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "SEC301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "40",
+        "time": "16:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Meric Degirmenci, Security and Compliance Specialist, AWS"
+        }
+      ],
+      "title": "From Code to Policies: Accelerate Development w/ IAM Policy Autopilot",
+      "topics": [
+        "Security & Identity"
+      ],
+      "type": "Code talk"
+    },
+    {
+      "abbreviation": "SEC302",
+      "abstract": "Think AWS WAF is just for blocking SQLi and XSS? Think again. In this chalk talk, we'll dive into creative real-world use cases \u2014 from deploying honeypots and shedding traffic, to stopping account fraud and mitigating DDoS at scale. Explore advanced configurations, customer-tested patterns, and whiteboard strategies that make WAF a powerful tool in your security arsenal. Bring your questions \u2014 let's break the \"WAF does that?\" moments together.",
+      "areasOfInterest": [
+        "Network & Infrastructure Security"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect",
+        "System Administrator",
+        "Cloud Security Specialist"
+      ],
+      "room": "Floor 0, Chalk Talks",
+      "services": [
+        "AWS WAF"
+      ],
+      "sessionId": "SEC302",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "70",
+        "time": "09:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Achraf Souk, Principal Solutions Architect, AWS"
+        }
+      ],
+      "title": "I didn't know AWS WAF did this",
+      "topics": [
+        "Networking & Content Delivery"
+      ],
+      "type": "Chalk talk"
+    },
+    {
+      "abbreviation": "STG201",
+      "abstract": "Data is your most valuable asset \u2014 and increasingly the target of ransomware, natural disasters, and unplanned outages. This session provides a defense-in-depth approach to data protection and resilience using AWS Storage and Backup services. Learn the three critical pillars: immutability with isolation using Vault Lock for tamper-proof backups, integrity validation through automated restore testing, and predictable availability via cross-account and cross-region recovery. Discover how to build multi-layered protection using S3 Object Lock, AWS Backup, EBS Snapshots, and lifecycle policies \u2014 with practical guidance for organizations looking to harden their backup strategies against evolving cyber threats while meeting regulatory requirements.",
+      "areasOfInterest": [
+        "Resilience",
+        "Disaster Response & Recovery"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Solution / Systems Architect"
+      ],
+      "room": "Floor 0, Resilience Theatre",
+      "services": [
+        "AWS Backup",
+        "Amazon Simple Storage Service (Amazon S3)"
+      ],
+      "sessionId": "STG201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Abdulla Fadhel, Director - System Operations, Gulf Air"
+        },
+        {
+          "name": "Burhan Khaled, Sr TAM, AWS"
+        }
+      ],
+      "title": "Protecting What Matters: Data Resilience for Storage and Backup on AWS",
+      "topics": [
+        "Storage",
+        "Architecture"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "STP001",
+      "abstract": "MENA entered 2026 off a record funding year, but H1 data tells a more nuanced story: the market is concentrating, with fewer deals capturing more capital. This mirrors a global shift where deal flow is consolidating around AI, security and defense. In this environment, not every startup (AI-native or AI-enhanced) gets a term sheet. Join leading investors as they break down which verticals are attracting capital, what separates fundable traction from noise, and how they evaluate technical moats in a world where foundation models are commoditized. What does it take to be one of the fewer deals that gets done?",
+      "areasOfInterest": [
+        "Generative AI",
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "No Level",
+      "roles": [
+        "Entrepreneur (Founder/Co-Founder)",
+        "Venture Capitalist"
+      ],
+      "room": "Floor 0, Startup Zone Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "STP001",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ali Almajthoob, Partner, Middle East Venture Partners (MEVP)"
+        },
+        {
+          "name": "Tala Al Jabri, Managing Partner, Wyld VC"
+        },
+        {
+          "name": "Hasan Haider, \u200fFounder and Managing Partner, Plus VC"
+        },
+        {
+          "name": "Nicolas Coudiere, Sr Manager, Investor Management, AWS"
+        }
+      ],
+      "title": "Investor Panel: Where smart money is going in 2026 and beyond",
+      "topics": [
+        "Artificial Intelligence",
+        "Security & Identity"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "STP201",
+      "abstract": "This session explores how startups can access frontier AI models from Anthropic and OpenAI through Amazon Bedrock, and why consuming them via AWS (1P and 3P) unlocks advantages over direct API. We will cover the commercial upside: funding programs, credits, and partner incentives that flow back to customers as services and savings. We'll also show how the partner ecosystem amplifies this, turning cash incentives into delivery capacity and customer value. The session includes a live Q&A with Cl\u00e9ment Andr\u00e9, GTM Leader EMEA at OpenAI, giving attendees access to ask about roadmap, joint GTM, and maximizing investment through the AWS-OpenAI partnership.",
+      "areasOfInterest": [
+        "Generative AI",
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Entrepreneur (Founder/Co-Founder)",
+        "Solution / Systems Architect",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Startup Zone Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "STP201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Cl\u00e9ment Andr\u00e9, GTM Leader EMEA, OpenAI, OpenAI"
+        },
+        {
+          "name": "Vaibhav Kinkar, Senior Partner Sales Manager, AWS"
+        },
+        {
+          "name": "Kartik Renjen, MENAT/SSA Startup Sales Leader, AWS"
+        }
+      ],
+      "title": "Accelerate Your AI Journey with Amazon Bedrock: Funding & Partners",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "STP202",
+      "abstract": "As AI moves into real-world operations, success is no longer determined by model performance alone. It depends on building systems people trust when decisions have meaningful consequences. Ruya AI shares lessons from building AI platforms where reliability, explainability, governance and operational resilience matter as much as intelligence. Drawing from high-trust deployments, we explore how AI systems combine orchestration, retrieval, evaluation and cloud infrastructure to move beyond impressive demos into dependable operational capability. Whether supporting public sector missions, critical infrastructure or complex operations, the same principle applies: AI creates value when decision makers understand, trust and act on its outcomes.",
+      "areasOfInterest": [
+        "Generative AI",
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Entrepreneur (Founder/Co-Founder)",
+        "IT Professional / Technical Manager",
+        "DevOps Engineer"
+      ],
+      "room": "Floor 0, Startup Zone Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "STP202",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Elvin John, Chief Commercial Officer, Ruya AI"
+        },
+        {
+          "name": "Igor Biriukov, Senior Account Manager, AWS"
+        }
+      ],
+      "title": "Building AI for High Consequence Decisions",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "STP203",
+      "abstract": "As AI workloads mature from experimentation to production, cost becomes a defining constraint on growth. In this panel, three founders of established AI startups share hard-won lessons on optimizing spend across the stack; from right-sizing compute and GPU utilization to balancing model choice, inference efficiency, and the economics of building versus buying. They'll discuss navigating cost/performance tradeoffs, architecting for sustainable unit economics, and knowing when more doesn't mean better. Expect candid, practical insights. Whether you're pre-seed or scaling fast, you will walk away with concrete strategies to make every dollar of your AI budget go further.",
+      "areasOfInterest": [
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Entrepreneur (Founder/Co-Founder)",
+        "DevOps Engineer",
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Startup Zone Theatre",
+      "services": [
+        "AWS Supply Chain"
+      ],
+      "sessionId": "STP203",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Omar Mansour, Co-founder & CTO, intella"
+        },
+        {
+          "name": "Srijan Shetty, Co-founder & CTO, Fuze Finance"
+        },
+        {
+          "name": "Noor Alasadi, CEO, Lisan"
+        },
+        {
+          "name": "Abhisekh Baid, Startup Engaged Lead, SSA, AWS"
+        }
+      ],
+      "title": "Scaling Smart: Founders Perspectives on AI costs optimization",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "STP301",
+      "abstract": "Toters delivers food, groceries, and packages across the Levant to half a million customers. To win against global competitors, they bet on hyper-personalization, building a GenAI system that transforms user behavior into structured profiles and matches them to stores via vector embeddings. Built on Amazon Bedrock and Pinecone, the system powers personalized homepages, smart search, and store discovery. Learn the technical choices, the startup tradeoffs, and how AWS helped them move fast.",
+      "areasOfInterest": [
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect",
+        "DevOps Engineer",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Startup Zone Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "STP301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:50",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Lingge Li, Sr. ML Engineer II - Engineering, Toters"
+        },
+        {
+          "name": "Antonio Duma, Manager, Startup SA, AWS"
+        }
+      ],
+      "title": "Toters: Turning User Behavior into a Personalized Super App with GenAI",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "STP303",
+      "abstract": "Going from a pilot to a secure, scalable, and reliable agent system requires more than great prompts. In session, we'll show how Amazon Bedrock AgentCore helps teams move from proof-of-concept to production using enterprise-grade services, including Runtime, Gateway, Identity, Memory, Observability, Registry, Payments, Policy, Evaluations, Code Interpreter, and Browser. Learn how these capabilities simplify development, reduce operational burden, and improve time-to-value. We'll go over the best practices and cover foundational capabilities like enterprise readiness, tool integration, and performance at scale, providing a blueprint for success no matter where you are in your journey.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Solution / Systems Architect",
+        "DevOps Engineer",
+        "IT Professional / Technical Manager"
+      ],
+      "room": "Floor 0, Startup Zone Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "STP303",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:10",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Derrick Selempo, Solutions Architect, AWS"
+        }
+      ],
+      "title": "Bridging from POC to production: An intro to Amazon Bedrock AgentCore",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "STP305",
+      "abstract": "The line between your app and the agent is disappearing, and which way you cross it is one of the most important decisions a founder will make this year. In this session we'll explore two emerging patterns that turn generative UI from a flashy demo into a real go-to-market strategy. First, you own the agent and customers plug in their own capabilities, so you ship one product that works everywhere without touching their stack. Second, bring your interface into the AI assistants users already live in, meeting them at the moment of intent. Two directions across one vanishing boundary.",
+      "areasOfInterest": [
+        "Agentic AI",
+        "Generative AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "DevOps Engineer",
+        "Developer / Engineer"
+      ],
+      "room": "Floor 0, Startup Zone Theatre",
+      "services": [
+        "Amazon Bedrock"
+      ],
+      "sessionId": "STP305",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Alexis Philippart de Foy, Senior Startup Solutions Architect, AWS"
+        }
+      ],
+      "title": "Your UI Is a Tool. Pick Your Agent Distribution Game.",
+      "topics": [
+        "Artificial Intelligence",
+        "Application Integration"
+      ],
+      "type": "Startup talk"
+    },
+    {
+      "abbreviation": "TNC101",
+      "abstract": "Prepare for the AWS Certified AI Practitioner exam with this study session. Review questions from the official practice question set. Ask questions of the subject matter expert leading the study session. Continue preparing for your exam with confidence following the four-step plan on AWS Skill Builder.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "100 \u2013 Foundational",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, Training & Certification",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "TNC101",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "15:15",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mostafa Saher , AWS Technical Instructor, AWS"
+        }
+      ],
+      "title": "Exam Prep AWS Certified AI Practitioner",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Exam prep"
+    },
+    {
+      "abbreviation": "TNC201",
+      "abstract": "In this breakout session, discover the latest features of Amazon Quick, a generative AI-powered business intelligence platform transforming organizational data workflows. Explore the newest capabilities including Quick Sight for interactive visualizations, Quick Flows for workflow creation, Quick Automate for intelligent automation, and Quick Research for comprehensive analysis. Learn how custom chat agents, knowledge spaces, and workplace extensions integrate seamlessly to enhance productivity through natural language interactions across your organization.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, Training & Certification",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "TNC201",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "12:15",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mostafa Saher , AWS Technical Instructor, AWS"
+        }
+      ],
+      "title": "Explore the Agentic Capabilities of Amazon Quick",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "TNC202",
+      "abstract": "Embark on a faster, smoother cloud transformation with agentic AI and integrated solutions. This session reveals how AWS Transform accelerates your cloud journey, addressing migration and modernization challenges through intelligent automation. Through real-world examples, discover how to leverage this powerful integration to fast-track your cloud adoption and transformation efforts. With the specialized AI agents of AWS Transform, customers can migrate VMware workloads to Amazon EC2, modernize .NET applications to cross-platform .NET, and modernize IBM z/OS mainframe applications, delivering transformation projects up to 4x faster.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, Training & Certification",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "TNC202",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Mouhammad Yousuf , Technical Trainer Team Lead, AWS"
+        }
+      ],
+      "title": "Accelerate Your Cloud Journey with AWS Transform",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "TNC203",
+      "abstract": "Prepare for the AWS Certified Solutions Architect \u2013 Associate exam with this interactive study session. Review the AWS Certified Solutions Architect \u2013 Associate Official Practice Question Set, and get your questions answered by the subject matter expert leading the study session.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Discussion"
+      ],
+      "level": "200 \u2013 Intermediate",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, Training & Certification",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "TNC203",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "16:00",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Karim Saikali , AWS Technical Instructor, AWS"
+        }
+      ],
+      "title": "AWS Certified Solutions Architect - Associate",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Exam prep"
+    },
+    {
+      "abbreviation": "TNC301",
+      "abstract": "Join us for an engaging session on AI Agents and Tools in AWS, where we\u2019ll explore how to build intelligent, autonomous systems using Amazon Bedrock and open-source frameworks. Learn about function calling, ReAct patterns, and AWS\u2019s comprehensive agent platforms. We\u2019ll dive into practical demonstrations using Strands and CrewAI, and discover how to leverage protocols like MCP and A2A for seamless tool integration and agent collaboration. Perfect for developers looking to create production-ready AI solutions.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, Training & Certification",
+      "services": [
+        "Amazon Quick"
+      ],
+      "sessionId": "TNC301",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "13:45",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Saurabh Bhattacharya , Principal Technical Trainer, AWS"
+        }
+      ],
+      "title": "Using Tools and Agents in Generative AI applications",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    },
+    {
+      "abbreviation": "TNC302",
+      "abstract": "This session demonstrates how Kiro brings discipline and clarity to AI-assisted software development, ensuring generated code aligns with intended functionality and architecture. Explore Kiro's innovative spec-driven development approach for AI coding. Learn how to leverage structured specifications as a single source of truth, contrasting with unstructured 'vibe coding'. Discover how Kiro uses AI to generate detailed requirements, design, and task documents, guiding AI agents in code creation. Experience a workflow that enhances collaboration, maintainability, and documentation accuracy.",
+      "areasOfInterest": [
+        "Agentic AI"
+      ],
+      "features": [
+        "Lecture-style"
+      ],
+      "level": "300 \u2013 Advanced",
+      "roles": [
+        "Business Executive"
+      ],
+      "room": "Floor 0, Training & Certification",
+      "services": [
+        "Kiro"
+      ],
+      "sessionId": "TNC302",
+      "sessionTime": {
+        "date": "2026-09-30",
+        "length": "30",
+        "time": "14:30",
+        "timezone": "Asia/Dubai"
+      },
+      "speakers": [
+        {
+          "name": "Ruba ALShanti , Snr AWS Technical Instructor, AWS"
+        }
+      ],
+      "title": "Structured Approach to AI coding with Spec-Driven Development on Kiro",
+      "topics": [
+        "Artificial Intelligence"
+      ],
+      "type": "Breakout session"
+    }
+  ],
+  "totalCount": 96
+}

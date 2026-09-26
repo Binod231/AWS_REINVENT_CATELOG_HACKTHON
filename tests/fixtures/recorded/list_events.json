@@ -1,0 +1,94 @@
+{
+  "items": [
+    {
+      "address": {
+        "city": "Las Vegas"
+      },
+      "authenticationRequired": true,
+      "endDate": "2026-12-04T23:59:00.000-08:00",
+      "eventId": "reinvent2026",
+      "eventType": "AWS Global Summit",
+      "isOnline": false,
+      "name": "re:Invent 2026",
+      "startDate": "2026-11-30T05:30:00.000-08:00",
+      "supportedLanguageCodes": [
+        "en-US"
+      ],
+      "timeFormat": "12 hour",
+      "timezone": "America/Los_Angeles",
+      "timezoneAbbreviation": "PDT"
+    },
+    {
+      "address": {
+        "city": "Hanoi"
+      },
+      "authenticationRequired": false,
+      "endDate": "2026-09-29T23:59:00.000+07:00",
+      "eventId": "Cohort-CloudHanoi-2026",
+      "eventType": "AWS Global Summit",
+      "isOnline": false,
+      "name": "AWS Cloud and AI Day Hanoi 2026",
+      "startDate": "2026-09-29T07:00:00.000+07:00",
+      "supportedLanguageCodes": [
+        "en-US"
+      ],
+      "timeFormat": "12 hour",
+      "timezone": "Asia/Bangkok",
+      "timezoneAbbreviation": "ICT"
+    },
+    {
+      "address": {
+        "city": "London"
+      },
+      "authenticationRequired": false,
+      "endDate": "2026-09-30T23:59:00.000+01:00",
+      "eventId": "Cohort-FSILondon-2026",
+      "eventType": "AWS Global Summit",
+      "isOnline": false,
+      "name": "Financial Services Symposium London 2026",
+      "startDate": "2026-09-30T08:00:00.000+01:00",
+      "supportedLanguageCodes": [
+        "en-US"
+      ],
+      "timeFormat": "24 hour",
+      "timezone": "Europe/London",
+      "timezoneAbbreviation": "BST"
+    },
+    {
+      "address": {
+        "city": "Ottawa"
+      },
+      "authenticationRequired": false,
+      "endDate": "2026-09-29T23:59:00.000-04:00",
+      "eventId": "Cohort-PSAISymposiumOttawa-2026",
+      "eventType": "AWS Global Summit",
+      "isOnline": false,
+      "name": "Public Sector AI Symposium Ottawa 2026",
+      "startDate": "2026-09-29T08:00:00.000-04:00",
+      "supportedLanguageCodes": [
+        "en-US"
+      ],
+      "timeFormat": "12 hour",
+      "timezone": "America/New_York",
+      "timezoneAbbreviation": "EDT"
+    },
+    {
+      "address": {
+        "city": "Dubai"
+      },
+      "authenticationRequired": false,
+      "endDate": "2026-09-30T20:00:00.000+04:00",
+      "eventId": "Summit-Dubai-2026",
+      "eventType": "AWS Global Summit",
+      "isOnline": false,
+      "name": "AWS Summit Dubai 2026",
+      "startDate": "2026-09-30T08:00:00.000+04:00",
+      "supportedLanguageCodes": [
+        "en-US"
+      ],
+      "timeFormat": "12 hour",
+      "timezone": "Europe/Ulyanovsk",
+      "timezoneAbbreviation": "GST"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "session": {
+    "abbreviation": "AIM101",
+    "abstract": "In this instructor-led training, an AWS expert will guide participants through the core concepts of generative AI and machine learning \u2014 including foundation models, large language models, and the fundamentals of training a model with Amazon SageMaker. Participants will then learn how to build AI applications on Amazon Bedrock, using Retrieval-Augmented Generation (RAG) to ground responses in relevant data and guardrails to keep those applications safe and reliable.\nThe instructor will walk througg a real-world use case showing how generative AI can drive business value for customer experience using Amazon Bedrock.",
+    "areasOfInterest": [
+      "Generative AI"
+    ],
+    "features": [
+      "Lecture-style"
+    ],
+    "level": "100 \u2013 Foundational",
+    "roles": [
+      "Business Executive",
+      "IT Executive",
+      "Entrepreneur (Founder/Co-Founder)"
+    ],
+    "room": "Floor 0, Women of the Cloud Theatre",
+    "services": [
+      "Amazon Bedrock",
+      "Amazon Q",
+      "Amazon SageMaker"
+    ],
+    "sessionId": "AIM101",
+    "sessionTime": {
+      "date": "2026-09-30",
+      "length": "70",
+      "time": "09:00",
+      "timezone": "Asia/Dubai"
+    },
+    "speakers": [
+      {
+        "name": "Ruba ALShanti , Snr AWS Technical Instructor, AWS"
+      },
+      {
+        "name": "Fatiha Bouabache, Solutions Architect, AWS"
+      }
+    ],
+    "title": "Demystifying GenAI: AWS Enablement Training & Certification",
+    "topics": [
+      "Artificial Intelligence"
+    ],
+    "type": "Breakout session"
+  }
+}
