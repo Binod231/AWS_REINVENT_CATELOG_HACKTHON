@@ -45,6 +45,7 @@ from replan.domain import (
     SessionFormat,
     resolve_day,
 )
+from replan.profiles import ProfileError, Scorer, load_profile, write_starter_profile
 from replan.travel import default_graph
 
 console = Console()
@@ -1013,6 +1014,205 @@ def travel(
             "[dim]Tip: pass session codes instead of rooms to also check whether "
             "the connection is makeable in the time available.[/dim]"
         )
+
+
+# --------------------------------------------------------------------------- #
+# profile / rank
+# --------------------------------------------------------------------------- #
+profile_app = typer.Typer(help="Manage your preference profile.", no_args_is_help=True)
+app.add_typer(profile_app, name="profile")
+
+ProfileOption = Annotated[
+    Path | None,
+    typer.Option("--profile", "-p", help="Path to your profile.yaml."),
+]
+
+
+def _require_cached_catalog(settings: Any) -> Any:
+    """Load the cached catalog, or explain how to get one."""
+    store = CatalogCache(settings.cache_path)
+    cached = store.load(settings.event_id)
+    if cached is None or not len(cached):
+        console.print(
+            f"[yellow]Nothing cached for {settings.event_id}.[/yellow] "
+            "Run [bold]replan sync[/bold] first."
+        )
+        raise typer.Exit(1)
+    return cached
+
+
+@profile_app.command("init")
+def profile_init(
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Where to write the profile.")
+    ] = Path("profile.yaml"),
+    force: Annotated[bool, typer.Option("--force", help="Overwrite an existing file.")] = False,
+) -> None:
+    """Write a commented starter profile you can edit."""
+    try:
+        written = write_starter_profile(output, force=force)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+    console.print(f"[green]Wrote {written}[/green]")
+    console.print(
+        "Edit the topics, levels and weights, then run "
+        "[bold]replan rank --profile " + str(written) + "[/bold]"
+    )
+
+
+@profile_app.command("show")
+def profile_show(
+    profile_path: ProfileOption = None,
+    event: EventOption = None,
+) -> None:
+    """Summarise a profile, and check it against the cached catalog.
+
+    Validating pins here means a typo in ``must_attend`` is caught before it
+    quietly disappears from a plan.
+    """
+    settings = load_settings(event_id=event)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    body = Table.grid(padding=(0, 2))
+    body.add_row("name", current.name)
+    if current.goals:
+        body.add_row("goals", "\n".join(f"- {item}" for item in current.goals))
+    if current.topics:
+        ranked = sorted(current.topics.items(), key=lambda item: -item[1])
+        body.add_row("topics", ", ".join(f"{key} ({weight:g})" for key, weight in ranked[:10]))
+    if current.avoid_topics:
+        body.add_row("avoiding", ", ".join(current.avoid_topics))
+    if current.levels:
+        body.add_row(
+            "levels",
+            ", ".join(f"{key}:{weight:g}" for key, weight in sorted(current.levels.items())),
+        )
+    if current.formats:
+        body.add_row("formats", ", ".join(sorted(current.formats)))
+    if current.speakers:
+        body.add_row("speakers", ", ".join(current.speakers))
+    body.add_row("day window", f"{current.day_start or '-'} to {current.day_end or '-'}")
+    body.add_row("max sessions/day", str(current.max_sessions_per_day or "unlimited"))
+    body.add_row("walk tolerance", f"{current.walk_tolerance_minutes} min")
+    body.add_row("meal windows", str(len(current.meal_windows)))
+    weights = current.weights
+    body.add_row(
+        "weights",
+        f"utility {weights.utility:g}, coverage {weights.coverage:g}, "
+        f"travel {weights.travel_penalty:g}, fatigue {weights.fatigue_penalty:g}, "
+        f"hops {weights.venue_hop_penalty:g}",
+    )
+    console.print(Panel(body, title="profile", border_style="cyan"))
+
+    store = CatalogCache(settings.cache_path)
+    cached = store.load(settings.event_id)
+    if cached is None:
+        console.print("[dim]Sync a catalog to validate must_attend / never_attend.[/dim]")
+        return
+
+    for label, tokens in (
+        ("must_attend", current.must_attend),
+        ("never_attend", current.never_attend),
+    ):
+        if not tokens:
+            continue
+        missing = current.unresolved(tokens, cached)
+        resolved = len(tokens) - len(missing)
+        console.print(f"{label}: [green]{resolved} resolved[/green]", end="")
+        if missing:
+            console.print(f"  [red]{len(missing)} not found: {', '.join(missing)}[/red]")
+        else:
+            console.print()
+
+
+@app.command()
+def rank(
+    profile_path: ProfileOption = None,
+    event: EventOption = None,
+    top: Annotated[int, typer.Option("--top", "-n", help="How many to show.")] = 20,
+    explain: Annotated[
+        bool, typer.Option("--explain", help="Show every scoring factor per session.")
+    ] = False,
+    show_vetoed: Annotated[
+        bool, typer.Option("--vetoed", help="List excluded sessions and why instead.")
+    ] = False,
+) -> None:
+    """Rank the cached catalog against your profile.
+
+    Scores are additive and every contribution is recorded, so `--explain` shows
+    exactly why a session placed where it did.
+    """
+    settings = load_settings(event_id=event)
+    cached = _require_cached_catalog(settings)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    scorer = Scorer(current, cached)
+
+    if show_vetoed:
+        vetoed = [item for item in scorer.score_all(include_vetoed=True) if not item.eligible]
+        table = Table(show_header=True, header_style="bold", title="excluded sessions")
+        table.add_column("code")
+        table.add_column("reason")
+        table.add_column("detail", overflow="fold")
+        for item in vetoed[:top]:
+            table.add_row(item.code, item.veto.value if item.veto else "-", item.veto_detail)
+        console.print(table)
+        console.print(f"[dim]{len(vetoed)} excluded of {len(cached)} total[/dim]")
+        return
+
+    scores = scorer.ranked(top)
+    if not scores:
+        console.print("[yellow]No eligible sessions. Loosen the profile?[/yellow]")
+        return
+
+    lookup = {session.session_id: session for session in cached.sessions}
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("#", justify="right")
+    table.add_column("score", justify="right")
+    table.add_column("code")
+    table.add_column("when")
+    table.add_column("title", overflow="fold")
+    table.add_column("why", overflow="fold")
+
+    for index, item in enumerate(scores, start=1):
+        session = lookup[item.session_id]
+        marker = " [magenta]pin[/magenta]" if item.pinned else ""
+        table.add_row(
+            str(index),
+            f"{item.total:.0f}{marker}",
+            item.code,
+            session.span.format_in(session.zone) if session.span else "-",
+            session.title,
+            "; ".join(item.top_reasons(2)),
+        )
+    console.print(table)
+
+    eligible = len(scorer.score_all())
+    console.print(
+        f"[dim]{eligible} eligible of {len(cached)} cached. "
+        f"Use --vetoed to see what was excluded.[/dim]"
+    )
+
+    if explain:
+        for item in scores[:5]:
+            session = lookup[item.session_id]
+            detail = Table.grid(padding=(0, 2))
+            for factor in sorted(item.factors, key=lambda entry: -abs(entry.points)):
+                colour = "green" if factor.points >= 0 else "red"
+                detail.add_row(
+                    f"[{colour}]{factor.points:+.1f}[/{colour}]", factor.name, factor.detail
+                )
+            detail.add_row("[bold]=[/bold]", "[bold]total[/bold]", f"[bold]{item.total:.1f}[/bold]")
+            console.print(Panel(detail, title=f"{item.code}  {session.title}", border_style="dim"))
 
 
 def main() -> None:
