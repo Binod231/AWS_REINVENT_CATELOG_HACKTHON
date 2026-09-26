@@ -53,6 +53,7 @@ from replan.explain import (
     export_ics,
     export_markdown,
 )
+from replan.live import Urgency, replan_now
 from replan.profiles import ProfileError, Scorer, load_profile, write_starter_profile
 from replan.solver import Plan, SolveRequest, solve
 from replan.sync import (
@@ -1863,6 +1864,170 @@ def history(
         )
     console.print(table)
     console.print(f"[dim]{journal.path}[/dim]")
+
+
+# --------------------------------------------------------------------------- #
+# now
+# --------------------------------------------------------------------------- #
+@app.command()
+def now(
+    profile_path: ProfileOption = None,
+    event: EventOption = None,
+    at: Annotated[
+        str,
+        typer.Option("--at", help="'now', '14:10', 'wed 14:10', or an ISO timestamp."),
+    ] = "now",
+    location: Annotated[
+        str | None,
+        typer.Option(
+            "--location",
+            "-l",
+            help="Where you are: a room string, or the code of the session you are in.",
+        ),
+    ] = None,
+    plan_path: Annotated[
+        Path | None,
+        typer.Option("--plan", help="Existing plan, used to detect what you are in now."),
+    ] = None,
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    use_schedule: Annotated[
+        bool,
+        typer.Option(
+            "--schedule/--no-schedule",
+            help="Read your real schedule so held seats are kept.",
+        ),
+    ] = False,
+    limit: Annotated[int, typer.Option("--limit", "-n", help="How many moves to show.")] = 3,
+    overrides: Annotated[
+        Path | None, typer.Option("--travel-overrides", help="Your own travel times.")
+    ] = None,
+) -> None:
+    """What should I do next, from where I am standing?
+
+    Re-solves only the rest of today, only sessions you could physically reach from
+    your current position, and reports departure times rather than durations. "Leave
+    at 14:06" is actionable under time pressure; "it is a 24 minute walk" is arithmetic.
+    """
+    settings = load_settings(event_id=event)
+    cached = _require_cached_catalog(settings)
+    try:
+        current = load_profile(profile_path)
+    except ProfileError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    existing = _load_plan(plan_path) if plan_path is not None else None
+
+    attendee = None
+    if use_schedule:
+        port = build_port(settings, surface)
+        try:
+            attendee = port.get_schedule(settings.event_id)
+        except EventsApiError as error:
+            console.print(f"[yellow]Could not read your schedule: {error}[/yellow]")
+        finally:
+            if hasattr(port, "close"):
+                port.close()
+
+    try:
+        report = replan_now(
+            cached,
+            current,
+            default_graph(overrides),
+            at=at,
+            location=location,
+            schedule=attendee,
+            existing_plan=existing,
+            limit=limit,
+        )
+    except ValueError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(2) from error
+
+    header = f"[bold]{report.moment.clock}[/bold]"
+    if report.location is not None:
+        header += f"  you are at [cyan]{report.location.display}[/cyan]"
+    console.print(header)
+
+    for note in report.notes:
+        console.print(f"[dim]{note}[/dim]")
+
+    if report.in_progress is not None:
+        item = report.in_progress
+        console.print(
+            f"\n[yellow]now:[/yellow] {item.code} - {item.title}\n"
+            f"      {item.room_display}, until "
+            f"{item.span.end.astimezone(report.moment.zone):%H:%M}"
+        )
+
+    if report.is_empty:
+        console.print("\n[yellow]Nothing further to plan today.[/yellow]")
+        if report.unreachable:
+            table = Table(
+                show_header=True,
+                header_style="bold",
+                title="today's remaining sessions, and what they would take",
+            )
+            table.add_column("code")
+            table.add_column("needs", justify="right")
+            table.add_column("session", overflow="fold")
+            for session, minutes in report.unreachable:
+                table.add_row(session.code, f"{minutes} min", session.title)
+            console.print(table)
+        return
+
+    console.print()
+    table = Table(show_header=True, header_style="bold", title="next moves")
+    table.add_column("when")
+    table.add_column("action")
+    table.add_column("code")
+    table.add_column("session", overflow="fold")
+    table.add_column("where", overflow="fold")
+
+    for move in report.moves:
+        colour = {
+            Urgency.LEAVE_NOW: "red",
+            Urgency.LEAVE_SOON: "yellow",
+            Urgency.COMFORTABLE: "green",
+            Urgency.STAY_PUT: "cyan",
+            Urgency.AFTER_CURRENT: "cyan",
+        }[move.urgency]
+
+        if move.urgency.needs_movement and move.travel_minutes and move.depart_clock:
+            action = (
+                f"[{colour}]{move.urgency.label}[/{colour}] {move.depart_clock}"
+                f" ({move.travel_minutes} min)"
+            )
+        else:
+            action = f"[{colour}]{move.urgency.label}[/{colour}]"
+
+        seat = ""
+        if move.item.already_reserved:
+            seat = " [green]seat held[/green]"
+        elif move.item.needs_reservation:
+            seat = " [yellow]needs a seat[/yellow]"
+
+        table.add_row(
+            f"{move.start_clock}-{move.end_clock}",
+            action,
+            move.item.code,
+            move.item.title + seat,
+            move.item.room_display,
+        )
+    console.print(table)
+
+    leading = report.next_move
+    if leading is not None and leading.urgency is Urgency.LEAVE_NOW:
+        console.print(
+            f"\n[red bold]Leave now[/red bold] for {leading.item.code} in "
+            f"{leading.item.room_display} ({leading.travel_minutes} min)."
+        )
+
+    if report.unreachable:
+        console.print(
+            f"\n[dim]{len(report.unreachable)} session(s) were ruled out only because of "
+            "where you are. Move first and ask again, or raise walk_tolerance_minutes.[/dim]"
+        )
 
 
 def main() -> None:
