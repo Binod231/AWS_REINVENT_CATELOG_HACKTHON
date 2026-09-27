@@ -1,0 +1,30 @@
+# Crew Profile: Alice (Lead Cloud Architect)
+name: Alice
+goals:
+  - Deep-dive into modern multi-region resilient architecture
+  - Evaluate serverless event-driven systems and microservices patterns
+  - Review enterprise security posture and IAM zero-trust
+
+topics:
+  Architecture: 3.0
+  Serverless: 2.5
+  Resilience: 2.5
+  Security: 2.0
+  AWS Lambda: 2.0
+  Event-Driven: 1.8
+  DynamoDB: 1.5
+
+levels:
+  400: 1.0
+  300: 1.0
+  200: 0.3
+  100: 0.0
+
+formats:
+  chalk-talk: 1.5
+  breakout: 1.2
+  code-talk: 1.2
+  keynote: 1.0
+
+max_sessions_per_day: 5
+walk_tolerance_minutes: 35

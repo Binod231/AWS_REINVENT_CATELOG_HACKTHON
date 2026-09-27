@@ -1,0 +1,30 @@
+# Crew Profile: Charlie (DevOps & Platform Engineer)
+name: Charlie
+goals:
+  - Automate container deployments on Amazon EKS and ECS
+  - Scale observability with Amazon CloudWatch and OpenTelemetry
+  - Streamline developer platform and CI/CD pipelines
+
+topics:
+  Containers: 3.0
+  Kubernetes: 3.0
+  EKS: 2.5
+  DevOps: 2.5
+  Observability: 2.0
+  CloudWatch: 1.8
+  CI/CD: 1.5
+
+levels:
+  400: 0.9
+  300: 1.0
+  200: 0.5
+  100: 0.1
+
+formats:
+  code-talk: 1.5
+  breakout: 1.2
+  chalk-talk: 1.2
+  keynote: 1.0
+
+max_sessions_per_day: 5
+walk_tolerance_minutes: 35

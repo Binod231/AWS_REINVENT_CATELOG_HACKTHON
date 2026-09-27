@@ -196,6 +196,19 @@ class TokenStore:
         return self._path
 
     def load(self) -> TokenSet | None:
+        import os
+
+        env_token = (
+            os.environ.get("REPLAN_BEARER_TOKEN")
+            or os.environ.get("REPLAN_ACCESS_TOKEN")
+            or os.environ.get("AWS_EVENTS_TOKEN")
+        )
+        if env_token and env_token.strip():
+            return TokenSet(
+                access_token=env_token.strip(),
+                expires_at=datetime.now(UTC) + timedelta(days=365),
+                scope=" ".join(OAUTH_SCOPES),
+            )
         if not self._path.exists():
             return None
         try:

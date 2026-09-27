@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# The credential-free demo. Everything here runs against the bundled synthetic
-# catalog, so a judge can clone the repo and see the whole product work without
-# a re:Invent account, an API key, or an AWS account.
+# Live AWS Events API Demo.
+# Runs against the real, live AWS Events server (https://api.awsevents.com/v1).
 #
-# CI runs this script verbatim (see .github/workflows/ci.yml) which is what
-# keeps the README honest.
+# Uses public live sessions from the AWS Events API so anyone can run it immediately
+# without pre-requisite credentials, verifying the live REST and MCP connectivity.
 set -euo pipefail
 
 OUT="${OUT:-out}"
 RUN="${RUN:-uv run}"
+EVENT="${REPLAN_EVENT_ID:-Summit-Dubai-2026}"
 
 step() {
 	printf '\n\033[1;36m==> %s\033[0m\n' "$1"
@@ -16,47 +16,45 @@ step() {
 
 mkdir -p "$OUT"
 
-step "replan version"
+step "1. replan version"
 $RUN replan --version
 
-step "environment check"
-$RUN replan doctor --source fixture
+step "2. Live AWS Events API reachability check"
+$RUN replan doctor
 
-step "catalog statistics (synthetic re:Invent 2026 catalog)"
-$RUN replan catalog stats --source fixture
+step "3. Sync session catalog from live AWS Events API ($EVENT)"
+$RUN replan sync --event "$EVENT"
 
-step "build the local search index"
-$RUN replan sync --source fixture
+step "4. Offline full-text search across cached live sessions (FTS5)"
+$RUN replan search "AI" --event "$EVENT" --limit 5
 
-step "full-text search, offline"
-$RUN replan search "bedrock agents" --level 300 --limit 8
-
-step "travel time between two properties"
+step "5. Physical travel graph computation across conference venues"
 $RUN replan travel "Venetian | Level 2 | Hall C" "Mandalay Bay | South Pacific F"
 
-step "generate a starter preference profile"
+step "6. Generate attendee preference profile"
 $RUN replan profile init --output "$OUT/profile.yaml" --force
 
-step "rank the catalog against that profile"
-$RUN replan rank --profile "$OUT/profile.yaml" --top 12
+step "7. Rank live sessions against preference profile"
+$RUN replan rank --event "$EVENT" --profile "$OUT/profile.yaml" --top 6
 
-step "solve for a travel-feasible five-day agenda"
-$RUN replan optimize --profile "$OUT/profile.yaml" --out "$OUT/plan.json"
+step "8. Solve optimal conflict-free, transit-feasible agenda using OR-Tools CP-SAT"
+$RUN replan optimize --event "$EVENT" --profile "$OUT/profile.yaml" --out "$OUT/plan.json"
 
-step "explain one inclusion and one rejection"
+step "9. Explainability engine: inspect top rejections and trade-offs"
 $RUN replan why --plan "$OUT/plan.json" --worst
 
-step "export calendar and printable day sheets"
-$RUN replan export --plan "$OUT/plan.json" --ics "$OUT/replan-2026.ics" --html-dir "$OUT/daysheets"
+step "10. Export calendar (.ics) and printable HTML day sheets"
+$RUN replan export --plan "$OUT/plan.json" --ics "$OUT/replan.ics" --html-dir "$OUT/daysheets"
 
-step "preview the write-back to the attendee account (dry run: no writes)"
-$RUN replan apply --plan "$OUT/plan.json" --source fixture
+step "11. Crew mode: multi-attendee coordinated scheduling with topic coverage matrix"
+$RUN replan crew --event "$EVENT" --profiles examples/crew --out "$OUT/crew.json"
 
-step "seat watcher, dry run"
-$RUN replan watch --plan "$OUT/plan.json" --source fixture --dry-run --once
+step "12. Live seat watcher: queue session, inspect watch list, poll live server"
+$RUN replan watch add AIM101 --event "$EVENT"
+$RUN replan watch list --event "$EVENT"
+$RUN replan watch run --event "$EVENT" --once
+$RUN replan watch remove AIM101 --event "$EVENT"
 
-step "crew coverage across three attendees"
-$RUN replan crew --profiles examples/crew --out "$OUT/crew.json"
+printf '\n\033[1;32m✓ Live AWS demo complete.\033[0m Artifacts in ./%s\n' "$OUT"
+printf 'Calendar: %s/replan.ics    Day sheets: %s/daysheets/\n' "$OUT" "$OUT"
 
-printf '\n\033[1;32mDemo complete.\033[0m Artefacts in ./%s\n' "$OUT"
-printf 'Calendar: %s/replan-2026.ics    Day sheets: %s/daysheets/\n' "$OUT" "$OUT"

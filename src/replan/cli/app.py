@@ -13,6 +13,7 @@ Two conventions run through all of it:
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 from typing import Annotated, Any
@@ -37,6 +38,13 @@ from replan.cli.factory import (
     print_provenance,
 )
 from replan.config import ALLOWED_CALLBACK_PORTS, RESERVATIONS_OPEN_NOTE
+from replan.crew import (
+    CrewMember,
+    CrewSolveRequest,
+    export_crew_ics,
+    export_crew_markdown,
+    solve_crew,
+)
 from replan.domain import (
     KnownVenue,
     Level,
@@ -2389,6 +2397,208 @@ def mcp_tools() -> None:
 
     console.print(table)
     console.print(f"[dim]{len(tools)} tools. Launch with `replan mcp serve`.[/dim]")
+
+
+# --------------------------------------------------------------------------- #
+# crew
+# --------------------------------------------------------------------------- #
+@app.command("crew")
+def crew_cmd(
+    profiles_path: Annotated[
+        Path,
+        typer.Option(
+            "--profiles",
+            "-p",
+            help="Directory of attendee profiles or a single YAML profile.",
+            exists=True,
+            file_okay=True,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    out: Annotated[
+        Path | None,
+        typer.Option(
+            "--out",
+            "-o",
+            help="Path to write the collective crew plan as JSON.",
+        ),
+    ] = None,
+    ics_dir: Annotated[
+        Path | None,
+        typer.Option(
+            "--ics-dir",
+            help="Directory to write per-member .ics calendar files.",
+        ),
+    ] = None,
+    markdown: Annotated[
+        Path | None,
+        typer.Option(
+            "--markdown",
+            "-m",
+            help="Path to write a shared Markdown coverage report.",
+        ),
+    ] = None,
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    event: EventOption = None,
+    day: Annotated[
+        list[str] | None,
+        typer.Option("--day", "-d", help="Only solve these days."),
+    ] = None,
+    redundancy_penalty: Annotated[
+        float,
+        typer.Option(
+            "--redundancy-penalty",
+            help="Utility penalty for assigning two members to the same session.",
+        ),
+    ] = 20.0,
+    greedy: Annotated[
+        bool,
+        typer.Option("--greedy", help="Force the greedy interval solver instead of CP-SAT."),
+    ] = False,
+    time_limit: Annotated[
+        float,
+        typer.Option("--time-limit", help="CP-SAT time limit per member in seconds."),
+    ] = 15.0,
+) -> None:
+    """Solve for a coordinated crew schedule across multiple attendee profiles.
+
+    Maximizes collective topic coverage for an engineering team while minimizing
+    redundant attendance on breakout sessions (keynotes and must-attends are exempt).
+    """
+    if profiles_path.is_dir():
+        profile_files = sorted(
+            p for p in profiles_path.iterdir() if p.suffix in (".yaml", ".yml")
+        )
+        if not profile_files:
+            console.print(f"[red]No YAML profiles found in {profiles_path}[/red]")
+            raise typer.Exit(1)
+    else:
+        profile_files = [profiles_path]
+
+    members: list[CrewMember] = []
+    for p in profile_files:
+        try:
+            profile = load_profile(p)
+            name = profile.name if profile.name and profile.name != "me" else p.stem.capitalize()
+            role = profile.goals[0] if profile.goals else None
+            members.append(CrewMember(name=name, profile=profile, role=role, profile_path=p))
+        except ProfileError as err:
+            console.print(f"[red]Error in {p.name}: {err}[/red]")
+            raise typer.Exit(1) from err
+
+    settings = load_settings(event_id=event)
+    cache = CatalogCache(settings.cache_path)
+    days = _parse_days(day, cache, settings.event_id) or None
+    catalog = cache.load(settings.event_id)
+
+    if catalog is None or not len(catalog):
+        port = build_port(settings, choice=surface)
+        try:
+            print_provenance(console, port, settings)
+            with console.status("Fetching catalog..."):
+                catalog = port.list_sessions(settings.event_id)
+            cache.save(catalog)
+        finally:
+            if hasattr(port, "close"):
+                port.close()
+    else:
+        msg = f"[dim]using cached catalog for {settings.event_id} ({len(catalog)} sessions)[/dim]"
+        console.print(msg)
+
+    graph = default_graph()
+    request = CrewSolveRequest(
+        catalog=catalog,
+        members=tuple(members),
+        travel=graph,
+        redundancy_penalty=redundancy_penalty,
+        days=days,
+        time_limit_seconds=time_limit,
+        prefer_cpsat=not greedy,
+    )
+
+    with console.status("[bold green]Solving coordinated crew schedule...[/bold green]"):
+        crew_plan = solve_crew(request)
+
+    # Render results
+    report = crew_plan.coverage
+    pct_style = "green" if report.coverage_percentage >= 70 else "yellow"
+    console.print(
+        f"\n[bold]replan crew[/bold]  [dim]event[/dim] {crew_plan.event_id}  "
+        f"[dim]members[/dim] {len(crew_plan.members)}  "
+        f"[dim]unique sessions[/dim] {crew_plan.unique_session_count}  "
+        f"[{pct_style}]{report.coverage_percentage:.1f}% topic coverage[/{pct_style}]"
+    )
+
+    member_table = Table(show_header=True, header_style="bold", title="Crew Members")
+    member_table.add_column("member")
+    member_table.add_column("role / primary focus", overflow="fold")
+    member_table.add_column("sessions", justify="right")
+    member_table.add_column("topics covered", overflow="fold")
+
+    for member_name, plan in sorted(crew_plan.members.items()):
+        member_topics = [t.topic for t in report.topics if member_name in t.covered_by]
+        topic_summary = ", ".join(member_topics[:4]) if member_topics else "-"
+        matching = next((m for m in members if m.name == member_name), None)
+        role_str = matching.role if (matching and matching.role) else "-"
+        member_table.add_row(
+            f"[bold]{member_name}[/bold]",
+            role_str,
+            str(len(plan.items)),
+            topic_summary,
+        )
+    console.print(member_table)
+
+    cov_table = Table(show_header=True, header_style="bold", title="Topic Coverage Matrix")
+    cov_table.add_column("topic")
+    cov_table.add_column("priority", justify="right")
+    cov_table.add_column("status")
+    cov_table.add_column("covered by")
+    cov_table.add_column("sessions", overflow="fold")
+
+    for topic in report.topics[:12]:
+        status_str = "[green]covered[/green]" if topic.is_covered else "[dim]uncovered[/dim]"
+        who = ", ".join(topic.covered_by) if topic.covered_by else "-"
+        codes = ", ".join(topic.session_codes[:3]) if topic.session_codes else "-"
+        cov_table.add_row(
+            topic.topic,
+            f"{topic.weight:.1f}",
+            status_str,
+            who,
+            codes,
+        )
+    console.print(cov_table)
+
+    if report.shared_sessions:
+        shared_table = Table(
+            show_header=True, header_style="bold", title="Shared Sessions (All-Hands)"
+        )
+        shared_table.add_column("session code")
+        shared_table.add_column("title", overflow="fold")
+        shared_table.add_column("attendees")
+        for code, attendees in report.shared_sessions:
+            item_title = ""
+            for member_plan in crew_plan.members.values():
+                found_item = member_plan.item_for(code)
+                if found_item:
+                    item_title = found_item.title
+                    break
+            shared_table.add_row(code, item_title, ", ".join(attendees))
+        console.print(shared_table)
+
+    if out is not None:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(crew_plan.to_dict(), indent=2), encoding="utf-8")
+        console.print(f"\n[green]Wrote crew plan JSON to {out}[/green]")
+
+    if ics_dir is not None:
+        created = export_crew_ics(crew_plan, ics_dir, catalog=catalog)
+        console.print(f"[green]Exported {len(created)} calendar(s) to {ics_dir}[/green]")
+
+    if markdown is not None:
+        export_crew_markdown(crew_plan, markdown, catalog=catalog)
+        console.print(f"[green]Wrote crew markdown report to {markdown}[/green]")
 
 
 def main() -> None:

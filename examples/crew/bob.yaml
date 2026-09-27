@@ -1,0 +1,30 @@
+# Crew Profile: Bob (AI/ML Engineer)
+name: Bob
+goals:
+  - Master Amazon Bedrock AgentCore and multi-agent systems
+  - Learn fine-tuning, RAG pipelines, and model evaluation
+  - Bring back production-ready MCP agent architectures
+
+topics:
+  Amazon Bedrock: 3.0
+  Bedrock AgentCore: 3.0
+  AI/ML: 2.5
+  Generative AI: 2.5
+  Agents: 2.5
+  RAG: 2.0
+  SageMaker: 1.5
+
+levels:
+  400: 0.8
+  300: 1.0
+  200: 0.8
+  100: 0.2
+
+formats:
+  workshop: 1.5
+  chalk-talk: 1.3
+  breakout: 1.2
+  keynote: 1.0
+
+max_sessions_per_day: 5
+walk_tolerance_minutes: 35
