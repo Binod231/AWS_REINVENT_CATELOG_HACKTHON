@@ -55,10 +55,7 @@ def test_cdk_stack_template_synthesis() -> None:
     assert resources["ReplanFunctionUrl"]["Type"] == "AWS::Lambda::Url"
 
     assert "ReplanEmailSubscription" in resources
-    assert (
-        resources["ReplanEmailSubscription"]["Properties"]["Endpoint"]
-        == "attendee@example.com"
-    )
+    assert resources["ReplanEmailSubscription"]["Properties"]["Endpoint"] == "attendee@example.com"
 
     # Verify Outputs
     outputs = template["Outputs"]

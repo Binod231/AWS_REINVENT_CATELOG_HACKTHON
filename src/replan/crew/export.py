@@ -60,19 +60,19 @@ def export_crew_markdown(
     ]
 
     for name, plan in sorted(crew_plan.members.items()):
-        member_topics = [
-            t.topic for t in report.topics if name in t.covered_by
-        ]
+        member_topics = [t.topic for t in report.topics if name in t.covered_by]
         topic_summary = ", ".join(member_topics[:4]) if member_topics else "General"
         lines.append(f"| **{name}** | {len(plan.items)} | {topic_summary} |")
 
-    lines.extend([
-        "",
-        "## Topic Coverage Matrix",
-        "",
-        "| Priority Topic | Status | Covered By | Sessions |",
-        "| :--- | :--- | :--- | :--- |",
-    ])
+    lines.extend(
+        [
+            "",
+            "## Topic Coverage Matrix",
+            "",
+            "| Priority Topic | Status | Covered By | Sessions |",
+            "| :--- | :--- | :--- | :--- |",
+        ]
+    )
 
     for topic in report.topics:
         status = "✅ Covered" if topic.is_covered else "⚠️ Uncovered"
@@ -81,13 +81,15 @@ def export_crew_markdown(
         lines.append(f"| {topic.topic} | {status} | {covered_by} | {sessions} |")
 
     if report.shared_sessions:
-        lines.extend([
-            "",
-            "## Shared Sessions (All-Hands / Keynotes)",
-            "",
-            "Sessions where multiple team members attend together:",
-            "",
-        ])
+        lines.extend(
+            [
+                "",
+                "## Shared Sessions (All-Hands / Keynotes)",
+                "",
+                "Sessions where multiple team members attend together:",
+                "",
+            ]
+        )
         for code, members in report.shared_sessions:
             member_str = ", ".join(members)
             # Find item details from any plan
@@ -103,11 +105,13 @@ def export_crew_markdown(
                     break
             lines.append(f"- **{code}**: {title} ({when} at {where}) -> Attendees: *{member_str}*")
 
-    lines.extend([
-        "",
-        "## Complete Team Timeline",
-        "",
-    ])
+    lines.extend(
+        [
+            "",
+            "## Complete Team Timeline",
+            "",
+        ]
+    )
 
     # Chronological listing of all sessions
     all_sessions = crew_plan.all_items()
@@ -115,12 +119,14 @@ def export_crew_markdown(
     for member_name, item in all_sessions:
         if item.day != current_day:
             current_day = item.day
-            lines.extend([
-                f"### {item.day:%A, %B %d, %Y}",
-                "",
-                "| Time | Member | Session | Room | Title |",
-                "| :--- | :--- | :--- | :--- | :--- |",
-            ])
+            lines.extend(
+                [
+                    f"### {item.day:%A, %B %d, %Y}",
+                    "",
+                    "| Time | Member | Session | Room | Title |",
+                    "| :--- | :--- | :--- | :--- | :--- |",
+                ]
+            )
         time_str = f"{item.span.start:%H:%M} - {item.span.end:%H:%M}"
         row = (
             f"| {time_str} | **{member_name}** | `{item.code}` | "

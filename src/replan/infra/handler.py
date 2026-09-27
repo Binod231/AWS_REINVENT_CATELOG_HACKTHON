@@ -81,13 +81,15 @@ def lambda_handler(event: dict[str, Any], _context: Any = None) -> dict[str, Any
         if not watched_sessions:
             return {
                 "statusCode": 200,
-                "body": json.dumps({
-                    "status": "idle",
-                    "event_id": event_id,
-                    "message": "No sessions configured to watch. Set REPLAN_WATCH_SESSIONS.",
-                    "checked_count": 0,
-                    "openings_found": 0,
-                }),
+                "body": json.dumps(
+                    {
+                        "status": "idle",
+                        "event_id": event_id,
+                        "message": "No sessions configured to watch. Set REPLAN_WATCH_SESSIONS.",
+                        "checked_count": 0,
+                        "openings_found": 0,
+                    }
+                ),
             }
 
         openings: list[dict[str, Any]] = []
@@ -102,9 +104,9 @@ def lambda_handler(event: dict[str, Any], _context: Any = None) -> dict[str, Any
             try:
                 session = client.get_session(event_id, session_token)
                 availability = session.seat_availability
-                is_open = (
-                    availability is not None
-                    and availability not in (SeatAvailability.UNAVAILABLE, SeatAvailability.WALK_UP)
+                is_open = availability is not None and availability not in (
+                    SeatAvailability.UNAVAILABLE,
+                    SeatAvailability.WALK_UP,
                 )
 
                 checked_info = {
@@ -142,22 +144,26 @@ def lambda_handler(event: dict[str, Any], _context: Any = None) -> dict[str, Any
                             checked_info["reservation_error"] = str(reserve_err)
 
             except Exception as item_err:
-                checked.append({
-                    "session_token": session_token,
-                    "error": str(item_err),
-                })
+                checked.append(
+                    {
+                        "session_token": session_token,
+                        "error": str(item_err),
+                    }
+                )
 
         return {
             "statusCode": 200,
             "headers": {"Content-Type": "application/json"},
-            "body": json.dumps({
-                "status": "completed",
-                "event_id": event_id,
-                "checked_count": len(checked),
-                "openings_found": len(openings),
-                "openings": openings,
-                "details": checked,
-            }),
+            "body": json.dumps(
+                {
+                    "status": "completed",
+                    "event_id": event_id,
+                    "checked_count": len(checked),
+                    "openings_found": len(openings),
+                    "openings": openings,
+                    "details": checked,
+                }
+            ),
         }
 
     finally:

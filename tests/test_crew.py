@@ -69,9 +69,7 @@ def catalog() -> Catalog:
         session_at(
             "ARC301", "10:00", topics=("architecture", "serverless"), title="Modern Architecture"
         ),
-        session_at(
-            "ARC302", "13:00", topics=("serverless", "lambda"), title="Serverless at Scale"
-        ),
+        session_at("ARC302", "13:00", topics=("serverless", "lambda"), title="Serverless at Scale"),
         session_at("ARC303", "14:30", topics=("architecture", "cloud"), title="Cloud Architecture"),
         session_at(
             "COP301", "14:30", topics=("containers", "kubernetes"), title="Kubernetes Patterns"

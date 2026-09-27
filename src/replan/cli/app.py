@@ -2468,9 +2468,7 @@ def crew_cmd(
     redundant attendance on breakout sessions (keynotes and must-attends are exempt).
     """
     if profiles_path.is_dir():
-        profile_files = sorted(
-            p for p in profiles_path.iterdir() if p.suffix in (".yaml", ".yml")
-        )
+        profile_files = sorted(p for p in profiles_path.iterdir() if p.suffix in (".yaml", ".yml"))
         if not profile_files:
             console.print(f"[red]No YAML profiles found in {profiles_path}[/red]")
             raise typer.Exit(1)
