@@ -1,0 +1,16 @@
+{
+  "//": "Add this to your Claude Desktop configuration file (claude_desktop_config.json). Replace /path/to/replan with the absolute path to your cloned repository.",
+  "mcpServers": {
+    "replan": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/path/to/replan",
+        "replan",
+        "mcp",
+        "serve"
+      ]
+    }
+  }
+}

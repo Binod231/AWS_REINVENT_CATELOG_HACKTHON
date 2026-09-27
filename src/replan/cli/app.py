@@ -54,6 +54,7 @@ from replan.explain import (
     export_markdown,
 )
 from replan.live import Urgency, replan_now
+from replan.mcp_server.context import ToolInputError
 from replan.profiles import ProfileError, Scorer, load_profile, write_starter_profile
 from replan.solver import Plan, SolveRequest, solve
 from replan.sync import (
@@ -69,6 +70,10 @@ from replan.watch import Watcher, WatchPolicy, WatchStore, build_notifier
 from replan.watch.watcher import DEFAULT_INTERVAL_SECONDS
 
 console = Console()
+
+err_console = Console(stderr=True)
+"""For anything that must not touch stdout. `replan mcp serve` speaks JSON-RPC on
+stdout, and a single stray character there corrupts the stream."""
 
 app = typer.Typer(
     name="replan",
@@ -2290,6 +2295,100 @@ def watch_run(
     )
     if watcher.reservations_closed:
         console.print(f"[yellow]{RESERVATIONS_OPEN_NOTE}[/yellow]")
+
+
+# --------------------------------------------------------------------------- #
+# mcp
+# --------------------------------------------------------------------------- #
+mcp_app = typer.Typer(
+    help="Expose replan to a coding agent over MCP.",
+    no_args_is_help=True,
+)
+app.add_typer(mcp_app, name="mcp")
+
+
+@mcp_app.command("serve")
+def mcp_serve(
+    surface: SurfaceOption = SurfaceChoice.AUTO,
+    profile_path: ProfileOption = None,
+    transport: Annotated[
+        str,
+        typer.Option("--transport", help="stdio (default), streamable-http, or sse."),
+    ] = "stdio",
+    host: Annotated[str, typer.Option("--host", help="Bind address for HTTP transports.")] = (
+        "127.0.0.1"
+    ),
+    port: Annotated[int, typer.Option("--port", help="Port for HTTP transports.")] = 8930,
+) -> None:
+    """Run replan as an MCP server so Kiro or Claude can plan an agenda in chat.
+
+    Normally you do not run this by hand: an MCP client launches it over stdio. See
+    examples/mcp/kiro-mcp.json for a config you can drop into .kiro/settings/mcp.json.
+
+    Nothing is printed on stdout, because stdout is the protocol channel.
+    """
+    from replan.mcp_server import serve
+
+    if transport == "stdio":
+        # Every diagnostic goes to stderr. A single stray character on stdout
+        # corrupts the JSON-RPC stream and the client drops the connection.
+        err_console.print(f"[dim]replan MCP server on stdio (surface {surface.value})[/dim]")
+    else:
+        console.print(
+            f"[yellow]replan MCP server on {transport} at {host}:{port}[/yellow]\n"
+            "[yellow]This transport has no authentication of its own, so keep it on "
+            "loopback unless you put something in front of it.[/yellow]"
+        )
+
+    try:
+        serve(
+            surface=surface.value,
+            profile_path=profile_path,
+            transport=transport,
+            host=host,
+            port=port,
+        )
+    except ToolInputError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+
+@mcp_app.command("tools")
+def mcp_tools() -> None:
+    """List the tools replan exposes, and which of them can change anything."""
+    import asyncio
+
+    from replan.mcp_server import build_server
+
+    async def collect() -> list[Any]:
+        return list(await build_server().list_tools())
+
+    try:
+        tools = asyncio.run(collect())
+    except ToolInputError as error:
+        console.print(f"[red]{error}[/red]")
+        raise typer.Exit(1) from error
+
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("tool")
+    table.add_column("effect")
+    table.add_column("what it does", overflow="fold")
+
+    for tool in sorted(tools, key=lambda item: item.name):
+        notes = tool.annotations
+        if notes is not None and notes.destructive_hint:
+            effect = "[red]writes[/red]"
+        elif notes is not None and notes.read_only_hint:
+            effect = "[green]read-only[/green]"
+        else:
+            effect = "[yellow]local write[/yellow]"
+        if notes is not None and notes.open_world_hint:
+            effect += " [dim]+network[/dim]"
+        first_line = (tool.description or "").strip().splitlines()
+        table.add_row(tool.name, effect, first_line[0] if first_line else "-")
+
+    console.print(table)
+    console.print(f"[dim]{len(tools)} tools. Launch with `replan mcp serve`.[/dim]")
 
 
 def main() -> None:

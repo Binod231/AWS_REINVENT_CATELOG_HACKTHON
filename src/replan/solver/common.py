@@ -324,6 +324,12 @@ def _analyse_pairs(
                 leg = graph.leg(first.session.room, second.session.room)
                 needed = leg.minutes + graph.entry_overhead_for(second.session)
 
+                # Both codes go in every message. These details are facts about a
+                # *pair*, but the explainer quotes them when asked about either side,
+                # and "AIM208 was rejected: only 20 min after AIM208" reads as
+                # nonsense. Naming both ends makes the sentence true either way round.
+                pair = f"{first.session.code} and {second.session.code}"
+
                 if needed > tolerance:
                     blocked.append(
                         Incompatible(
@@ -331,7 +337,7 @@ def _analyse_pairs(
                             second=second_index,
                             reason=RejectionReason.WALK_TOO_FAR,
                             detail=(
-                                f"{needed} min from {first.session.code} exceeds your "
+                                f"{needed} min between {pair} exceeds your "
                                 f"{tolerance} min walk tolerance"
                             ),
                         )
@@ -344,18 +350,18 @@ def _analyse_pairs(
                     # that it is the break setting doing the blocking.
                     if needed == 0:
                         detail = (
-                            f"only {gap} min after {first.session.code}, and you asked "
+                            f"only {gap} min between {pair}, and you asked "
                             f"for a {min_break} min break between sessions"
                         )
                     elif min_break:
                         detail = (
-                            f"only {gap} min after {first.session.code}: the transfer "
+                            f"only {gap} min between {pair}: the transfer "
                             f"needs {needed} min ({leg.mode.label}) plus your "
                             f"{min_break} min break"
                         )
                     else:
                         detail = (
-                            f"only {gap} min after {first.session.code}, but the "
+                            f"only {gap} min between {pair}, but the "
                             f"transfer needs {needed} min ({leg.mode.label}: {leg.detail})"
                         )
                     blocked.append(

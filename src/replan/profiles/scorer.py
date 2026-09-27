@@ -341,6 +341,17 @@ class Scorer:
             found.append((MatchWhere.ABSTRACT, "abstract"))
         return found
 
+    def topics_matched(self, session: Session) -> tuple[str, ...]:
+        """Which of the profile's topics this session actually matches.
+
+        "Did my plan cover what I said I cared about?" is a different question from
+        "how good is this session?", but both have to agree on what counts as a match,
+        so the coverage report asks here rather than inventing a second rule.
+        """
+        return tuple(
+            keyword for keyword in sorted(self._topics) if self._match_places(session, keyword)
+        )
+
     def _topic_factors(self, session: Session) -> list[Factor]:
         factors: list[Factor] = []
         for keyword, weight in sorted(self._topics.items()):

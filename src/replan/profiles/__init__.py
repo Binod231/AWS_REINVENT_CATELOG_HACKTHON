@@ -19,10 +19,12 @@ from __future__ import annotations
 
 from replan.profiles.schema import (
     DEFAULT_PROFILE_YAML,
+    PROFILE_FILENAME,
     MealWindow,
     ObjectiveWeights,
     Profile,
     ProfileError,
+    discover_profile,
     load_profile,
     write_starter_profile,
 )
@@ -36,6 +38,7 @@ from replan.profiles.scorer import (
 
 __all__ = [
     "DEFAULT_PROFILE_YAML",
+    "PROFILE_FILENAME",
     "Factor",
     "MatchWhere",
     "MealWindow",
@@ -45,6 +48,7 @@ __all__ = [
     "Score",
     "Scorer",
     "VetoReason",
+    "discover_profile",
     "load_profile",
     "write_starter_profile",
 ]

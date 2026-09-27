@@ -13,6 +13,8 @@ not conclusions.
 
 from __future__ import annotations
 
+import os
+from collections.abc import Sequence
 from datetime import time
 from pathlib import Path
 from typing import Self
@@ -270,6 +272,51 @@ def load_profile(path: Path | None) -> Profile:
         msg = f"profile not found: {path}. Create one with `replan profile init`."
         raise ProfileError(msg)
     return Profile.from_yaml(path.read_text(encoding="utf-8"))
+
+
+PROFILE_FILENAME = "profile.yaml"
+
+
+def discover_profile(
+    explicit: Path | None = None,
+    *,
+    search: Sequence[Path] = (),
+) -> tuple[Profile, Path | None]:
+    """Find a profile without being told where it is, and say which one was used.
+
+    The CLI can ask for a path with ``-p``. The MCP server cannot: an agent calling
+    ``optimize_agenda`` has no way to pass one, and silently falling back to an empty
+    profile would produce a plan that scores everything at zero and looks broken for
+    no visible reason. So this looks in the obvious places and returns the path it
+    settled on, which callers are expected to report.
+
+    Order: the explicit path, then ``REPLAN_PROFILE``, then each search directory,
+    then the working directory.
+    """
+    candidates: list[Path] = []
+    if explicit is not None:
+        candidates.append(explicit)
+    from_env = os.environ.get("REPLAN_PROFILE", "").strip()
+    if from_env:
+        candidates.append(Path(from_env).expanduser())
+    candidates.extend(directory / PROFILE_FILENAME for directory in search)
+    candidates.append(Path.cwd() / PROFILE_FILENAME)
+
+    for candidate in candidates:
+        if candidate.exists():
+            return load_profile(candidate), candidate
+
+    # An explicitly named file that does not exist is a mistake worth reporting,
+    # rather than something to quietly paper over with defaults.
+    if explicit is not None:
+        return load_profile(explicit), explicit
+    if from_env:
+        msg = (
+            f"REPLAN_PROFILE points at {from_env}, which does not exist. "
+            "Create one with `replan profile init`."
+        )
+        raise ProfileError(msg)
+    return Profile(), None
 
 
 DEFAULT_PROFILE_YAML = """\
