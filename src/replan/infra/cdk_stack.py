@@ -21,12 +21,85 @@ class ReplanStackConfig:
     """Deployment configuration for replan serverless stack."""
 
     stack_name: str = "replan-serverless"
-    api_base_url: str = "https://api.awsevents.com"
+    api_base_url: str = "https://api.awsevents.com/v1"
     event_id: str = "reinvent2026"
     schedule_expression: str = "rate(2 minutes)"
     memory_size: int = 256
     timeout_seconds: int = 60
     notification_email: str | None = None
+
+
+_LAMBDA_INLINE_CODE = """\
+import json
+import os
+import urllib.error
+import urllib.request
+import boto3
+
+def lambda_handler(event, context):
+    raw_path = event.get('rawPath') or event.get('path', '')
+    api_base = os.environ.get('REPLAN_API_BASE_URL', 'https://api.awsevents.com/v1')
+    event_id = os.environ.get('REPLAN_EVENT_ID', 'reinvent2026')
+    if '/health' in raw_path:
+        try:
+            req = urllib.request.Request(
+                f'{api_base}/events',
+                headers={'User-Agent': 'replan-watcher/0.1.0'},
+            )
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                data = json.loads(resp.read().decode())
+                return {
+                    'statusCode': 200,
+                    'headers': {'Content-Type': 'application/json'},
+                    'body': json.dumps({
+                        'status': 'healthy',
+                        'surface': 'live-rest',
+                        'events_count': len(data.get('events', [])),
+                    }),
+                }
+        except Exception as err:
+            return {
+                'statusCode': 503,
+                'headers': {'Content-Type': 'application/json'},
+                'body': json.dumps({'status': 'unhealthy', 'error': str(err)}),
+            }
+    raw_sessions = os.environ.get('REPLAN_WATCH_SESSIONS', '')
+    sessions = event.get('sessions') or [s.strip() for s in raw_sessions.split(',') if s.strip()]
+    if not sessions:
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': json.dumps({
+                'status': 'idle',
+                'message': 'No sessions watched. Set REPLAN_WATCH_SESSIONS.',
+            }),
+        }
+    sns_arn = os.environ.get('REPLAN_SNS_TOPIC_ARN')
+    results = []
+    for s in sessions:
+        try:
+            url = f'{api_base}/events/{event_id}/sessions/{s}'
+            req = urllib.request.Request(url, headers={'User-Agent': 'replan-watcher/0.1.0'})
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                sess_data = json.loads(resp.read().decode())
+                avail = sess_data.get('seat_availability', 'unknown')
+                is_open = avail not in ('UNAVAILABLE', 'WALK_UP', 'unknown')
+                results.append({'session': s, 'availability': avail, 'open': is_open})
+                if is_open and sns_arn:
+                    sns = boto3.client('sns')
+                    sns.publish(
+                        TopicArn=sns_arn,
+                        Subject=f'Seat Opened: {s}',
+                        Message=f'Seat opened for {s}: availability is {avail}',
+                    )
+        except Exception as e:
+            results.append({'session': s, 'error': str(e)})
+    return {
+        'statusCode': 200,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps({'status': 'completed', 'results': results}),
+    }
+"""
 
 
 class ReplanServerlessStack:
@@ -135,7 +208,7 @@ class ReplanServerlessStack:
                 "Properties": {
                     "FunctionName": f"{self.config.stack_name}-watcher",
                     "Runtime": "python3.12",
-                    "Handler": "infra.handler.lambda_handler",
+                    "Handler": "index.lambda_handler",
                     "MemorySize": self.config.memory_size,
                     "Timeout": self.config.timeout_seconds,
                     "Role": {"Fn::GetAtt": ["ReplanWatcherRole", "Arn"]},
@@ -148,10 +221,7 @@ class ReplanServerlessStack:
                         }
                     },
                     "Code": {
-                        "ZipFile": (
-                            "# AWS Lambda Code Placeholder\n"
-                            "from infra.handler import lambda_handler\n"
-                        )
+                        "ZipFile": _LAMBDA_INLINE_CODE,
                     },
                 },
             },

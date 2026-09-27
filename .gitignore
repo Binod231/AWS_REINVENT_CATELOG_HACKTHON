@@ -49,3 +49,7 @@ cdk.out/
 .DS_Store
 .idea/
 *.swp
+
+# --- draft articles & generated templates (keep local) ---
+ARTICLE.md
+template.json
